@@ -1,13 +1,23 @@
+import * as Document from './document';
 import * as Project from './project';
 import * as Specialization from './specialization';
+import * as Vocab from './vocab';
 
 export default {
-  // project
-  getProject: Project.getProject,
-  getDefaultProject: Project.getDefault,
+    document: {
+        getMany: Document.getMany,
+        getOne: async (project, institute, name) => await Document.getOne(project, institute, name),
+    },
 
-  // specialization
-  getSpecialization: Specialization.getSpecialization,
-  getDefaultTopic: project => Specialization.getTopic(project),
-  getTopic: Specialization.getTopic,
+    project: {
+        getAll: async () => await Project.getAll(),
+    },
+
+    specialization: {
+        getAll: async () => await Specialization.getAll(),
+    },
+
+    vocab: {
+        getAll: async () => await Vocab.getAll(),
+    }
 };

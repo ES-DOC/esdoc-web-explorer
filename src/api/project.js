@@ -1,21 +1,52 @@
 // List: supported projects.
-export const PROJECTS = [
+const PROJECTS = [
+    {
+        label: 'CMIP5',
+        key: 'cmip5',
+        documentTypes: {
+            all: [
+                {
+                    label: 'Experiment',
+                    key: 'experiment',
+                },
+                {
+                    label: 'Model',
+                    key: 'model',
+                }
+            ],
+            current: null
+        }
+    },
     {
         label: 'CMIP6',
         key: 'cmip6',
+        documentTypes: {
+            all: [
+                {
+                    label: 'Experiment',
+                    key: 'experiment',
+                },
+                {
+                    label: 'MIP',
+                    key: 'mip',
+                },
+                {
+                    label: 'Model',
+                    key: 'model',
+                }
+            ],
+            current: {
+                label: 'Model',
+                key: 'model',
+            }
+        }
     }
 ];
 
 /**
- * Returns default project.
+ * Returns all supported projects.
  */
-export const getDefault = () => {
-    return getProject('cmip6');
-}
-
-/**
- * Returns a project matched by project identifier.
- */
-export const getProject = (key) => {
-    return PROJECTS.find(i => i.key === key);
+export const getAll = async () => {
+    // Simulate fetching from a micro-service.
+    return PROJECTS;
 }

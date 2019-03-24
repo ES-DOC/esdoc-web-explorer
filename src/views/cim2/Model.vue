@@ -1,15 +1,24 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="@/assets/logo.png" />
+  <div>
+    <Header />
+    <Main />
   </div>
 </template>
 
 <script>
+// @ is an alias to /src
+
+import Header from "@/components/core/Header.vue";
+import Main from "@/components/cim2-model/Main.vue";
+
 export default {
   name: "model",
   _metaInfo: {
       title: 'ES-DOC - Model',
   },
-  components: {}
+  components: {
+      Header,
+      Main
+  }
 };
 </script>

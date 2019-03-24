@@ -1,5 +1,5 @@
 // https://vuex.vuejs.org/en/getters.html
 
-export default {
-  //
+export const getProject = (state) => () => {
+    return state.route;
 }
