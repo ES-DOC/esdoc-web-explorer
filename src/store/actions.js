@@ -18,7 +18,6 @@ export const updateProject = async (context, project) => {
 };
 
 export const setTopic = async (context, [topic]) => {
-    console.log(topic);
     await context.commit('setTopic', topic);
 }
 
@@ -27,5 +26,8 @@ export const setPrimaryTopic = async (context, topic) => {
 }
 
 export const setDocument = async ({ commit }, [document]) => {
+    const model = await API.document.loadOne(document);
     await commit('setDocument', document);
+    console.log(model);
+    await commit('setModel', model);
 }

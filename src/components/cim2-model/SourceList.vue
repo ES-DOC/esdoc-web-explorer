@@ -12,6 +12,7 @@
             thead-class="hide-table-header"
             :items="documents.items"
             :fields="documents.fields"
+            :tbody-tr-class="initialRowClass"
             @row-selected="setDocument"
             style="position:relative; height: 870px; overflow-y:auto;" />
     </div>
@@ -40,13 +41,21 @@ export default {
                     ],
                     items: _.sortBy(state.documents.all, ['institute', 'canonicalName'])
                 }
-            }
+            },
         })
     },
     methods: {
         ...mapActions([
             'setDocument'
-        ])
+        ]),
+        initialRowClass(item, type) {
+            return
+            const paths = window.location.pathname.split('/').reverse();
+            if (item.institute.toLowerCase() === paths[1] &&
+                item.canonicalName.toLowerCase() === paths[0]) {
+                return 'table-success'
+            }
+        }
     }
 };
 

@@ -41,6 +41,12 @@ export default {
     },
     methods: {
         rowClass(item) {
+            // if (item.id === 'cmip6.toplevel') {
+            //     return [
+            //         `indent-${item.depth}`,
+            //         'table-success',
+            //     ]
+            // }
             return [
                 `indent-${item.depth}`
             ]

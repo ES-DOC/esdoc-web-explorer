@@ -5,6 +5,8 @@ export default {
         current: null
     },
 
+    model: null,
+
     project: {
         all: [],
         current: null
@@ -18,9 +20,5 @@ export default {
         current: null
     },
 
-    vocabs: null,
-
-    model: {
-        document: null
-    }
+    vocabs: null
 }

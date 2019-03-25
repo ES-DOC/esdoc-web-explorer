@@ -6,6 +6,7 @@ import * as Vocab from './vocab';
 export default {
     document: {
         getMany: Document.getMany,
+        loadOne: Document.loadOne,
         getOne: async (project, institute, name) => await Document.getOne(project, institute, name),
     },
 

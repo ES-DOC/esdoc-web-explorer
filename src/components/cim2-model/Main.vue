@@ -10,6 +10,7 @@
             </b-col>
             <b-col>
                 <DocumentTitleBar />
+                <DocumentContent />
             </b-col>
         </b-row>
     </b-container>
@@ -21,6 +22,7 @@
 import { mapState } from 'vuex';
 import SourceList from "./SourceList.vue";
 import TopicTree from "./TopicTree.vue";
+import DocumentContent from "./DocumentContent.vue";
 import DocumentTitleBar from "./DocumentTitleBar.vue";
 
 export default {
@@ -28,7 +30,8 @@ export default {
     components: {
         SourceList,
         TopicTree,
-        DocumentTitleBar
+        DocumentContent,
+        DocumentTitleBar,
     }
 };
 
