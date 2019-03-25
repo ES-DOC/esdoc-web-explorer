@@ -15,6 +15,16 @@ export default [
         view: 'core/404'
     },
     {
+        path: "/cmip6/models",
+        name: "CMIP6 Model",
+        view: 'cim2/Model'
+    },
+    {
+        path: "/cmip6/models/*/*",
+        name: "CMIP6 Model",
+        view: 'cim2/Model'
+    },
+    {
         path: "/cmip6/model/*/*",
         name: "CMIP6 Model",
         view: 'cim2/Model'
