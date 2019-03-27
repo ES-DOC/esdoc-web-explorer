@@ -1,6 +1,16 @@
+/**
+ * @file Application level state.
+ *       https://vuex.vuejs.org/en/state.html
+ * @author Mark Conway-Greenslade
+ */
 
 export default {
-    documents: {
+    summary: {
+        all: [],
+        current: null
+    },
+
+    document: {
         all: [],
         current: null
     },
@@ -14,7 +24,6 @@ export default {
 
     specialization: {
         all: [],
-        primary: null,
         topic: null,
         topics: [],
         current: null

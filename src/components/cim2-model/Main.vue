@@ -1,29 +1,26 @@
 <template>
-
     <b-container fluid>
         <b-row>
-            <b-col cols="3">
+            <b-col cols="">
                 <SourceList/>
             </b-col>
-            <b-col cols="2">
+            <b-col cols="">
                 <TopicTree/>
             </b-col>
-            <b-col>
-                <DocumentTitleBar />
+            <b-col cols="7">
+                <TitleBar />
                 <DocumentContent />
             </b-col>
         </b-row>
     </b-container>
-
 </template>
 
 <script>
-
 import { mapState } from 'vuex';
-import SourceList from "./SourceList.vue";
-import TopicTree from "./TopicTree.vue";
 import DocumentContent from "./DocumentContent.vue";
-import DocumentTitleBar from "./DocumentTitleBar.vue";
+import SourceList from "./SourceList.vue";
+import TitleBar from "./TitleBar.vue";
+import TopicTree from "./TopicTree.vue";
 
 export default {
     name: "Main",
@@ -31,8 +28,7 @@ export default {
         SourceList,
         TopicTree,
         DocumentContent,
-        DocumentTitleBar,
+        TitleBar,
     }
 };
-
 </script>

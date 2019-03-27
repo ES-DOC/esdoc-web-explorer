@@ -16,12 +16,13 @@ export default {
     computed: {
         ...mapState({
             fields: (state) => {
+                const summary = state.summary.current;
+                const institute = summary ? summary.institute : null;
+                const canonicalName = summary ? summary.canonicalName : null;
                 const topic = state.specialization.topic;
-                const institute = state.documents.current ? state.documents.current.institute : null;
-                const canonicalName = state.documents.current ? state.documents.current.canonicalName : null;
                 return [
                     {
-                        key: `${institute} / ${canonicalName} / ${topic.id.split('.').slice(1).join(' / ')}`
+                        key: `${institute} > ${canonicalName} >> ${topic.id.split('.').slice(1).join(' > ')}`
                     }
                 ];
             }

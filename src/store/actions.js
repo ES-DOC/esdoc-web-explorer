@@ -1,33 +1,56 @@
-// https://vuex.vuejs.org/en/actions.html
+/**
+ * @file Application level state actions (that ultimately mutate state).
+ *       https://vuex.vuejs.org/en/actions.html
+ * @author Mark Conway-Greenslade
+ */
 
 import API from '@/api';
 
-export const initialise = async (context, defaults) => {
+/**
+ * Initialises state store - part of application setup process.
+ */
+export const initialise = async ({ commit }, project) => {
     const projects = await API.project.getAll();
-    await context.commit('initialise', {
-        defaults,
-        documents: await API.document.getMany('cmip6', 'cim.2.science.Model'),
+    await commit('initialise', {
+        project,
         projects: await API.project.getAll(),
         specializations: await API.specialization.getAll(),
         vocabs: await API.vocab.getAll()
     });
 };
 
-export const updateProject = async (context, project) => {
-    await context.commit('updateProject', project);
+/**
+ * Update current project.
+ */
+export const updateProject = async ({ commit }, project) => {
+    await commit('updateProject', project);
 };
 
-export const setTopic = async (context, [topic]) => {
-    await context.commit('setTopic', topic);
+/**
+ * Set current specialization topic.
+ */
+export const setTopic = async ({ commit }, [ topic ]) => {
+    await commit('setTopic', topic);
 }
 
-export const setPrimaryTopic = async (context, topic) => {
-    await context.commit('setPrimaryTopic', topic);
-}
-
-export const setDocument = async ({ commit }, [document]) => {
-    const model = await API.document.loadOne(document);
+/**
+ * Set current document.
+ */
+export const setDocument = async ({ commit }, [ summary ]) => {
+    await commit('setSummary', summary);
+    const document = await API.document.getOne(summary);
     await commit('setDocument', document);
-    console.log(model);
-    await commit('setModel', model);
+    await commit('setModel', document);
 }
+
+/**
+ * Set document summaries pulled from document API.
+ */
+export const setSummaries = async ({ commit }, { documentName, documentType, institute, project }) => {
+    const summaries = await API.document.getMany(project, documentType);
+    await commit('setSummaries', summaries);
+
+    const summary = summaries.find(i => i.canonicalName.toLowerCase() === documentName.toLowerCase() &&
+                                        i.institute.toLowerCase() === institute.toLowerCase());
+    await setDocument({ commit }, [ summary ]);
+};

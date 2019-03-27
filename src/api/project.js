@@ -1,3 +1,8 @@
+/**
+ * @file Exposes functions for pulling project configuration.
+ * @author Mark Conway-Greenslade
+ */
+
 // List: supported projects.
 const PROJECTS = [
     {

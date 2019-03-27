@@ -1,0 +1,10 @@
+0. start-up:
+    pull config/vocabs ...etc from api
+
+1. routes:
+    setup from pyessv
+
+2. api:
+    tidy interface
+    make pyessv internal to api
+    move project.js into config

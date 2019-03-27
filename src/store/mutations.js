@@ -1,37 +1,47 @@
-// https://vuex.vuejs.org/en/mutations.html
+/**
+ * @file Application level state mutations.
+ *       https://vuex.vuejs.org/en/mutations.html
+ * @author Mark Conway-Greenslade
+ */
 
-export const initialise = (state, { defaults, documents, projects, specializations, vocabs }) => {
-    const paths = window.location.pathname.split('/').reverse();
-    state.documents.all = documents;
-    state.documents.current = documents.find(i => i.canonicalName.toLowerCase() === paths[0] &&
-                                                  i.institute.toLowerCase() === paths[1]);
+ /**
+  * Initialises state store - part of application setup process.
+  */
+export const initialise = async (state, { project, projects, specializations, vocabs }) => {
+    // Set project related state.
     state.project.all = projects;
-    state.project.current = projects.find(i => i.key === defaults.project);
+    state.project.current = projects.find(i => i.key === project);
+
+    // Set specialisation related state.
     state.specialization.all = specializations;
-    state.specialization.current = specializations[defaults.project];
+    state.specialization.current = specializations[project];
     state.specialization.topics = state.specialization.current.reduce((v, s) => v.concat(s.topics), []);
-    state.specialization.primary = state.specialization.topics[0];
     state.specialization.topic = state.specialization.topics[0];
+
+    // Set vocabularies used across application.
     state.vocabs = vocabs;
 }
 
-export const updateProject = (state, project) => {
+export const updateProject = async (state, project) => {
     state.project.current = project;
 }
 
-export const setTopic = (state, topic) => {
+export const setTopic = async (state, topic) => {
     state.specialization.topic = topic;
 }
 
-export const setPrimaryTopic = (state, topic) => {
-    state.specialization.primary = topic;
+export const setDocument = async (state, document) => {
+    state.document.current = document;
 }
 
-export const setDocument = (state, document) => {
-    state.documents.current = document;
+export const setSummary = async (state, summary) => {
+    state.summary.current = summary;
 }
 
-export const setModel = (state, model) => {
-    console.log(model);
+export const setSummaries = async (state, summaries) => {
+    state.summary.all = summaries;
+}
+
+export const setModel = async (state, model) => {
     state.model = model;
 }

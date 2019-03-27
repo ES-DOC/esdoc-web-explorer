@@ -1,31 +1,23 @@
 /**
- * Vuex
- *
- * @library
- *
- * https://vuex.vuejs.org/en/
+ * @file Application state store.
+ *       https://vuex.vuejs.org/en
+ * @author Mark Conway-Greenslade
  */
 
-// Lib imports
 import Vue from 'vue'
 import Vuex from 'vuex'
+Vue.use(Vuex)
 
-// Store functionality
+// Import store accessors/mutators/state.
 import * as actions from './actions'
 import * as getters from './getters'
-import modules from './modules'
 import * as mutations from './mutations'
 import state from './state'
 
-Vue.use(Vuex)
-
-// Create a new store
-const store = new Vuex.Store({
+// Instantiate store
+export default new Vuex.Store({
   actions,
   getters,
-  modules,
   mutations,
   state
-})
-
-export default store
+});

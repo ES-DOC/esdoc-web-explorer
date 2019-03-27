@@ -4,14 +4,14 @@
             class="source-list-head"
             head-variant="light"
             :items="[]"
-            :fields="documents.fields" />
+            :fields="sources.fields" />
         <b-table borderless hover responsive selectable small fixed
             head-variant="light"
             selectedVariant="success"
             select-mode="single"
             thead-class="hide-table-header"
-            :items="documents.items"
-            :fields="documents.fields"
+            :items="sources.items"
+            :fields="sources.fields"
             :tbody-tr-class="initialRowClass"
             @row-selected="setDocument"
             style="position:relative; height: 870px; overflow-y:auto;" />
@@ -26,7 +26,7 @@ export default {
     name: "SourceList",
     computed: {
         ...mapState({
-            documents: (state) => {
+            sources: (state) => {
                 return {
                     fields: [
                         {
@@ -39,7 +39,7 @@ export default {
                             sortable: false,
                         }
                     ],
-                    items: _.sortBy(state.documents.all, ['institute', 'canonicalName'])
+                    items: _.sortBy(state.summary.all, ['institute', 'canonicalName'])
                 }
             },
         })

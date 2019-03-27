@@ -6,10 +6,9 @@
 
 <script>
 export default {
-  name: "not-found",
+  name: "NotFound",
   _metaInfo: {
       title: 'ES-DOC - Not Found',
-  },
-  components: {}
+  }
 };
 </script>
