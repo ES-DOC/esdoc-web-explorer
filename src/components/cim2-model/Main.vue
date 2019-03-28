@@ -1,10 +1,10 @@
 <template>
     <b-container fluid>
         <b-row>
-            <b-col style="position:relative; height: 870px; overflow-y:auto;" >
+            <b-col style="padding-right: 0; position:relative; height: 870px; overflow-y:auto;" >
                 <SourceList/>
             </b-col>
-            <b-col style="position:relative; height: 870px; overflow-y:auto;" >
+            <b-col style="padding-right: 0; position:relative; height: 870px; overflow-y:auto;" >
                 <TopicTree/>
             </b-col>
             <b-col cols="7" style="position:relative; height: 870px; overflow-y:auto;" >
