@@ -13,8 +13,7 @@
             :items="topics.items"
             :fields="topics.fields"
             :tbody-tr-class="rowClass"
-            @row-selected="setTopic"
-            style="position:relative; height: 870px; overflow-y:auto;" />
+            @row-selected="setTopic" />
     </div>
 </template>
 

@@ -13,8 +13,7 @@
             :items="sources.items"
             :fields="sources.fields"
             :tbody-tr-class="initialRowClass"
-            @row-selected="setDocument"
-            style="position:relative; height: 870px; overflow-y:auto;" />
+            @row-selected="setDocument" />
     </div>
 </template>
 

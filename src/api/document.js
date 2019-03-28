@@ -55,9 +55,15 @@ export const getOne = async ({ project, uid }) => {
         const baseUrl = ENV_TO_URL[mode];
         const params = `client=esdoc-explorer&project=${project}&id=${uid}&version=latest&encoding=json`;
         const url = `${baseUrl}/2/document/search-id?${params}`;
+        console.log(url);
         const doc = await $.get(url);
+        parse(doc);
         cache[uid] = doc;
     }
 
     return cache[uid];
+}
+
+const parse = (doc) => {
+    doc.subTopics = [doc.keyProperties];
 }

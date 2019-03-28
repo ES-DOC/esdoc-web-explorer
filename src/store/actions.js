@@ -40,7 +40,6 @@ export const setDocument = async ({ commit }, [ summary ]) => {
     await commit('setSummary', summary);
     const document = await API.document.getOne(summary);
     await commit('setDocument', document);
-    await commit('setModel', document);
 }
 
 /**

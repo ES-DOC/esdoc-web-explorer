@@ -15,7 +15,7 @@ export default {
         current: null
     },
 
-    model: null,
+    mapOfTopicToDocument: {},
 
     project: {
         all: [],

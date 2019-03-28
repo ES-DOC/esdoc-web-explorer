@@ -41,7 +41,3 @@ export const setSummary = async (state, summary) => {
 export const setSummaries = async (state, summaries) => {
     state.summary.all = summaries;
 }
-
-export const setModel = async (state, model) => {
-    state.model = model;
-}
