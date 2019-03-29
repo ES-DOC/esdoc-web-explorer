@@ -1,7 +1,7 @@
 <template>
     <div>
         <TopicProperty
-            v-for="topicProperty in topic.allProperties"
+            v-for="topicProperty in topic.ownProperties"
             v-bind:key="topicProperty.id"
             v-bind:topicProperty="topicProperty"
         ></TopicProperty>

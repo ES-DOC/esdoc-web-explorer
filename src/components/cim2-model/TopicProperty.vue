@@ -1,12 +1,14 @@
 <template>
 
     <table class="table table-bordered table-sm small">
-        <tbody>
+        <thead>
             <tr class="bg-light">
-                <td colspan="2">
+                <th style="border: 0;" colspan="2">
                     <strong>{{ topicProperty.fullLabel }}</strong>
-                </td>
+                </th>
             </tr>
+        </thead>
+        <tbody>
             <tr>
                 <td class="topic-property-description-caption">
                     <strong>Description</strong>
@@ -20,7 +22,9 @@
                     <strong>Value(s)</strong>
                 </td>
                 <td>
-                    TODO: extract from loaded document
+                    <span
+                        v-for="value in vals"
+                    >{{ value }}<br/></span>
                 </td>
             </tr>
         </tbody>
@@ -29,10 +33,32 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 
 export default {
     name: "TopicProperty",
+
     props: ['topicProperty'],
+
+    computed: {
+        vals: function () {
+            const document = this.$store.state.document.current;
+
+            if (document) {
+                if (document.topicPropertyMap[this.topicProperty.id]) {
+                    return document.topicPropertyMap[this.topicProperty.id].values;
+                }
+            }
+            return ['--'];
+        },
+
+        ...mapState({
+            document: state => state.document.current,
+            values: state => {
+                return state.document.current ? state.document.current.topicProperties[3].values : []
+            }
+        })
+    }
 };
 
 </script>

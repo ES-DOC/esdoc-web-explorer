@@ -23,11 +23,10 @@ export const getAll = async () => {
 const parse = (specializations) => {
     specializations.forEach((s) => {
         [
-            mergeKeyProperties,
+            setKeyProperties,
             setTopics,
             setAncestors,
             extendTopics,
-            setTopicProperties,
         ].forEach(f => f(s));
     });
 }
@@ -35,7 +34,7 @@ const parse = (specializations) => {
 /**
  * Merges specialization key properties into main specialization.
  */
-const mergeKeyProperties = (s) => {
+const setKeyProperties = (s) => {
     s.properties = s.keyProperties.properties || [];
     s.propertySets = s.keyProperties.propertySets || [];
     s.subProcesses = s.keyProperties.subProcesses || [];
@@ -74,48 +73,42 @@ const setAncestors = (s) => {
  */
 const extendTopics = (s) => {
     s.topics.forEach((t) => {
-        t.properties = t.properties || [];
-        t.propertySets = t.propertySets || [];
-        t.subProcesses = t.subProcesses || [];
-        t.subProcesses.forEach(sp => {
-            sp.properties = sp.properties || [];
-            sp.propertySets = sp.propertySets || [];
-        })
         t.path = t.id.split('.');
         t.depth = t.path.length - 1;
     });
+
+    s.topics.forEach(setContainerProperties);
+    s.topics.forEach((t) => {
+        t.subProcesses = t.subProcesses || [];
+        t.subProcesses.forEach(setContainerProperties);
+    });
+
+    s.allProperties = s.topics.reduce((out, t) => out.concat(t.ownProperties), []);
+    s.allPropertiesMap = s.allProperties.reduce((obj, p) => {
+        obj[p.id] = p;
+        return obj
+    }, {});
 }
 
 /**
  * Extends topics with derived or helper attributes.
  */
-const setTopicProperties = (s) => {
-    s.topics.forEach((t) => {
-        t.properties.forEach(p => {
-            p.fullLabel = p.label;
-            p.parent = null;
-        });
-        t.propertySets.forEach(ps => {
-            ps.properties = ps.properties || [];
-            ps.properties.forEach((p) => {
-                p.fullLabel = `${ps.label} > ${p.label}`;
-                p.parent = ps;
-            });
-        });
-        t.allProperties = t.propertySets.reduce((out, ps) => out.concat(ps.properties), t.properties);
+const setContainerProperties = (c) => {
+    c.properties = c.properties || [];
+    c.propertySets = c.propertySets || [];
 
-        t.subProcesses.forEach(sp => {
-            sp.properties.forEach(p => {
-                p.fullLabel = `${sp.label} > ${p.label}`;
-                p.parent = null;
-            });
-            sp.propertySets.forEach(ps => {
-                ps.properties.forEach(p => {
-                    p.fullLabel = `${sp.label} > ${ps.label} > ${p.label}`;
-                })
-            });
-            sp.allProperties = sp.propertySets.reduce((out, ps) => out.concat(ps.properties), sp.properties);
-        })
-
+    c.properties.forEach(p => {
+        p.fullLabel = `${c.label} > ${p.label}`;
     });
+    c.propertySets.forEach(ps => {
+        ps.properties.forEach(p => {
+            p.fullLabel = `${c.label} > ${ps.label} > ${p.label}`;
+        })
+    });
+
+    c.ownProperties = c.propertySets.reduce((out, ps) => out.concat(ps.properties), c.properties);
+    c.ownPropertiesMap = c.ownProperties.reduce((obj, p) => {
+        obj[p.id] = p;
+        return obj;
+    }, {});
 }
