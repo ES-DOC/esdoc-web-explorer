@@ -36,8 +36,8 @@ export const setTopic = async ({ commit }, [ topic ]) => {
  * Set current document.
  */
 export const setDocument = async ({ commit }, [ summary ]) => {
-    await commit('setSummary', summary);
     const document = await API.document.getOne(summary);
+    await commit('setSummary', summary);
     await commit('setDocument', document);
 }
 
@@ -46,9 +46,10 @@ export const setDocument = async ({ commit }, [ summary ]) => {
  */
 export const setSummaries = async ({ commit }, { documentName, documentType, institute, project }) => {
     const summaries = await API.document.getMany(project, documentType);
-    await commit('setSummaries', summaries);
-
     const summary = summaries.find(i => i.canonicalName.toLowerCase() === documentName.toLowerCase() &&
                                         i.institute.toLowerCase() === institute.toLowerCase());
-    await setDocument({ commit }, [ summary ]);
+    const document = await API.document.getOne(summary);
+    await commit('setSummaries', summaries);
+    await commit('setSummary', summary);
+    await commit('setDocument', document);
 };
