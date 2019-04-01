@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import SourceList from "./SourceList.vue";
 import TitleBar from "./TitleBar.vue";
 import Topic from "./Topic.vue";

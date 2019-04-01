@@ -4,7 +4,6 @@
  */
 
 import $ from 'jquery';
-import * as _ from 'lodash';
 import { getApplicationMode } from '@/utils';
 import parseDocument from './parsers/cim2/index';
 
@@ -19,15 +18,23 @@ const ENV_TO_URL = {
     test: "https://test-api.es-doc.org"
 };
 
+// Map: project/document-type <-> CIM document type.
+const CIM_DOCUMENT_TYPE = {
+    'cmip6': {
+        'models': 'cim.2.science.Model'
+    }
+};
+
 /**
  * Returns documents matched by project & institute identifiers.
  * @param {String} project - Project canonical name, e.g. cmip6.
  * @param {String} documentType - Document type canonical name, e.g. cim.2.science.Model.
  */
 export const getMany = async (project, documentType) => {
+    const cimDocumentType = CIM_DOCUMENT_TYPE[project][documentType];
     const mode = getApplicationMode();
     const baseUrl = ENV_TO_URL[mode];
-    const params = `document_version=latest&document_type=${documentType}&project=${project}`;
+    const params = `document_version=latest&document_type=${cimDocumentType}&project=${project}`;
     const url = `${baseUrl}/2/summary/search?${params}`;
     const { results: data } = await $.get(url);
 

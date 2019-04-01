@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import TopicProperty from './TopicProperty';
 
 export default {

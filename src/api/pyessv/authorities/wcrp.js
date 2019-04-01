@@ -3,6 +3,7 @@
  * @author Mark Conway-Greenslade
  */
 
+import * as _ from 'lodash';
 import { Authority, Scope } from '../model';
 
 /**

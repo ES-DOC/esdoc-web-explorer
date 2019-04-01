@@ -10,7 +10,6 @@ import API from '@/api';
  * Initialises state store - part of application setup process.
  */
 export const initialise = async ({ commit }, project) => {
-    const projects = await API.project.getAll();
     await commit('initialise', {
         project,
         projects: await API.project.getAll(),

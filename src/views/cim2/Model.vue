@@ -26,7 +26,7 @@ export default {
         const [ project, documentType, institute, documentName ] = paths;
         await this.$store.dispatch('setSummaries', {
             documentName,
-            documentType: 'cim.2.science.Model',
+            documentType,
             institute,
             project,
         });

@@ -3,12 +3,10 @@
  * @author Mark Conway-Greenslade
  */
 
-import * as _ from 'lodash';
 import $ from 'jquery';
 window.$ = $;
 
 import Vue from "vue";
-import Vuex from 'vuex'
 import { sync } from 'vuex-router-sync'
 
 // Import bootstrap css bundles.

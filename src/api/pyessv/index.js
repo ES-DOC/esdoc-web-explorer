@@ -3,6 +3,7 @@
  * @author Mark Conway-Greenslade
  */
 
+import $ from 'jquery';
 import { ESDOC, WCRP } from './authorities/index';
 
 // Api URL.
