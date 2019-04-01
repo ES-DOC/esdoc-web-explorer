@@ -1,11 +1,9 @@
 <template>
-
     <b-table borderless responsive small fixed
+        class="esdoc-table-caption"
         id="documentTitleBar"
-        head-variant="light"
         :items="[]"
         :fields="fields" />
-
 </template>
 
 <script>
@@ -22,7 +20,7 @@ export default {
                 const topic = state.specialization.topic;
                 return [
                     {
-                        key: `${institute} > ${canonicalName} >> ${topic.id.split('.').slice(1).join(' > ')}`
+                        key: `${institute} > ${canonicalName} :: ${topic.id.split('.').slice(1).join(' > ')}`
                     }
                 ];
             }
@@ -33,9 +31,7 @@ export default {
 </script>
 
 <style>
-
 #documentTitleBar {
-    margin-bottom: 10px;
+    margin-bottom: 16px;
 }
-
 </style>

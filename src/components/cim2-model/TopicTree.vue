@@ -1,13 +1,11 @@
 <template>
     <div>
         <b-table borderless responsive small fixed
-            class="topic-tree-head"
-            head-variant="light"
+            class="esdoc-table-caption"
             :items="[]"
             :fields="topics.fields" />
         <b-table borderless hover responsive selectable small
-            head-variant="light"
-            selectedVariant="success"
+            selectedVariant="esdoc-selected"
             select-mode="single"
             thead-class="hide-table-header"
             :items="topics.items"
@@ -59,14 +57,8 @@ export default {
 </script>
 
 <style>
-.topic-tree-head {
-    margin-bottom: -10px;
-}
 .hide-table-header {
     display: none;
-}
-tbody, thead {
-    text-align: left;
 }
 tr.indent-1 > td {
     font-weight: bold;

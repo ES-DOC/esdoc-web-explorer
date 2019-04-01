@@ -1,13 +1,11 @@
 <template>
     <div>
         <b-table borderless responsive small fixed
-            class="source-list-head"
-            head-variant="light"
+            class="esdoc-table-caption"
             :items="[]"
             :fields="sources.fields" />
-        <b-table borderless hover responsive selectable small fixed
-            head-variant="light"
-            selectedVariant="success"
+        <b-table borderless responsive small fixed hover selectable
+            selectedVariant="esdoc-selected"
             select-mode="single"
             thead-class="hide-table-header"
             :items="sources.items"
@@ -59,18 +57,3 @@ export default {
 };
 
 </script>
-
-<style>
-.source-list-head {
-    margin-bottom: -10px;
-}
-
-.hide-table-header {
-    display: none;
-}
-
-tr.row td.cell {
-    text-align: left;
-}
-
-</style>

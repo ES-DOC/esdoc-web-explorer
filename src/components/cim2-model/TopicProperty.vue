@@ -1,16 +1,16 @@
 <template>
 
-    <table class="table table-bordered table-sm small">
+    <table class="table table-bordered table-sm small esdoc-table-info">
         <thead>
-            <tr class="bg-light">
-                <th style="border: 0;" colspan="2">
-                    <strong>{{ topicProperty.fullLabel }}</strong>
+            <tr>
+                <th colspan="2">
+                    {{ topicProperty.fullLabel }}
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td class="topic-property-description-caption">
+                <td class="caption">
                     <strong>Description</strong>
                 </td>
                 <td>
@@ -18,7 +18,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="topic-property-value-caption">
+                <td class="caption">
                     <strong>Value(s)</strong>
                 </td>
                 <td>
@@ -62,11 +62,3 @@ export default {
 };
 
 </script>
-
-<style>
-
-td.topic-property-description-caption, td.topic-property-value-caption {
-    width: 25%;
-}
-
-</style>

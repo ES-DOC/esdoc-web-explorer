@@ -6,6 +6,7 @@
 
 <style lang="scss">
 #app {}
+
 #nav {
   padding: 30px;
   a {
