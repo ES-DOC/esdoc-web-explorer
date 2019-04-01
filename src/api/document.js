@@ -6,6 +6,8 @@
 import $ from 'jquery';
 import * as _ from 'lodash';
 import { getApplicationMode } from '@/utils';
+import parseDocument from './parsers/cim2/index';
+
 
 // Map: document uid <-> document.
 const cache = {};
@@ -29,6 +31,7 @@ export const getMany = async (project, documentType) => {
     const url = `${baseUrl}/2/summary/search?${params}`;
     const { results: data } = await $.get(url);
 
+    // Web-service returns arrays to minimize payloads - therefore unpack.
     return data.map(i => {
         return {
             alternativeName: i[8],
@@ -56,94 +59,8 @@ export const getOne = async ({ project, uid }) => {
         const baseUrl = ENV_TO_URL[mode];
         const params = `client=esdoc-explorer&project=${project}&id=${uid}&version=latest&encoding=json`;
         const url = `${baseUrl}/2/document/search-id?${params}`;
-        console.log(url);
-        const doc = await $.get(url);
-        parse(doc);
-        cache[uid] = doc;
+        cache[uid] = parseDocument(await $.get(url));
     }
 
     return cache[uid];
-}
-
-const parse = (m) => {
-    setDefaults(m);
-    setTopics(m);
-    setTopicProperties(m);
-
-    // console.log(m.topics);
-    // console.log(m.topicProperties);
-}
-
-const setDefaults = (m) => {
-    const assign = (i) => {
-        if (i !== undefined) {
-            if (_.isArray(i)) {
-                i.forEach(assign);
-            } else {
-                i.properties = i.properties || [];
-                i.propertySets = i.propertySets || [];
-                i.subTopics = i.subTopics || [];
-                i.subTopics.forEach(st => {
-                    st.properties = st.properties || [];
-                    st.propertySets = st.propertySets || [];
-                })
-            }
-        }
-    };
-
-    m.activityProperties = m.activityProperties || [];
-    m.realms = m.realms || [];
-    m.realms.forEach(r => {
-        r.processes = r.processes || [];
-    });
-
-    assign(m.keyProperties);
-    assign(m.activityProperties);
-    m.realms.forEach(r => {
-        assign(r.keyProperties);
-        assign(r.grid);
-        assign(r.processes);
-    });
-}
-
-const setTopics = (m) => {
-    const assign = (i) => {
-        if (i !== undefined) {
-            if (_.isArray(i)) {
-                i.forEach(assign);
-            } else {
-                m.topics.push(i);
-            }
-        }
-    };
-
-    m.topics = []
-    assign(m.keyProperties);
-    assign(m.activityProperties);
-    m.realms.forEach(r => {
-        assign(r.keyProperties);
-        assign(r.grid);
-        assign(r.processes);
-    });
-
-    m.topicMap = m.topics.reduce((obj, t) => {
-        obj[t.specializationID] = t;
-        return obj
-    }, {});
-}
-
-
-const setTopicProperties = (m) => {
-    m.topicProperties = [];
-    m.topics.forEach(t => {
-        m.topicProperties = m.topicProperties.concat(t.properties);
-        t.propertySets.forEach(ps => {
-            m.topicProperties = m.topicProperties.concat(ps.properties);
-        })
-    })
-
-    m.topicPropertyMap = m.topicProperties.reduce((obj, t) => {
-        obj[t.specializationID] = t;
-        return obj
-    }, {});
 }
