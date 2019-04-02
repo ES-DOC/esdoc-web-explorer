@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import SourceList from "./SourceList.vue";
-import TitleBar from "./TitleBar.vue";
-import Topic from "./Topic.vue";
-import TopicTree from "./TopicTree.vue";
+import SourceList from "@/components/cim2-model/SourceList.vue";
+import TitleBar from "@/components/cim2-model/TitleBar.vue";
+import Topic from "@/components/cim2-model/Topic.vue";
+import TopicTree from "@/components/cim2-model/TopicTree.vue";
 
 export default {
     name: "Main",

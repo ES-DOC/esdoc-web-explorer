@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import * as _ from 'lodash'
-import { mapActions, mapState } from 'vuex'
+import * as _ from "lodash";
+import { mapActions, mapState } from "vuex";
 
 export default {
     name: "SourceList",

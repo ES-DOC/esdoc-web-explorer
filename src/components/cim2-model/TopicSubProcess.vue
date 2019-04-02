@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import TopicProperty from './TopicProperty';
+import TopicProperty from "@/components/cim2-model/TopicProperty";
 
 export default {
     name: "TopicSubProcess",

@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import TopicProperty from './TopicProperty';
-import TopicSubProcess from './TopicSubProcess';
+import { mapState } from "vuex";
+import TopicProperty from "@/components/cim2-model/TopicProperty";
+import TopicSubProcess from "@/components/cim2-model/TopicSubProcess";
 
 export default {
     name: "Topic",
