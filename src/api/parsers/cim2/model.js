@@ -8,8 +8,10 @@
  */
 export default (m) => {
     [
+        parseMOHC,
         setCollections,
         setTopics,
+        setStandardTopicProperties,
         setTopicProperties,
         setMaps,
     ].forEach(f => f(m));
@@ -21,32 +23,10 @@ export default (m) => {
  * Initialises collection attributes to simplify downstream processing.
  */
 const setCollections = (m) => {
-    const assign = (i) => {
-        if (Array.isArray(i)) {
-            i.forEach(assign);
-        } else if (i !== undefined) {
-            i.properties = i.properties || [];
-            i.propertySets = i.propertySets || [];
-            i.subTopics = i.subTopics || [];
-            i.subTopics.forEach(st => {
-                st.properties = st.properties || [];
-                st.propertySets = st.propertySets || [];
-            })
-        }
-    };
-
     m.activityProperties = m.activityProperties || [];
     m.realms = m.realms || [];
     m.realms.forEach(r => {
         r.processes = r.processes || [];
-    });
-
-    assign(m.keyProperties);
-    assign(m.activityProperties);
-    m.realms.forEach(r => {
-        assign(r.keyProperties);
-        assign(r.grid);
-        assign(r.processes);
     });
 }
 
@@ -58,7 +38,13 @@ const setTopics = (m) => {
         if (Array.isArray(i)) {
             i.forEach(push);
         } else if (i !== undefined) {
+            i.citations = i.citations || [];
+            i.properties = i.properties || [];
+            i.propertySets = i.propertySets || [];
+            i.responsibleParties = i.responsibleParties || [];
+            i.subTopics = i.subTopics || [];
             m.topics.push(i);
+            i.subTopics.forEach(push);
         }
     };
 
@@ -70,6 +56,18 @@ const setTopics = (m) => {
         push(r.grid);
         push(r.processes);
     });
+}
+
+/**
+ * Sets model property superset.
+ */
+const setStandardTopicProperties = (m) => {
+    // console.log(m.topics.length);
+    m.topics.forEach(t => {
+        // console.log(111, t.keywords);
+        // console.log(222, t.description);
+        // console.log(333, t.overview);
+    })
 }
 
 /**
@@ -97,4 +95,22 @@ const setMaps = (m) => {
         obj[t.specializationID] = t;
         return obj
     }, {});
+}
+
+
+/**
+ * Performs a pre-parse over MOHC documents.
+ */
+const parseMOHC = (m) => {
+    if (m.meta.institute !== 'MOHC') {
+        return;
+    }
+
+    m.realms = m.coupledComponents.map((cc) => {
+        return {
+            specializationID: `cmip6.${cc.realms[0].canonicalName}`,
+            ...cc,
+            ...cc.realms[0]
+        }
+    });
 }

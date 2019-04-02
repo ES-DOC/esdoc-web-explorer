@@ -3,20 +3,16 @@
  * @author Mark Conway-Greenslade
  */
 
-import $ from 'jquery';
-window.$ = $;
+// import $ from 'jquery';
+// window.$ = $;
 
 import Vue from "vue";
+import VueBootstrap from 'bootstrap-vue';
 import { sync } from 'vuex-router-sync'
 
-// Import bootstrap css bundles.
-
-// import 'bootstrap/dist/css/bootstrap.css'
-// import 'bootstrap-vue/dist/bootstrap-vue.css'
-
+// Import css bundle.
 import './App.scss'
 
-import VueBootstrap from 'bootstrap-vue';
 Vue.use(VueBootstrap)
 
 import App from "./App.vue";
