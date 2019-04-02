@@ -46,10 +46,23 @@ export const setDocument = async ({ commit }, [ summary ]) => {
  */
 export const setSummaries = async ({ commit }, { documentName, documentType, institute, project }) => {
     const summaries = await API.document.getMany(project, documentType);
-    const summary = summaries.find(i => i.canonicalName.toLowerCase() === documentName.toLowerCase() &&
-                                        i.institute.toLowerCase() === institute.toLowerCase());
+    const summary = getInitialSummary(summaries, institute, documentName);
     const document = await API.document.getOne(summary);
     await commit('setSummaries', summaries);
     await commit('setSummary', summary);
     await commit('setDocument', document);
 };
+
+const getInitialSummary = (summaries, institute, documentName) => {
+    let summary;
+    if (institute) {
+        if (documentName) {
+            summary = summaries.find(i => i.canonicalName.toLowerCase() === documentName.toLowerCase() &&
+                                          i.institute.toLowerCase() === institute.toLowerCase());
+        } else {
+            summary = summaries.find(i => i.institute.toLowerCase() === institute.toLowerCase());
+        }
+    }
+
+    return summary || summaries[0];
+}
