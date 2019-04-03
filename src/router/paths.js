@@ -6,8 +6,8 @@
 export default [
     {
         path: "/",
-        name: "home",
-        view: 'core/Home'
+        name: "CMIP6 Model",
+        view: 'cim2/Model'
     },
     {
         path: "/not-found",
