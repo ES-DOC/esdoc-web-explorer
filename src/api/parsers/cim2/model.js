@@ -63,6 +63,10 @@ const setTopics = (m) => {
  * Pushes model key properties into top level topic.
  */
 const setTopLevelKeyProperties = (m) => {
+    if (m.keyProperties === undefined) {
+        return;
+    }
+
     [
         'coupler',
         'description',
@@ -72,6 +76,7 @@ const setTopLevelKeyProperties = (m) => {
         'version'
     ].forEach((p) => {
         if (m[p] !== undefined) {
+            console.log(p, m.keyProperties);
             m.keyProperties[p] = m[p];
         }
     });
@@ -93,7 +98,6 @@ const setStandardKeyProperties = (m) => {
             });
         }
     };
-
 
     const _injectAll = (t) => {
         let fields = [
