@@ -63,23 +63,20 @@ const setTopics = (m) => {
  * Pushes model key properties into top level topic.
  */
 const setTopLevelKeyProperties = (m) => {
-    if (m.keyProperties === undefined) {
-        return;
+    if (m.keyProperties !== undefined) {
+        [
+            'coupler',
+            'description',
+            'longName',
+            'modelType',
+            'name',
+            'version'
+        ].forEach((p) => {
+            if (m[p] !== undefined) {
+                m.keyProperties[p] = m[p];
+            }
+        });
     }
-
-    [
-        'coupler',
-        'description',
-        'longName',
-        'modelType',
-        'name',
-        'version'
-    ].forEach((p) => {
-        if (m[p] !== undefined) {
-            console.log(p, m.keyProperties);
-            m.keyProperties[p] = m[p];
-        }
-    });
 }
 
 /**
