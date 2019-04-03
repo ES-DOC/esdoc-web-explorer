@@ -11,7 +11,8 @@ export default (m) => {
         parseMOHC,
         setCollections,
         setTopics,
-        setStandardTopicProperties,
+        setTopLevelKeyProperties,
+        setStandardKeyProperties,
         setTopicProperties,
         setMaps,
     ].forEach(f => f(m));
@@ -59,15 +60,59 @@ const setTopics = (m) => {
 }
 
 /**
- * Sets model property superset.
+ * Pushes model key properties into top level topic.
  */
-const setStandardTopicProperties = (m) => {
-    // console.log(m.topics.length);
-    m.topics.forEach(t => {
-        // console.log(111, t.keywords);
-        // console.log(222, t.description);
-        // console.log(333, t.overview);
-    })
+const setTopLevelKeyProperties = (m) => {
+    [
+        'coupler',
+        'description',
+        'longName',
+        'modelType',
+        'name',
+        'version'
+    ].forEach((p) => {
+        if (m[p] !== undefined) {
+            m.keyProperties[p] = m[p];
+        }
+    });
+}
+
+/**
+ * Injects standard topic properties where appropriate.
+ */
+const setStandardKeyProperties = (m) => {
+    const _injectOne = (t, [sourceSlot, targetSlot]) => {
+        const value = t[sourceSlot];
+        if (value !== undefined) {
+            t.properties.push({
+                meta: {
+                    type: 'cim.2.science.TopicProperty'
+                },
+                specializationID: `${t.specializationID}.${targetSlot || sourceSlot}`,
+                values: Array.isArray(value) ? value : [value]
+            });
+        }
+    };
+
+
+    const _injectAll = (t) => {
+        let fields = [
+            ['name'],
+            ['keywords'],
+            ['description', 'overview'],
+        ];
+        if (t === m.topics[0]) {
+            fields = fields.concat([
+                ['modelType', 'model_type'],
+                ['coupler'],
+                ['longName', 'long_name'],
+                ['version'],
+            ]);
+        }
+        fields.forEach((slots) => _injectOne(t, slots));
+    }
+
+    m.topics.forEach(_injectAll);
 }
 
 /**
