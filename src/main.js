@@ -26,8 +26,8 @@ Vue.config.productionTip = false;
 // Inject into store current route information.
 sync(store, router);
 
-// Initialise application state.
-initialise(window, store).then(() => {
+// Initialise application state & render main view.
+initialise(window.location.pathname, store).then(() => {
     new Vue({
       router,
       store,
