@@ -86,11 +86,12 @@ const setStandardKeyProperties = (m) => {
     const _injectOne = (t, [sourceSlot, targetSlot]) => {
         const value = t[sourceSlot];
         if (value !== undefined) {
+            targetSlot = targetSlot || sourceSlot;
             t.properties.push({
                 meta: {
                     type: 'cim.2.science.TopicProperty'
                 },
-                specializationID: `${t.specializationID}.${targetSlot || sourceSlot}`,
+                specializationID: `${t.specializationID}.${targetSlot}`,
                 values: Array.isArray(value) ? value : [value]
             });
         }

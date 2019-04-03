@@ -23,7 +23,7 @@ export default {
 
     async created() {
         let project, documentType, institute, documentName;
-        
+
         const paths = window.location.pathname.split('/').slice(1);
         if (paths.length === 1) {
             [ project ] = paths;

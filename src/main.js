@@ -18,6 +18,7 @@ Vue.use(VueBootstrap)
 import App from "./App.vue";
 import router from "./router";
 import store from './store';
+import initialise from './initialiser';
 import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
@@ -26,10 +27,10 @@ Vue.config.productionTip = false;
 sync(store, router);
 
 // Initialise application state.
-store.dispatch('initialise', 'cmip6').then(() => {
+initialise(window, store).then(() => {
     new Vue({
       router,
       store,
       render: h => h(App)
     }).$mount("#app");
-});
+})

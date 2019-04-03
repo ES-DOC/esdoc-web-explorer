@@ -22,3 +22,5 @@ yarn-error.log*
 
 # Lock files.
 yarn.lock
+
+.htaccess

@@ -9,13 +9,25 @@ import API from '@/api';
 /**
  * Initialises state store - part of application setup process.
  */
-export const initialise = async ({ commit }, project) => {
+export const initialise = async ({ commit }, { documentName, documentType, institute, project }) => {
+    // Pull data from various sources.
+    const projects = await API.project.getAll();
+    const specializations = await API.specialization.getAll();
+    const vocabs = await API.vocab.getAll();
+    const summaries = await API.document.getMany(project, documentType);
+    const summary = getInitialSummary(summaries, institute, documentName);
+    const document = await API.document.getOne(summary);
+
+    // Commit to state store.
     await commit('initialise', {
         project,
-        projects: await API.project.getAll(),
-        specializations: await API.specialization.getAll(),
-        vocabs: await API.vocab.getAll()
+        projects,
+        specializations,
+        vocabs
     });
+    await commit('setSummaries', summaries);
+    await commit('setSummary', summary);
+    await commit('setDocument', document);
 };
 
 /**
