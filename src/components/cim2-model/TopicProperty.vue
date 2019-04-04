@@ -53,8 +53,10 @@ export default {
 
             if (values.length && this.topicProperty.type === 'enum') {
                 values = values.map(i => {
-                    const choice = this.topicProperty.enum.choices.find(c => c.label.toLowerCase() === i.toLowerCase())
-                    if (choice) {
+                    const choice = this.topicProperty.enum.choices.find(c => {
+                        return c.label.toLowerCase() === i.toLowerCase()
+                    });
+                    if (choice && choice.description) {
                         return `${i} - ${choice.description}`;
                     }
                     return i;
