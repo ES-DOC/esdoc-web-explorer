@@ -144,7 +144,6 @@ const setMaps = (m) => {
     }, {});
 }
 
-
 /**
  * Performs a pre-parse over MOHC documents.
  */

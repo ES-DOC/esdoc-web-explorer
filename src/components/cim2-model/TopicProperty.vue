@@ -71,13 +71,21 @@ export default {
                 if (v === 't' || v === 'true') {
                     return 'TRUE';
                 }
-                if (v === 'nil:inapplicable') {
+                if (v === 'nil:inapplicable' || v === 'other: n/a') {
                     return 'N/A';
                 }
                 return `${val.slice(0, 1).toUpperCase()}${val.slice(1)}`;
             })
 
-            return values.length ? values : NO_VALUES;
+            if (values.length) {
+                return values;
+            }
+
+            if (this.topicProperty.cardinality.slice(0, 1) === '1') {
+                return ['-- Awaiting modelling group input --']
+            }
+
+            return NO_VALUES;
         },
 
         ...mapState({
