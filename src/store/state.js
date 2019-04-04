@@ -26,6 +26,7 @@ export default {
         all: [],
         topic: null,
         topics: [],
+        topicsInScope: [],
         current: null
     },
 

@@ -32,7 +32,9 @@ export default {
                             sortable: false
                         }
                     ],
-                    items: state.specialization.topics.filter(t => t.depth < 3)
+                    items: state.specialization.topics.filter(t => {
+                        return t._isInScope && t._depth < 3
+                    })
                 }
             },
         }),
@@ -41,12 +43,12 @@ export default {
         rowClass(item) {
             // if (item.id === 'cmip6.toplevel') {
             //     return [
-            //         `indent-${item.depth}`,
+            //         `indent-${item._depth}`,
             //         'table-success',
             //     ]
             // }
             return [
-                `indent-${item.depth}`
+                `indent-${item._depth}`
             ]
         },
         ...mapActions([

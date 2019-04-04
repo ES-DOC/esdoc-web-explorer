@@ -5,25 +5,25 @@
             v-bind:key="topicProperty.id"
             v-bind:topicProperty="topicProperty"
         ></TopicProperty>
-        <TopicSubProcess
-            v-for="subProcess in topic.subProcesses"
-            v-bind:key="subProcess.id"
-            v-bind:subProcess="subProcess"
-        ></TopicSubProcess>
+        <div v-for="subProcess in topic.subProcesses">
+            <TopicProperty
+                v-for="topicProperty in subProcess.ownProperties"
+                v-bind:key="topicProperty.id"
+                v-bind:topicProperty="topicProperty"
+            ></TopicProperty>
+        </div>
     </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import TopicProperty from "@/components/cim2-model/TopicProperty";
-import TopicSubProcess from "@/components/cim2-model/TopicSubProcess";
 
 export default {
     name: "Topic",
 
     components: {
-        TopicProperty,
-        TopicSubProcess
+        TopicProperty
     },
 
     computed: {

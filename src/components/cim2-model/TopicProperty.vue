@@ -35,6 +35,8 @@
 <script>
 import { mapState } from "vuex";
 
+const NO_VALUES = ['--'];
+
 export default {
     name: "TopicProperty",
 
@@ -44,12 +46,36 @@ export default {
         vals: function () {
             const document = this.$store.state.document.current;
 
-            if (document) {
-                if (document.topicPropertyMap[this.topicProperty.id]) {
-                    return document.topicPropertyMap[this.topicProperty.id].values;
-                }
+            let values = [];
+            if (document && document.topicPropertyMap[this.topicProperty.id]) {
+                values = document.topicPropertyMap[this.topicProperty.id].values;
             }
-            return ['--'];
+
+            if (values.length && this.topicProperty.type === 'enum') {
+                values = values.map(i => {
+                    const choice = this.topicProperty.enum.choices.find(c => c.label.toLowerCase() === i.toLowerCase())
+                    if (choice) {
+                        return `${i} - ${choice.description}`;
+                    }
+                    return i;
+                })
+            }
+
+            values = values.map(val => {
+                const v = val.toLowerCase();
+                if (v === 'f' || v === 'false') {
+                    return 'FALSE';
+                }
+                if (v === 't' || v === 'true') {
+                    return 'TRUE';
+                }
+                if (v === 'nil:inapplicable') {
+                    return 'N/A';
+                }
+                return `${val.slice(0, 1).toUpperCase()}${val.slice(1)}`;
+            })
+
+            return values.length ? values : NO_VALUES;
         },
 
         ...mapState({

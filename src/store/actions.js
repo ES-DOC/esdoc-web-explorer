@@ -4,6 +4,7 @@
  * @author Mark Conway-Greenslade
  */
 
+import * as _ from 'lodash';
 import API from '@/api';
 
 /**
@@ -67,6 +68,7 @@ export const setSummaries = async ({ commit }, { documentName, documentType, ins
 
 const getInitialSummary = (summaries, institute, documentName) => {
     let summary;
+    institute = institute || 'mohc';
     if (institute) {
         if (documentName) {
             summary = summaries.find(i => i.canonicalName.toLowerCase() === documentName.toLowerCase() &&
@@ -76,5 +78,5 @@ const getInitialSummary = (summaries, institute, documentName) => {
         }
     }
 
-    return summary || summaries[0];
+    return summary || _.sortBy(summaries, ['institute', 'canonicalName'])[0];
 }

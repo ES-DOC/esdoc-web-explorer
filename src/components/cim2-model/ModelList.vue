@@ -21,7 +21,7 @@ import * as _ from "lodash";
 import { mapActions, mapState } from "vuex";
 
 export default {
-    name: "SourceList",
+    name: "ModelList",
     computed: {
         ...mapState({
             sources: (state) => {

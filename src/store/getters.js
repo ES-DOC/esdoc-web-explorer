@@ -7,3 +7,7 @@
 export const getProject = (state) => () => {
     return state.route;
 }
+
+export const getTopicsInScope = (state) => () => {
+    return state.specialization.topics.filter(i => i._isInScope);
+}

@@ -59,13 +59,14 @@ const setAncestors = (s) => {
  */
 const extendTopics = (s) => {
     s.topics.forEach((t) => {
-        t.path = t.id.split('.');
-        t.depth = t.path.length - 1;
+        t.subProcesses = t.subProcesses || [];
+        t._path = t.id.split('.');
+        t._depth = t._path.length - 1;
+        t._isInScope = true;
     });
 
     s.topics.forEach(setContainerProperties);
     s.topics.forEach((t) => {
-        t.subProcesses = t.subProcesses || [];
         t.subProcesses.forEach(setContainerProperties);
     });
 
