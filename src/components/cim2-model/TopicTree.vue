@@ -5,6 +5,7 @@
             :items="[]"
             :fields="topics.fields" />
         <b-table borderless hover responsive selectable small
+            style="padding-right: 0; position:relative; height: 620px; overflow-y:auto;"
             selectedVariant="esdoc-selected"
             select-mode="single"
             thead-class="hide-table-header"

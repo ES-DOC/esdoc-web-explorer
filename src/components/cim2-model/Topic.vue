@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="position:relative; height: 860px; overflow-y:auto;">
         <TopicProperty
             v-for="topicProperty in topic.ownProperties"
             v-bind:key="topicProperty.id"

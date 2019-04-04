@@ -1,10 +1,11 @@
 <template>
-    <div>
+    <div id="cim2-model-source-list">
         <b-table borderless responsive small fixed
             class="esdoc-table-caption"
             :items="[]"
             :fields="sources.fields" />
         <b-table borderless responsive small fixed hover selectable
+            style="padding-right: 0; position:relative; height: 180px; overflow-y:auto;"
             selectedVariant="esdoc-selected"
             select-mode="single"
             thead-class="hide-table-header"
@@ -24,6 +25,11 @@ export default {
     computed: {
         ...mapState({
             sources: (state) => {
+                const data = state.summary.all;
+                data.forEach(i => {
+                    i.fullLabel = `${i.institute} > ${i.canonicalName}`
+                })
+
                 return {
                     fields: [
                         {
@@ -32,7 +38,7 @@ export default {
                         },
                         {
                             key: 'canonicalName',
-                            label: 'Source ID',
+                            label: 'Model',
                             sortable: false,
                         }
                     ],
