@@ -63,6 +63,10 @@ const extendTopics = (s) => {
         t._path = t.id.split('.');
         t._depth = t._path.length - 1;
         t._isInScope = true;
+        t._isDocumented = true;
+        if (t._depth === 1) {
+            t.id = `${t.id}.key_properties`
+        }
     });
 
     s.topics.forEach(setContainerProperties);

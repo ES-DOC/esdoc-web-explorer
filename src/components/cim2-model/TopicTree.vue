@@ -41,14 +41,9 @@ export default {
     },
     methods: {
         rowClass(item) {
-            // if (item.id === 'cmip6.toplevel') {
-            //     return [
-            //         `indent-${item._depth}`,
-            //         'table-success',
-            //     ]
-            // }
             return [
-                `indent-${item._depth}`
+                `indent-${item._depth}`,
+                item._isDocumented === false ? 'undocumented' : ''
             ]
         },
         ...mapActions([
@@ -63,10 +58,14 @@ export default {
 .hide-table-header {
     display: none;
 }
+tr.undocumented > td {
+    color: grey;
+}
 tr.indent-1 > td {
     font-weight: bold;
 }
 tr.indent-2 > td {
     padding-left: 20px;
 }
+
 </style>

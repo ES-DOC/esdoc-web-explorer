@@ -32,9 +32,18 @@ export const setTopic = async (state, topic) => {
 
 export const setDocument = async (state, document) => {
     state.document.current = document;
-    const topics = state.vocabs.WCRP.CMIP6.getSourceComponents(document.canonicalID).concat(['toplevel']);
+
+    const topics = state.vocabs.WCRP.CMIP6.getSourceComponents(document.canonicalID);
+    await setTopicsInScope(state, document, topics);
+}
+
+const setTopicsInScope = async (state, document, topics) => {
+    const allTopics = topics.concat(['toplevel']);
+    console.log(Object.keys(document.topicMap));
+    console.log(state.specialization.topics);
     for (let t of state.specialization.topics) {
-        t._isInScope = topics.includes(t._path[1]);
+        t._isInScope = allTopics.includes(t._path[1]);
+        t._isDocumented = document.topicMap[t.id] !== undefined;
     }
 }
 
