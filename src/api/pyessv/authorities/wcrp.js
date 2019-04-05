@@ -88,6 +88,21 @@ class Cmip6 extends Scope {
         return _.isUndefined(name) ? this.getTerms('source-id') :
                                      this.getTerm('source-id', name);
     }
+
+    /**
+     * Returns list of components/realms realised by a source.
+     * @param {String} name - Source vocab term name.
+     */
+    getSourceComponents (name) {
+        const source = this.getSource(name);
+        if (source && source.data && source.data.modelComponent) {
+            return Object.entries(source.data.modelComponent)
+                .filter(([_, { description }]) => description.toLowerCase() !== 'none')
+                .map(([name, _]) => name.toLowerCase());
+        }
+
+        return [];
+    }
 }
 
 /**

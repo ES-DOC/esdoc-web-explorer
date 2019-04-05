@@ -1310,7 +1310,7 @@
                 "label": "Model Type",
                 "description": "Model type",
                 "id": "cmip6.toplevel.key_properties.model_type",
-                "cardinality": "0.1",
+                "cardinality": "1.1",
                 "type": "str",
                 "is_cim_property": true,
                 "uiOrdinal": 4
@@ -1319,7 +1319,7 @@
                 "label": "Model Long Name",
                 "description": "Model long name",
                 "id": "cmip6.toplevel.key_properties.long_name",
-                "cardinality": "0.1",
+                "cardinality": "1.1",
                 "type": "str",
                 "is_cim_property": true,
                 "uiOrdinal": 5
@@ -1328,7 +1328,7 @@
                 "label": "Model Coupler",
                 "description": "Name of model coupler",
                 "id": "cmip6.toplevel.key_properties.coupler",
-                "cardinality": "0.1",
+                "cardinality": "1.1",
                 "type": "str",
                 "is_cim_property": true,
                 "uiOrdinal": 6
@@ -1337,7 +1337,7 @@
                 "label": "Model Version",
                 "description": "Model version",
                 "id": "cmip6.toplevel.key_properties.version",
-                "cardinality": "0.1",
+                "cardinality": "1.1",
                 "type": "str",
                 "is_cim_property": true,
                 "uiOrdinal": 7
