@@ -22,6 +22,8 @@ export default {
         current: null
     },
 
+    sourceList: null,
+
     specialization: {
         all: [],
         topic: null,

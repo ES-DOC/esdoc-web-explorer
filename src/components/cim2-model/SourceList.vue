@@ -12,44 +12,40 @@
             :items="sources.items"
             :fields="sources.fields"
             :tbody-tr-class="initialRowClass"
-            @row-selected="setDocument" />
+            @row-selected="setSource" />
     </div>
 </template>
 
 <script>
-import * as _ from "lodash";
+import { sortBy } from "lodash";
 import { mapActions, mapState } from "vuex";
 
 export default {
-    name: "ModelList",
+    name: "SourceList",
     computed: {
         ...mapState({
             sources: (state) => {
-                const data = state.summary.all;
-                data.forEach(i => {
-                    i.fullLabel = `${i.institute} > ${i.canonicalName}`
-                })
-
                 return {
                     fields: [
                         {
-                            key: 'institute',
+                            key: 'institutionLabel',
+                            label: 'Institute',
                             sortable: false,
                         },
                         {
-                            key: 'canonicalName',
+                            key: 'source.label',
                             label: 'Model',
                             sortable: false,
                         }
                     ],
-                    items: _.sortBy(state.summary.all, ['institute', 'canonicalName'])
+                    items: sortBy(state.sourceList.inScope, ['institution.label', 'source.label'])
                 }
             },
         })
     },
     methods: {
         ...mapActions([
-            'setDocument'
+            'setSource'
         ]),
         initialRowClass(item, type) {
             return

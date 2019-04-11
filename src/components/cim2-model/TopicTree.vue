@@ -32,9 +32,7 @@ export default {
                             sortable: false
                         }
                     ],
-                    items: state.specialization.topics.filter(t => {
-                        return t._isInScope && t._depth < 3
-                    })
+                    items: state.document.current.topicTree.topics
                 }
             },
         }),
@@ -42,8 +40,8 @@ export default {
     methods: {
         rowClass(item) {
             return [
-                `indent-${item._depth}`,
-                item._isDocumented === false ? 'undocumented' : ''
+                `indent-${item.depth}`,
+                item.isDocumented === false ? 'undocumented' : ''
             ]
         },
         ...mapActions([

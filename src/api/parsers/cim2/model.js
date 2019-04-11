@@ -3,6 +3,7 @@
  * @author Mark Conway-Greenslade
  */
 
+
 /**
  * Parses a CIM v2 model document pulled from remote API.
  */
@@ -11,8 +12,8 @@ export default (m) => {
         parseMOHC,
         setCollections,
         setTopics,
-        setTopLevelKeyProperties,
-        setStandardKeyProperties,
+        extendTopLevelKeyProperties,
+        injectStandardKeyProperties,
         setTopicProperties,
         setMaps,
     ].forEach(f => f(m));
@@ -35,34 +36,35 @@ const setCollections = (m) => {
  * Sets model topic superset.
  */
 const setTopics = (m) => {
-    const push = (i) => {
+    const push = (i, depth) => {
         if (Array.isArray(i)) {
-            i.forEach(push);
+            i.forEach((j) => push(j, depth));
         } else if (i !== undefined) {
+            i._depth = depth;
             i.citations = i.citations || [];
             i.properties = i.properties || [];
             i.propertySets = i.propertySets || [];
             i.responsibleParties = i.responsibleParties || [];
             i.subTopics = i.subTopics || [];
             m.topics.push(i);
-            i.subTopics.forEach(push);
+            i.subTopics.forEach(push, depth + 1);
         }
     };
 
     m.topics = []
-    push(m.keyProperties);
-    push(m.activityProperties);
+    push(m.keyProperties, 1);
+    push(m.activityProperties, 2);
     m.realms.forEach(r => {
-        push(r.keyProperties);
-        push(r.grid);
-        push(r.processes);
+        push(r.keyProperties, 1);
+        push(r.grid, 2);
+        push(r.processes, 2);
     });
 }
 
 /**
  * Pushes model key properties into top level topic.
  */
-const setTopLevelKeyProperties = (m) => {
+const extendTopLevelKeyProperties = (m) => {
     if (m.keyProperties !== undefined) {
         [
             'coupler',
@@ -72,9 +74,7 @@ const setTopLevelKeyProperties = (m) => {
             'name',
             'version'
         ].forEach((p) => {
-            if (m[p] !== undefined) {
-                m.keyProperties[p] = m[p];
-            }
+            m.keyProperties[p] = m[p];
         });
     }
 }
@@ -82,8 +82,8 @@ const setTopLevelKeyProperties = (m) => {
 /**
  * Injects standard topic properties where appropriate.
  */
-const setStandardKeyProperties = (m) => {
-    const _injectOne = (t, [sourceSlot, targetSlot]) => {
+const injectStandardKeyProperties = (m) => {
+    const _setProperty = (t, [sourceSlot, targetSlot]) => {
         const value = t[sourceSlot];
         if (value !== undefined) {
             targetSlot = targetSlot || sourceSlot;
@@ -97,24 +97,26 @@ const setStandardKeyProperties = (m) => {
         }
     };
 
-    const _injectAll = (t) => {
-        let fields = [
-            ['name'],
-            ['keywords'],
-            ['description', 'overview'],
-        ];
-        if (t === m.topics[0]) {
-            fields = fields.concat([
-                ['modelType', 'model_type'],
-                ['coupler'],
-                ['longName', 'long_name'],
-                ['version'],
-            ]);
-        }
-        fields.forEach((slots) => _injectOne(t, slots));
-    }
+    const _toplevelFieldSet = [
+        ['coupler'],
+        ['description', 'overview'],
+        ['keywords'],
+        ['longName', 'long_name'],
+        ['modelType', 'model_type'],
+        ['name'],
+        ['version'],
+    ];
 
-    m.topics.forEach(_injectAll);
+    const _standardFieldSet = [
+        ['name'],
+        ['keywords'],
+        ['description', 'overview'],
+    ];
+
+    m.topics.forEach(t => {
+        const fieldSet = t === m.topics[0] ? _toplevelFieldSet : _standardFieldSet;
+        fieldSet.forEach(slots => _setProperty(t, slots));
+    });
 }
 
 /**

@@ -6,6 +6,8 @@
 
 import * as _ from 'lodash';
 import API from '@/api';
+import domain from '@/models';
+import STATE from '@/store';
 
 /**
  * Initialises state store - part of application setup process.
@@ -14,19 +16,26 @@ export const initialise = async ({ commit }, { documentName, documentType, insti
     // Pull data from various sources.
     const projects = await API.project.getAll();
     const specializations = await API.specialization.getAll();
+    const specialization = specializations[project];
     const vocabs = await API.vocab.getAll();
+
+    const summaries = await API.document.getMany(project, documentType);
+
+    const summary = getInitialSummary(summaries, institute, documentName);
+    const document = await API.document.getOne(summary);
+
+    const sourceList = domain.getSourceList({ summaries, vocabs });
+    document.topicTree = domain.getTopicTree({ document, specialization, vocabs });
+
     await commit('initialise', {
+        document,
         project,
         projects,
+        sourceList,
         specializations,
+        summaries,
+        summary,
         vocabs
-    });
-
-    await setSummaries({ commit }, {
-        documentName,
-        documentType,
-        institute,
-        project
     });
 };
 
@@ -42,28 +51,17 @@ export const updateProject = async ({ commit }, project) => {
  */
 export const setTopic = async ({ commit }, [ topic ]) => {
     await commit('setTopic', topic);
+
 }
 
 /**
- * Set current document.
+ * Set source instance.
  */
-export const setDocument = async ({ commit }, [ summary ]) => {
-    await commit('setSummary', summary);
-
+export const setSource = async ({ commit }, [ { summary } ]) => {
     const document = await API.document.getOne(summary);
+    await commit('setSummary', summary);
     await commit('setDocument', document);
 }
-
-/**
- * Set document summaries pulled from document API.
- */
-export const setSummaries = async ({ commit }, { documentName, documentType, institute, project }) => {
-    const summaries = await API.document.getMany(project, documentType);
-    await commit('setSummaries', summaries);
-
-    const summary = getInitialSummary(summaries, institute, documentName);
-    await setDocument({ commit }, [ summary ]);
-};
 
 /**
  * Returns initial document summary to be used to load the initial document.
