@@ -20,9 +20,9 @@ import { mapState } from 'vuex';
 export default {
     name: "core-header",
     computed: mapState({
-        canonicalName: state => state.summary.current ? state.summary.current.canonicalName : null,
-        institute: state => state.summary.current ? state.summary.current.institute : null,
-        project: state => state.project.current.label
+        canonicalName: state => state.summary ? state.summary.canonicalName : null,
+        institute: state => state.summary ? state.summary.institute : null,
+        project: state => state.project.label
     })
 };
 </script>

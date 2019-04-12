@@ -2,8 +2,8 @@
     <b-container fluid>
         <b-row>
             <b-col >
-                <SourceList style="margin-bottom: 8px;"/>
-                <TopicTree/>
+                <DocumentList style="margin-bottom: 8px;"/>
+                <TopicList/>
             </b-col>
             <b-col cols="9" >
                 <TitleBar />
@@ -14,17 +14,17 @@
 </template>
 
 <script>
-import SourceList from "@/components/cim2-model/SourceList.vue";
+import DocumentList from "@/components/cim2-model/DocumentList.vue";
 import TitleBar from "@/components/cim2-model/TitleBar.vue";
 import Topic from "@/components/cim2-model/Topic.vue";
-import TopicTree from "@/components/cim2-model/TopicTree.vue";
+import TopicList from "@/components/cim2-model/TopicList.vue";
 
 export default {
     name: "Main",
     components: {
-        SourceList,
+        DocumentList,
         Topic,
-        TopicTree,
+        TopicList,
         TitleBar,
     }
 };

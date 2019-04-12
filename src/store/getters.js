@@ -9,5 +9,5 @@ export const getProject = (state) => () => {
 }
 
 export const getTopicsInScope = (state) => () => {
-    return state.specialization.topics.filter(i => i._isInScope);
+    return state.topics.filter(i => i._isInScope);
 }

@@ -3,16 +3,16 @@
         <b-table borderless responsive small fixed
             class="esdoc-table-caption"
             :items="[]"
-            :fields="sources.fields" />
+            :fields="documents.fields" />
         <b-table borderless responsive small fixed hover selectable
             style="padding-right: 0; position:relative; height: 180px; overflow-y:auto;"
             selectedVariant="esdoc-selected"
             select-mode="single"
             thead-class="hide-table-header"
-            :items="sources.items"
-            :fields="sources.fields"
+            :items="documents.items"
+            :fields="documents.fields"
             :tbody-tr-class="initialRowClass"
-            @row-selected="setSource" />
+            @row-selected="setDocument" />
     </div>
 </template>
 
@@ -21,10 +21,10 @@ import { sortBy } from "lodash";
 import { mapActions, mapState } from "vuex";
 
 export default {
-    name: "SourceList",
+    name: "DocumentSelector",
     computed: {
         ...mapState({
-            sources: (state) => {
+            documents: (state) => {
                 return {
                     fields: [
                         {
@@ -38,14 +38,14 @@ export default {
                             sortable: false,
                         }
                     ],
-                    items: sortBy(state.sourceList.inScope, ['institution.label', 'source.label'])
+                    items: sortBy(state.documentList.inScope, ['institution.label', 'source.label'])
                 }
             },
         })
     },
     methods: {
         ...mapActions([
-            'setSource'
+            'setDocument'
         ]),
         initialRowClass(item, type) {
             return

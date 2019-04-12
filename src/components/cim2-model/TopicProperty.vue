@@ -44,7 +44,7 @@ export default {
 
     computed: {
         vals: function () {
-            const document = this.$store.state.document.current;
+            const document = this.$store.state.document;
 
             let values = [];
             if (document && document.topicPropertyMap[this.topicProperty.id]) {
@@ -89,9 +89,9 @@ export default {
         },
 
         ...mapState({
-            document: state => state.document.current,
+            document: state => state.document,
             values: state => {
-                return state.document.current ? state.document.current.topicProperties[3].values : []
+                return state.document ? state.document.topicProperties[3].values : []
             }
         })
     }

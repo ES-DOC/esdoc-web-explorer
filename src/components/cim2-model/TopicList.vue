@@ -20,7 +20,7 @@
 import { mapActions, mapState } from "vuex";
 
 export default {
-    name: "TopicTree",
+    name: "TopicList",
     computed: {
         ...mapState({
             topics: (state) => {
@@ -32,7 +32,7 @@ export default {
                             sortable: false
                         }
                     ],
-                    items: state.document.current.topicTree.topics
+                    items: state.document.topicTree
                 }
             },
         }),
@@ -41,7 +41,8 @@ export default {
         rowClass(item) {
             return [
                 `indent-${item.depth}`,
-                item.isDocumented === false ? 'undocumented' : ''
+                item.isDocumented === false ? 'undocumented' : '',
+                item.isSelected ? 'b-table-row-selected table-esdoc-selected' : ''
             ]
         },
         ...mapActions([

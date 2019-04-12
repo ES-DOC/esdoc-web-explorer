@@ -6,7 +6,6 @@
 
 import * as _ from 'lodash';
 import API from '@/api';
-import domain from '@/models';
 import STATE from '@/store';
 
 /**
@@ -15,24 +14,23 @@ import STATE from '@/store';
 export const initialise = async ({ commit }, { documentName, documentType, institute, project }) => {
     // Pull data from various sources.
     const projects = await API.project.getAll();
-    const specializations = await API.specialization.getAll();
-    const specialization = specializations[project];
+    const specialisationSets = await API.specialisation.getAll();
+    const specialisationSet = specialisationSets[project];
     const vocabs = await API.vocab.getAll();
 
     const summaries = await API.document.getMany(project, documentType);
+    const documentList = getSourceList({ summaries, vocabs });
 
     const summary = getInitialSummary(summaries, institute, documentName);
     const document = await API.document.getOne(summary);
 
-    const sourceList = domain.getSourceList({ summaries, vocabs });
-    document.topicTree = domain.getTopicTree({ document, specialization, vocabs });
-
     await commit('initialise', {
         document,
-        project,
+        documentList,
+        projectKey: project,
         projects,
-        sourceList,
-        specializations,
+        specialisationSet,
+        specialisationSets,
         summaries,
         summary,
         vocabs
@@ -40,27 +38,20 @@ export const initialise = async ({ commit }, { documentName, documentType, insti
 };
 
 /**
- * Update current project.
+ * Set current specialisation topic.
  */
-export const updateProject = async ({ commit }, project) => {
-    await commit('updateProject', project);
-};
-
-/**
- * Set current specialization topic.
- */
-export const setTopic = async ({ commit }, [ topic ]) => {
-    await commit('setTopic', topic);
-
+export const setTopic = async ({ commit }, [ topicInfo ]) => {
+    await commit('setTopic', topicInfo);
 }
 
 /**
- * Set source instance.
+ * Set current document.
  */
-export const setSource = async ({ commit }, [ { summary } ]) => {
-    const document = await API.document.getOne(summary);
-    await commit('setSummary', summary);
-    await commit('setDocument', document);
+export const setDocument = async ({ commit }, [ { summary } ]) => {
+    await commit('setDocument', {
+        document: await API.document.getOne(summary),
+        summary
+    });
 }
 
 /**
@@ -80,4 +71,59 @@ const getInitialSummary = (summaries, institute, documentName) => {
     }
 
     return summary || _.sortBy(summaries, ['institute', 'canonicalName'])[0];
+}
+
+/**
+ * Maps data inputs into view model instances.
+ * @param {Class} Source - Source information wrapper.
+ * @param {Class} SourceList - Source list information wrapper.
+ * @param {Object} vocabs - Vocabulary meta-data pulled from pyessv.
+ */
+const getSourceList = ({ vocabs, summaries }) => {
+    const result = new SourceList();
+    for (const sourceID of vocabs.WCRP.CMIP6.getSource()) {
+        for (const institutionID of sourceID.data.institutionID) {
+            const summary = summaries.find(i => {
+                return i.institute.toLowerCase() === institutionID.toLowerCase() &&
+                       i.canonicalName.toLowerCase() === sourceID.canonicalName;
+            });
+            const institution = vocabs.WCRP.CMIP6.getInstitution(institutionID);
+
+            result.append({
+                inScope: summary !== undefined,
+                institution: institution,
+                institutionLabel: institution.label.toLowerCase().endsWith('-consortium') ?
+                    institution.label.slice(0, -11) : institution.label,
+                source: sourceID,
+                summary: summary
+            });
+        }
+    }
+
+    return result;
+};
+
+/**
+ * Manages a list of CMIP6 source identifiers.
+ */
+class SourceList {
+    constructor () {
+        this.all = [];
+        this.current = null;
+    }
+
+    /**
+     * Returns all items considered to be in scope.
+     */
+    get inScope() {
+        return this.all.filter(i => i.inScope);
+    }
+
+    /**
+     * Appends an item to managed collection.
+     */
+    append (item) {
+        this.all.push(item);
+        this.current = this.current || item;
+    }
 }

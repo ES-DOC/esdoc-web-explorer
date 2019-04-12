@@ -12,25 +12,31 @@
                 v-bind:topicProperty="topicProperty"
             ></TopicProperty>
         </div>
+        <Citation
+            v-for="citation in document.citations"
+            v-bind:citation="citation"
+        ></Citation>
     </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import TopicProperty from "@/components/cim2-model/TopicProperty";
+import Citation from "@/components/cim2-shared/Citation";
 
 export default {
     name: "Topic",
 
     components: {
-        TopicProperty
+        TopicProperty,
+        Citation
     },
 
     computed: {
         ...mapState({
-            topic: state => state.specialization.topic
+            document: state => state.document,
+            topic: state => state.topic
         })
     }
 };
-
 </script>

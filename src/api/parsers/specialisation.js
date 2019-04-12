@@ -1,13 +1,13 @@
 /**
- * @file Exposes functions for parsing specializations.
+ * @file Exposes functions for parsing specialisation sets.
  * @author Mark Conway-Greenslade
  */
 
 /**
- * Parses a specialization to simplify downstream processing.
+ * Parses specialisation sets to simplify downstream processing.
  */
-export default (specializations) => {
-    specializations.forEach((s) => {
+export default (specialisationSets) => {
+    specialisationSets.forEach((s) => {
         [
             setKeyProperties,
             setTopics,
@@ -18,7 +18,7 @@ export default (specializations) => {
 }
 
 /**
- * Merges specialization key properties into main specialization.
+ * Merges specialisation set key properties into main specialisation.
  */
 const setKeyProperties = (s) => {
     s.properties = s.keyProperties.properties || [];
@@ -27,7 +27,7 @@ const setKeyProperties = (s) => {
 }
 
 /**
- * Sets list of specialization topics.
+ * Sets list of specialisation set topics.
  */
 const setTopics = (s) => {
     s.topics = [s, s.grid];
@@ -39,7 +39,7 @@ const setTopics = (s) => {
 }
 
 /**
- * Sets specialization ancestors.
+ * Sets specialisation set ancestors.
  */
 const setAncestors = (s) => {
     s.ancestors = [];

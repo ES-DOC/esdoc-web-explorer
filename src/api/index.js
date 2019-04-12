@@ -1,6 +1,6 @@
 import * as DocumentApi from './document';
 import * as ProjectApi from './project';
-import * as SpecializationApi from './specialization';
+import * as SpecialisationApi from './specialisation';
 import loadVocabs from './pyessv/index';
 import { getApplicationMode } from '@/utils';
 
@@ -13,8 +13,8 @@ export default {
         ...ProjectApi,
     },
 
-    specialization: {
-        ...SpecializationApi,
+    specialisation: {
+        ...SpecialisationApi,
     },
 
     vocab: {

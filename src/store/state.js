@@ -5,32 +5,18 @@
  */
 
 export default {
-    summary: {
-        all: [],
-        current: null
-    },
+    document:null,
+    documentList: null,
+    project: null,
+    projects: [],
+    specialisationSet: null,
+    specialisationSets: [],
+    summary : null,
+    summaries: [],
+    topic: null,
+    topics: [],
+    topicInfo: null,
+    vocabs: null,
 
-    document: {
-        all: [],
-        current: null
-    },
-
-    mapOfTopicToDocument: {},
-
-    project: {
-        all: [],
-        current: null
-    },
-
-    sourceList: null,
-
-    specialization: {
-        all: [],
-        topic: null,
-        topics: [],
-        topicsInScope: [],
-        current: null
-    },
-
-    vocabs: null
+    documentTopicTree: null,
 }
