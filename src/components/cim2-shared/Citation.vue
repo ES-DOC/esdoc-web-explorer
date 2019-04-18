@@ -12,7 +12,7 @@
             <tr v-if="citation.citationDetail">
                 <td colspan="2">
                     <div v-if="citation.doi && citation.doi !== 'n/a'">
-                        <a :href=citation.doi>{{ citation.citationDetail }}</a>
+                        <a :href=citation.doi>{{ citation.citationDetail }} target="_blank"</a>
                     </div>
                     <div v-else>
                         {{ citation.citationDetail }}
