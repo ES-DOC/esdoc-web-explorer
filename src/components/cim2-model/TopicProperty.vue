@@ -17,14 +17,14 @@
                     {{ topicProperty.description }}
                 </td>
             </tr>
-            <tr>
-                <td class="caption">
-                    <strong>Value(s)</strong>
+            <tr v-for="(value, index) in vals">
+                <td v-if="index === 0"
+                    class="caption"
+                    :rowspan="vals.length">
+                    <strong>Value{{ vals.length > 1 || topicProperty.cardinality.endsWith('N') ? "s" : "" }}</strong>
                 </td>
                 <td>
-                    <span
-                        v-for="value in vals"
-                    >{{ value }}<br/></span>
+                    {{ value }}
                 </td>
             </tr>
         </tbody>
