@@ -29,6 +29,10 @@ const setCollections = (m) => {
     m.realms = m.realms || [];
     m.realms.forEach(r => {
         r.processes = r.processes || [];
+        if (r.keyProperties) {
+            r.keyProperties.citations = r.citations;
+            r.keyProperties.responsibleParties = r.responsibleParties;
+        }
     });
 }
 
@@ -40,13 +44,13 @@ const setTopics = (m) => {
         if (Array.isArray(i)) {
             i.forEach((j) => push(j, depth));
         } else if (i !== undefined) {
+            m.topics.push(i);
             i._depth = depth;
             i.citations = i.citations || [];
             i.properties = i.properties || [];
             i.propertySets = i.propertySets || [];
             i.responsibleParties = i.responsibleParties || [];
             i.subTopics = i.subTopics || [];
-            m.topics.push(i);
             i.subTopics.forEach(push, depth + 1);
         }
     };

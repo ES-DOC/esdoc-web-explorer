@@ -1,9 +1,8 @@
 <template>
     <div>
-        <b-table borderless responsive small fixed
-            class="esdoc-table-caption"
-            :items="[]"
-            :fields="topics.fields" />
+        <div class="sub-section">
+            <strong>Realm > Process</strong>
+        </div>
         <b-table borderless hover responsive selectable small
             style="padding-right: 0; position:relative; height: 620px; overflow-y:auto;"
             selectedVariant="esdoc-selected"
@@ -20,7 +19,7 @@
 import { mapActions, mapState } from "vuex";
 
 export default {
-    name: "TopicList",
+    name: "TopicSelector",
     computed: {
         ...mapState({
             topics: (state) => {

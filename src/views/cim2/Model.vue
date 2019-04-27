@@ -1,24 +1,26 @@
 <template>
+
   <div>
     <Header />
-    <Document />
+    <Main />
   </div>
+
 </template>
 
 <script>
+
 import Header from "@/components/core/Header.vue";
-import Document from "@/components/cim2-model/Document.vue";
+import Main from "@/components/cim2-model/Main.vue";
 
 export default {
     name: "Cim2Model",
-
     _metaInfo: {
         title: 'ES-DOC - Model',
     },
-
     components: {
-        Document,
-        Header
+        Header,
+        Main
     }
 };
+
 </script>
