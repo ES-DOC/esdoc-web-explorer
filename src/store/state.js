@@ -6,17 +6,14 @@
 
 export default {
     document:null,
-    documentList: null,
+    documents: null,
+
     project: null,
     projects: [],
+
     specialisationSet: null,
-    specialisationSets: [],
-    summary : null,
-    summaries: [],
+
     topic: null,
     topics: [],
     topicInfo: null,
-    vocabs: null,
-
-    documentTopicTree: null,
 }

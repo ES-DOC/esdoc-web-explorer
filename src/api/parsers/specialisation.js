@@ -43,12 +43,15 @@ const setTopics = (s) => {
  */
 const setAncestors = (s) => {
     s.ancestors = [];
+    s.hierarchy = [s];
     s.parent = null;
     s.processes.forEach((p) => {
         p.ancestors = [s];
+        p.hierarchy = [s, p];
         p.parent = s;
         (p.subProcesses || []).forEach(sp => {
             sp.ancestors = [s, p];
+            sp.hierarchy = [s, p, sp];
             sp.parent = p;
         });
     });
@@ -60,17 +63,15 @@ const setAncestors = (s) => {
 const extendTopics = (s) => {
     s.topics.forEach((t) => {
         t.subProcesses = t.subProcesses || [];
-        t._path = t.id.split('.');
-        t._depth = t._path.length - 1;
-        t._isInScope = true;
-        t._isDocumented = true;
-        if (t._depth === 1) {
-            t.id = `${t.id}.key_properties`
+        t.path = t.id.split('.');
+        t.depth = t.path.length - 1;
+        if (t.depth === 1) {
+            t.id = `${t.id}.key_properties`;
         }
     });
 
-    s.topics.forEach(setContainerProperties);
     s.topics.forEach((t) => {
+        setContainerProperties(t);
         t.subProcesses.forEach(setContainerProperties);
     });
 

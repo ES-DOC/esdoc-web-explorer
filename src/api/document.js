@@ -8,9 +8,6 @@ import { getApplicationMode } from '@/utils';
 import parseDocument from './parsers/cim2/index';
 
 
-// Map: document uid <-> document.
-const cache = {};
-
 // Map: Application mode <-> API URL.
 const ENV_TO_URL = {
     dev: "http://localhost:5000",
@@ -61,13 +58,10 @@ export const getMany = async (project, documentType) => {
  * @param {String} uid - Document uuid v4 identifier.
  */
 export const getOne = async ({ project, uid }) => {
-    if (!cache[uid]) {
-        const mode = getApplicationMode();
-        const baseUrl = ENV_TO_URL[mode];
-        const params = `client=esdoc-explorer&project=${project}&id=${uid}&version=latest&encoding=json`;
-        const url = `${baseUrl}/2/document/search-id?${params}`;
-        cache[uid] = parseDocument(await $.get(url));
-    }
+    const mode = getApplicationMode();
+    const baseUrl = ENV_TO_URL[mode];
+    const params = `client=esdoc-explorer&project=${project}&id=${uid}&version=latest&encoding=json`;
+    const url = `${baseUrl}/2/document/search-id?${params}`;
 
-    return cache[uid];
+    return parseDocument(await $.get(url));
 }

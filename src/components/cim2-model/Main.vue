@@ -6,8 +6,8 @@
                 <TopicSelector/>
             </b-col>
             <b-col cols="9">
-                <TitleBar />
-                <Topic />
+                <TitleBar/>
+                Topic
             </b-col>
         </b-row>
     </b-container>

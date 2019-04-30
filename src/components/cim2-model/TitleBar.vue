@@ -1,28 +1,21 @@
 <template>
-    <b-table borderless responsive small fixed
-        class="esdoc-table-caption"
-        id="documentTitleBar"
-        :items="[]"
-        :fields="fields" />
+    <div class="sub-section">
+        <strong>{{ institute }} > {{ model }} :: {{ topicHierachy }}</strong>
+    </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 
 export default {
-    name: "DocumentTitleBar",
+    name: "TitleBar",
     computed: {
         ...mapState({
-            fields: (state) => {
-                const summary = state.summary;
-                const institute = summary ? summary.institute : null;
-                const canonicalName = summary ? summary.canonicalName : null;
-                const topic = state.topic;
-                return [
-                    {
-                        key: `${institute} > ${canonicalName} :: ${topic.id.split('.').slice(1).join(' > ')}`
-                    }
-                ];
+            model: state => state.document.label,
+            institute: state => state.document.institutionID.label,
+            topicHierachy: state => {
+                const { hierarchy } = state.document.topicInfo.topic;
+                return hierarchy.map(i => i.label).join(' > ');
             }
         })
     }

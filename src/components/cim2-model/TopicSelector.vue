@@ -8,10 +8,10 @@
             selectedVariant="esdoc-selected"
             select-mode="single"
             thead-class="hide-table-header"
-            :items="topics.items"
-            :fields="topics.fields"
+            :items="topicTree.items"
+            :fields="topicTree.fields"
             :tbody-tr-class="rowClass"
-            @row-selected="setTopic" />
+            @row-selected="setDocumentTopic" />
     </div>
 </template>
 
@@ -22,11 +22,11 @@ export default {
     name: "TopicSelector",
     computed: {
         ...mapState({
-            topics: (state) => {
+            topicTree: (state) => {
                 return {
                     fields: [
                         {
-                            key: 'label',
+                            key: 'topic.label',
                             label: 'Realm / Process',
                             sortable: false
                         }
@@ -39,13 +39,13 @@ export default {
     methods: {
         rowClass(item) {
             return [
-                `indent-${item.depth}`,
+                `indent-${item.topic.depth}`,
                 item.isDocumented === false ? 'undocumented' : '',
                 item.isSelected ? 'b-table-row-selected table-esdoc-selected' : ''
             ]
         },
         ...mapActions([
-            'setTopic'
+            'setDocumentTopic'
         ])
     }
 };

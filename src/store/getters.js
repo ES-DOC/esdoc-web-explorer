@@ -4,10 +4,10 @@
  * @author Mark Conway-Greenslade
  */
 
-export const getProject = (state) => () => {
-    return state.route;
+export const document = (state) => {
+    return state.documents.current;
 }
 
-export const getTopicsInScope = (state) => () => {
-    return state.topics.filter(i => i._isInScope);
+export const getProject = (state) => () => {
+    return state.route;
 }

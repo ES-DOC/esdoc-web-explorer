@@ -93,8 +93,10 @@ class Cmip6 extends Scope {
      * Returns list of components/realms realised by a source.
      * @param {String} name - Source vocab term name.
      */
-    getSourceComponents (name) {
-        const source = this.getSource(name);
+    getSourceComponents (source) {
+        if (_.isString(source)) {
+            source = this.getSource(source);
+        }
         if (source && source.data && source.data.modelComponent) {
             return Object.entries(source.data.modelComponent)
                 .filter(([_, { description }]) => description.toLowerCase() !== 'none')

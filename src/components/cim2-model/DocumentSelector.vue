@@ -11,7 +11,7 @@
             thead-class="hide-table-header"
             :items="documents.items"
             :fields="documents.fields"
-            :tbody-tr-class="initialRowClass"
+            :tbody-tr-class="rowClass"
             @row-selected="setDocument" />
     </div>
 </template>
@@ -28,17 +28,18 @@ export default {
                 return {
                     fields: [
                         {
-                            key: 'institutionLabel',
-                            label: 'Institute',
-                            sortable: false,
+                            key: 'institutionID.label',
+                            label: 'Institute'
                         },
                         {
-                            key: 'source.label',
-                            label: 'Model',
-                            sortable: false,
+                            key: 'sourceID.label',
+                            label: 'Model'
                         }
                     ],
-                    items: sortBy(state.documentList.inScope, ['institution.label', 'source.label'])
+                    items: sortBy(state.documents.all, [
+                        'institutionID.label',
+                        'sourceID.label'
+                    ])
                 }
             },
         })
@@ -47,13 +48,8 @@ export default {
         ...mapActions([
             'setDocument'
         ]),
-        initialRowClass(item, type) {
-            return
-            const paths = window.location.pathname.split('/').reverse();
-            if (item.institute.toLowerCase() === paths[1] &&
-                item.canonicalName.toLowerCase() === paths[0]) {
-                return 'table-success'
-            }
+        rowClass(item) {
+            return item.isSelected ? 'b-table-row-selected table-esdoc-selected' : '';
         }
     }
 };

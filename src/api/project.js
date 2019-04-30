@@ -4,7 +4,7 @@
  */
 
 // List: supported projects.
-const PROJECTS = [
+const ALL = [
     {
         label: 'CMIP5',
         key: 'cmip5',
@@ -53,5 +53,5 @@ const PROJECTS = [
  */
 export const getAll = async () => {
     // Simulate fetching from a micro-service.
-    return PROJECTS;
+    return ALL;
 }

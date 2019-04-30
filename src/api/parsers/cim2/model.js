@@ -10,10 +10,10 @@
 export default (m) => {
     [
         parseMOHC,
-        setCollections,
-        setTopics,
-        extendTopLevelKeyProperties,
-        injectStandardKeyProperties,
+        initCollections,
+        initTopics,
+        setTopLevelKeyProperties,
+        setStandardKeyProperties,
         setTopicProperties,
         setMaps,
     ].forEach(f => f(m));
@@ -24,7 +24,8 @@ export default (m) => {
 /**
  * Initialises collection attributes to simplify downstream processing.
  */
-const setCollections = (m) => {
+const initCollections = (m) => {
+    m.topics = [];
     m.activityProperties = m.activityProperties || [];
     m.realms = m.realms || [];
     m.realms.forEach(r => {
@@ -39,36 +40,43 @@ const setCollections = (m) => {
 /**
  * Sets model topic superset.
  */
-const setTopics = (m) => {
-    const push = (i, depth) => {
-        if (Array.isArray(i)) {
-            i.forEach((j) => push(j, depth));
-        } else if (i !== undefined) {
-            m.topics.push(i);
-            i._depth = depth;
-            i.citations = i.citations || [];
-            i.properties = i.properties || [];
-            i.propertySets = i.propertySets || [];
-            i.responsibleParties = i.responsibleParties || [];
-            i.subTopics = i.subTopics || [];
-            i.subTopics.forEach(push, depth + 1);
-        }
-    };
-
-    m.topics = []
-    push(m.keyProperties, 1);
-    push(m.activityProperties, 2);
+const initTopics = (m) => {
+    initTopic(m, m.keyProperties, 1);
+    initTopic(m, m.activityProperties, 2);
     m.realms.forEach(r => {
-        push(r.keyProperties, 1);
-        push(r.grid, 2);
-        push(r.processes, 2);
+        initTopic(m, r.keyProperties, 1);
+        initTopic(m, r.grid, 2);
+        initTopic(m, r.processes, 2);
     });
 }
 
 /**
+ * Sets a specific topic.
+ */
+const initTopic = (m, t, depth) => {
+    if (Array.isArray(t)) {
+        t.forEach((i) => initTopic(m, i, depth));
+    } else if (t !== undefined) {
+        // Append to superset.
+        m.topics.push(t);
+
+        // Extend topic.
+        t._depth = depth;
+        t.citations = t.citations || [];
+        t.properties = t.properties || [];
+        t.propertySets = t.propertySets || [];
+        t.responsibleParties = t.responsibleParties || [];
+        t.subTopics = t.subTopics || [];
+        t.subTopics.forEach(st => {
+            initTopic(m, st, depth + 1);
+        });
+    }
+};
+
+/**
  * Pushes model key properties into top level topic.
  */
-const extendTopLevelKeyProperties = (m) => {
+const setTopLevelKeyProperties = (m) => {
     if (m.keyProperties !== undefined) {
         [
             'coupler',
@@ -86,7 +94,7 @@ const extendTopLevelKeyProperties = (m) => {
 /**
  * Injects standard topic properties where appropriate.
  */
-const injectStandardKeyProperties = (m) => {
+const setStandardKeyProperties = (m) => {
     const _setProperty = (t, [sourceSlot, targetSlot]) => {
         const value = t[sourceSlot];
         if (value !== undefined) {
