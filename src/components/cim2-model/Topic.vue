@@ -1,12 +1,12 @@
 <template>
     <div style="position:relative; height: 860px; overflow-y:auto;">
         <PropertyList caption="Top Level"
-                      v-bind:properties="properties"
+                      v-bind:propertyMap="propertyMap"
                       v-bind:specialisations="topic.ownProperties" />
 
         <PropertyList v-for="subProcess in topic.subProcesses"
                       v-bind:caption="subProcess.label"
-                      v-bind:properties="properties"
+                      v-bind:propertyMap="propertyMap"
                       v-bind:specialisations="subProcess.ownProperties" />
 
         <CitationList v-bind:citations="citations" />
@@ -30,9 +30,15 @@ export default {
     },
     computed: {
         ...mapState({
-            citations: state => state.document.topicInfo.content.citations,
-            properties: state => state.document.content.topicPropertyMap,
-            responsibleParties: state => state.document.topicInfo.content.responsibleParties,
+            citations: (state) => {
+                return state.document.topicInfo.content ?
+                       state.document.topicInfo.content.citations : []
+            },
+            propertyMap: state => state.document.content.topicPropertyMap,
+            responsibleParties: (state) => {
+                return state.document.topicInfo.content ?
+                       state.document.topicInfo.content.responsibleParties : []
+            },
             topic: state => state.document.topicInfo.topic
         })
     }

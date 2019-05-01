@@ -8,7 +8,7 @@
             v-for="specialisation in specialisations"
             v-bind:key="specialisation.id"
             v-bind:specialisation="specialisation"
-            v-bind:values="properties[specialisation.id] ? properties[specialisation.id].values : []"
+            v-bind:values="propertyMap[specialisation.id] ? propertyMap[specialisation.id].values : []"
         ></Property>
     </div>
 
@@ -23,7 +23,7 @@ export default {
     components: {
         Property
     },
-    props: ['caption', 'properties', 'specialisations']
+    props: ['caption', 'propertyMap', 'specialisations']
 };
 
 </script>
