@@ -4,7 +4,7 @@
         <thead>
             <tr>
                 <th colspan="2">
-                    {{ topicProperty.fullLabel }}
+                    {{ specialisation.fullLabel }}
                 </th>
             </tr>
         </thead>
@@ -14,14 +14,14 @@
                     <strong>Description</strong>
                 </td>
                 <td>
-                    {{ topicProperty.description }}
+                    {{ specialisation.description }}
                 </td>
             </tr>
-            <tr v-for="(value, index) in vals">
+            <tr v-for="(value, index) in valuesForRendering">
                 <td v-if="index === 0"
                     class="caption"
-                    :rowspan="vals.length">
-                    <strong>Value{{ vals.length > 1 || topicProperty.cardinality.endsWith('N') ? "s" : "" }}</strong>
+                    :rowspan="valuesForRendering.length">
+                    <strong>Value{{ valuesForRendering.length > 1 || specialisation.cardinality.endsWith('N') ? "s" : "" }}</strong>
                 </td>
                 <td>
                     {{ value }}
@@ -33,27 +33,23 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+// Null value when documentation is mandatory.
+const AWAITING_DOCUMENTATION = '-- Awaiting modelling group input --';
 
-const NO_VALUES = ['--'];
+// Null value when documentation is optional.
+const NO_VALUES = '--';
 
 export default {
-    name: "TopicProperty",
-
-    props: ['topicProperty'],
-
+    name: "Property",
+    props: ['specialisation', 'values'],
     computed: {
-        vals: function () {
-            const document = this.$store.state.document;
+        valuesForRendering: function () {
+            let values = this.values;
 
-            let values = [];
-            if (document && document.topicPropertyMap[this.topicProperty.id]) {
-                values = document.topicPropertyMap[this.topicProperty.id].values;
-            }
-
-            if (values.length && this.topicProperty.type === 'enum') {
+            // If dealing with an enum then inject descriptions.
+            if (values.length && this.specialisation.type === 'enum') {
                 values = values.map(i => {
-                    const choice = this.topicProperty.enum.choices.find(c => {
+                    const choice = this.specialisation.enum.choices.find(c => {
                         return c.label.toLowerCase() === i.toLowerCase()
                     });
                     if (choice && choice.description) {
@@ -63,37 +59,30 @@ export default {
                 })
             }
 
+            // Replace various field values.
             values = values.map(val => {
                 const v = val.toLowerCase();
-                if (v === 'f' || v === 'false') {
+                if (['f', 'false'].includes(v)) {
                     return 'FALSE';
                 }
-                if (v === 't' || v === 'true') {
+                if (['t', 'true'].includes(v)) {
                     return 'TRUE';
                 }
-                if (v === 'nil:inapplicable' || v === 'other: n/a') {
+                if (['nil:inapplicable', 'other: n/a'].includes(v)) {
                     return 'N/A';
                 }
                 return `${val.slice(0, 1).toUpperCase()}${val.slice(1)}`;
             })
 
+            // Returns wither the values or null substitutes.
             if (values.length) {
                 return values;
+            } else if (this.specialisation.cardinality.slice(0, 1) === '1') {
+                return [AWAITING_DOCUMENTATION]
+            } else {
+                return [NO_VALUES];
             }
-
-            if (this.topicProperty.cardinality.slice(0, 1) === '1') {
-                return ['-- Awaiting modelling group input --']
-            }
-
-            return NO_VALUES;
-        },
-
-        ...mapState({
-            document: state => state.document,
-            values: state => {
-                return state.document ? state.document.topicProperties[3].values : []
-            }
-        })
+        }
     }
 };
 

@@ -15,7 +15,9 @@ export class Document {
         this.source = sourceID.label;
         this.sourceID  = sourceID;
         this.summary = summary;
+        this.topicInfo = null;
         this.topicTree = topicTree;
+        this.typeShortName = 'Model';
         this.uid = summary.uid;
         this.version = summary.version;
 
@@ -34,7 +36,8 @@ export class Document {
     setContent(content) {
         this.content = content;
         for (const t of this.topicTree) {
-            t.isDocumented = content.topicMap[t.topic.id] !== undefined;
+            t.content = content.topicMap[t.topic.id];
+            t.isDocumented = t.content !== undefined;
         }
     }
 

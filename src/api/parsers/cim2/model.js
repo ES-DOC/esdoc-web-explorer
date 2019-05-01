@@ -3,7 +3,6 @@
  * @author Mark Conway-Greenslade
  */
 
-
 /**
  * Parses a CIM v2 model document pulled from remote API.
  */

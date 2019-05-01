@@ -5,15 +5,23 @@
  */
 
 export default {
+    // Application specific state.
+    app: {
+        version: "0.2.0"
+    },
+
+    // Current document being viewed.
     document:null,
+
+    // Set of documents for viewing.
     documents: null,
 
+    // Current project whise documents are being viewed.
     project: null,
+
+    // Set of projects with viewable documents.
     projects: [],
 
-    specialisationSet: null,
-
-    topic: null,
+    // Set of specialisation topics for viewing.
     topics: [],
-    topicInfo: null,
 }

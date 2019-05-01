@@ -18,8 +18,8 @@ export const initialise = async ({ commit }, { documentName, documentType, insti
     // Pull from API
     let documents = await API.document.getMany(project, documentType);
     const projects = await API.project.getAll();
-    const topics = await API.specialisation.getTopics(project);
     const vocabs = await API.vocab.getAll();
+    const topics = await API.specialisation.getTopics(project, vocabs);
 
     // Set documents.
     documents = documents.map(i => Document.create(i, topics, vocabs));

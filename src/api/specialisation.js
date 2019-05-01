@@ -11,13 +11,19 @@ const ALL = {
     cmip6: CMIP6
 }
 
-// Parse.
-Object.values(ALL).forEach(parse);
+// List of parsed project specialisations.
+const PARSED = [];
 
 /**
  * Returns all topics within a specialisation set.
  * @param {String} projectKey - Key of a supported project.
  */
-export const getTopics = async (projectKey) => {
-    return ALL[projectKey].reduce((v, s) => v.concat(s.topics), []);
+export const getTopics = async (projectKey, vocabs) => {
+    const specialisationSet = ALL[projectKey];
+    if (PARSED.includes(specialisationSet) === false) {
+        parse(specialisationSet, vocabs);
+        PARSED.push(specialisationSet);
+    }
+
+    return specialisationSet.reduce((v, s) => v.concat(s.topics), []);
 }

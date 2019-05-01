@@ -6,15 +6,25 @@
 /**
  * Parses specialisation sets to simplify downstream processing.
  */
-export default (specialisationSets) => {
+export default (specialisationSets, vocabs) => {
     specialisationSets.forEach((s) => {
         [
+            setFromVocabs,
             setKeyProperties,
             setTopics,
             setAncestors,
             extendTopics,
-        ].forEach(f => f(s));
+        ].forEach(f => f(s, vocabs));
     });
+}
+
+/**
+ * Merges specialisation set key properties into main specialisation.
+ */
+const setFromVocabs = (s, vocabs) => {
+    const canonicalName = s.id.split('.')[1];
+    const modelTopic = vocabs.ESDOC.CMIP6.getModelTopic(canonicalName);
+    s.label = modelTopic.label;
 }
 
 /**

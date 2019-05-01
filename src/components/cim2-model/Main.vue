@@ -7,7 +7,7 @@
             </b-col>
             <b-col cols="9">
                 <TitleBar/>
-                Topic
+                <Topic/>
             </b-col>
         </b-row>
     </b-container>
