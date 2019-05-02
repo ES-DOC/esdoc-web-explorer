@@ -1,5 +1,4 @@
 <template>
-
     <table class="table table-bordered table-sm small esdoc-table-info">
         <thead>
             <tr>
@@ -17,7 +16,8 @@
                     {{ specialisation.description }}
                 </td>
             </tr>
-            <tr v-for="(value, index) in valuesForRendering">
+            <tr v-for="(value, index) in valuesForRendering"
+                :key="`${specialisation.id}-${index}`">
                 <td v-if="index === 0"
                     class="caption"
                     :rowspan="valuesForRendering.length">
@@ -29,7 +29,6 @@
             </tr>
         </tbody>
     </table>
-
 </template>
 
 <script>
@@ -40,8 +39,17 @@ const AWAITING_DOCUMENTATION = '-- Awaiting modelling group input --';
 const NO_VALUES = '--';
 
 export default {
-    name: "Property",
-    props: ['specialisation', 'values'],
+    name: "TopicProperty",
+    props: {
+        specialisation: {
+            type: Object,
+            required: true
+        },
+        values: {
+            type: Array,
+            required: true
+        },
+    },
     computed: {
         valuesForRendering: function () {
             let values = this.values;
@@ -85,5 +93,4 @@ export default {
         }
     }
 };
-
 </script>

@@ -1,5 +1,4 @@
 <template>
-
     <table class="table table-bordered table-sm small esdoc-table-info">
         <thead>
             <tr>
@@ -21,14 +20,16 @@
             </tr>
         </tbody>
     </table>
-
 </template>
 
 <script>
-
 export default {
-    name: "Citation",
-    props: ['citation']
+    name: "CitationDetail",
+    props: {
+        citation: {
+            type: Object,
+            required: true
+        }
+    }
 };
-
 </script>

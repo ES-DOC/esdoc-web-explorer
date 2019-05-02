@@ -1,5 +1,30 @@
 <template>
     <div id="cim2-model-source-list">
+        <b-container hidden>
+            <b-row class="sub-section">
+                <span style="width: 30%; font-weight: bold;">Institute</span>
+                <select id="institute-selector" style="width: 70%;">
+                    <option
+                        v-for="institute in institutions"
+                        :key="institute.canonicalName"
+                        value="institute.canonicalName">
+                        {{ institute.label }}
+                    </option>
+                </select>
+            </b-row>
+            <b-row class="sub-section">
+                <span style="width: 30%; font-weight: bold;">Model</span>
+                <select id="source-selector" style="width: 70%;">
+                    <option
+                        v-for="source in sources"
+                        :key="source.canonicalName"
+                        value="source.canonicalName">
+                        {{ source.label }}
+                    </option>
+                </select>
+            </b-row>
+        </b-container>
+
         <b-table borderless responsive small fixed
             class="esdoc-table-caption"
             :items="[]"
@@ -42,6 +67,9 @@ export default {
                     ])
                 }
             },
+            institution: state => state.institution,
+            institutions: state => state.institutions,
+            sources: state => state.sources
         })
     },
     methods: {

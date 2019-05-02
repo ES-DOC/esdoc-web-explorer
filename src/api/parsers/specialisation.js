@@ -55,6 +55,13 @@ const setAncestors = (s) => {
     s.ancestors = [];
     s.hierarchy = [s];
     s.parent = null;
+
+    if (s.grid) {
+        s.grid.ancestors = [s];
+        s.grid.hierarchy = [s, s.grid];
+        s.grid.parent = s;
+    }
+
     s.processes.forEach((p) => {
         p.ancestors = [s];
         p.hierarchy = [s, p];

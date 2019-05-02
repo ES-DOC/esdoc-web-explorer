@@ -1,5 +1,4 @@
 <template>
-
     <table class="table table-bordered table-sm small esdoc-table-info">
         <thead>
             <tr>
@@ -35,23 +34,27 @@
             </tr>
         </tbody>
     </table>
-
 </template>
 
 <script>
-
 export default {
     name: "ResponsibleParty",
-    props: ['responsibleParty', 'party']
+    props: {
+        responsibleParty: {
+            type: Object,
+            required: true
+        },
+        party: {
+            type: Object,
+            required: true
+        }
+    }
 };
-
 </script>
 
 <style>
-
 th.cim2-responsible-party-header,
 td.cim2-responsible-party-role {
     text-transform: capitalize;
 }
-
 </style>

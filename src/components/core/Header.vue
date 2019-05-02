@@ -6,10 +6,10 @@
         <b-navbar-brand href="https://es-doc.org">
             <img src="@/assets/logo-2-icon.png" alt="Earth System Documentation" style="margin-top: -4px;"/>
             &nbsp;
-            <b>ES-DOC</b> Explorer <span class="app-version">v0.2.0</span>
+            <b>ES-DOC</b> Explorer <span class="app-version">v{{ appVersion }}</span>
         </b-navbar-brand>
         <b-navbar-nav class="ml-auto">
-            <b-nav-text style="color: black;">{{ project }} {{ documentType }}: <b>{{ institute }} > {{ canonicalName }}</b></b-nav-text>
+            <b-nav-text style="color: black;">{{ project }} {{ documentType }}: <b>{{ documentLabel }}</b></b-nav-text>
         </b-navbar-nav>
     </b-navbar>
 </template>
@@ -21,17 +21,14 @@ export default {
     name: "core-header",
     computed: mapState({
         appVersion: state => state.app.version,
-        canonicalName: state => state.document ? state.document.label : null,
+        documentLabel: state => state.document ? state.document.label : null,
         documentType: state => state.document ? state.document.typeShortName : null,
-        institute: state => state.document ? state.document.institutionID.label : null,
         project: state => state.project.label
     })
 };
 </script>
 
 <style>
-
-
 .navbar.main-header {
     margin-bottom: 10px;
     color: #fff;

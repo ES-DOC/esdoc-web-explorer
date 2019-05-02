@@ -9,14 +9,22 @@
 */
 export const initialise = async (state, {
     documents,
+    institution,
+    institutions,
     project,
     projects,
+    source,
+    sources,
     topics
 }) => {
     state.document = documents.current;
     state.documents = documents;
+    state.institution = institution;
+    state.institutions = institutions;
     state.project = project;
     state.projects = projects;
+    state.source = source;
+    state.sources = sources;
     state.topics = topics;
 }
 

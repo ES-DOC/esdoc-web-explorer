@@ -25,8 +25,11 @@ export class Document {
         this.setTopic(topicTree[0]);
     }
 
+    /**
+     * Returns label for rendering.
+     */
     get label () {
-        return this.sourceID.label;
+        return `${this.institutionLabel} > ${this.sourceID.label}`;
     }
 
     /**

@@ -8,22 +8,34 @@ import * as _ from 'lodash';
 import API from '@/api';
 import STATE from '@/store';
 
-import { Document } from '@/view-models/cim2-model/document';
-import { DocumentSet } from '@/view-models/cim2-model/documentSet';
+import { Document } from '@/view-models/cim2/model/document';
+import { DocumentSet } from '@/view-models/cim2/model/documentSet';
 
 /**
  * Initialises state store - part of application setup process.
  */
-export const initialise = async ({ commit }, { documentName, documentType, institute, project }) => {
-    // Pull from API
-    let documents = await API.document.getMany(project, documentType);
+export const initialise = async ({ commit }, { documentName, documentType, institute, projectID }) => {
+    // Set vocabulary related data
     const projects = await API.project.getAll();
+    const project = projects.find(i => i.key === projectID);
     const vocabs = await API.vocab.getAll();
-    const topics = await API.specialisation.getTopics(project, vocabs);
+    const topics = await API.specialisation.getTopics(projectID, vocabs);
 
     // Set documents.
+    let documents = await API.document.getMany(projectID, documentType);
     documents = documents.map(i => Document.create(i, topics, vocabs));
     documents = new DocumentSet(documents, institute, documentName);
+
+    // Set institutes.
+    const institutions = vocabs.WCRP.CMIP6.getInstitution()
+        .filter(i => documents.all.find(j => i === j.institutionID) !== undefined);
+    const institution = institutions.find(i => [institute, 'mohc'].includes(i.canonicalName));
+
+    // Set sources.
+    const sources = vocabs.WCRP.CMIP6.getSource()
+        .filter(i => i.data.institutionID.includes(institution.rawName))
+        .filter(i => documents.all.find(j => i === j.sourceID) !== undefined);
+    const source = sources.find(i => i.canonicalName === documentName) || sources[0];
 
     // Load (initial) document content.
     documents.current.setContent(await API.document.getOne(documents.current));
@@ -31,8 +43,12 @@ export const initialise = async ({ commit }, { documentName, documentType, insti
     // Mutate state.
     await commit('initialise', {
         documents,
-        project: projects.find(i => i.key === project),
+        institution,
+        institutions,
+        project,
         projects,
+        source,
+        sources,
         topics
     });
 };

@@ -1,6 +1,6 @@
 <template>
     <div class="sub-section">
-        <strong>{{ institute }} > {{ model }} :: {{ topicHierachy }}</strong>
+        <strong>{{ documentLabel }} :: {{ topicHierachy }}</strong>
     </div>
 </template>
 
@@ -8,12 +8,12 @@
 import { mapState } from "vuex";
 
 export default {
-    name: "TitleBar",
+    name: "TheTopicTitleBar",
     computed: {
         ...mapState({
-            model: state => state.document.label,
-            institute: state => state.document.institutionID.label,
+            documentLabel: state => state.document.label,
             topicHierachy: state => {
+                console.log(state.document.topicInfo);
                 const { hierarchy } = state.document.topicInfo.topic;
                 return hierarchy.map(i => i.label).join(' > ');
             }
