@@ -2,7 +2,7 @@
     <b-container fluid>
         <b-row>
             <b-col>
-                <TheDocumentSelector style="margin-bottom: 8px;"/>
+                <TheDocumentSelector/>
                 <TheTopicSelector/>
             </b-col>
             <b-col cols="9">

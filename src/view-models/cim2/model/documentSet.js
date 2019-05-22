@@ -7,7 +7,7 @@ import { DocumentTopic } from './documentTopic';
 export class DocumentSet {
     constructor (documents, institutionID, sourceID) {
         this.all = documents;
-        this.setDocument(this._getInitial(institutionID, sourceID));
+        this.setDocument(this.getDocument(institutionID, sourceID));
     }
 
     /**
@@ -31,7 +31,7 @@ export class DocumentSet {
     /**
      * Returns initial document to be rendered.
      */
-    _getInitial (institutionID, sourceID) {
+    getDocument (institutionID, sourceID) {
         let predicate, filtered;
         institutionID = institutionID || 'mohc';
         if (institutionID) {

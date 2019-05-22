@@ -3,6 +3,7 @@
  *       https://vuex.vuejs.org/en/mutations.html
  * @author Mark Conway-Greenslade
  */
+import API from '@/api';
 
 /**
 * Initialises state store - part of application setup process.
@@ -15,7 +16,8 @@ export const initialise = async (state, {
     projects,
     source,
     sources,
-    topics
+    topics,
+    vocabs
 }) => {
     state.document = documents.current;
     state.documents = documents;
@@ -26,6 +28,7 @@ export const initialise = async (state, {
     state.source = source;
     state.sources = sources;
     state.topics = topics;
+    state.vocabs = vocabs;
 }
 
 /**
@@ -33,6 +36,10 @@ export const initialise = async (state, {
 */
 export const setDocument = async (state, document) => {
     if (document) {
+        // Load (JIT) document content.
+        if (document.content === null) {
+            document.setContent(await API.document.getOne(document));
+        }
         state.documents.setDocument(document);
         state.document = document;
     }
@@ -45,4 +52,43 @@ export const setDocumentTopic = async (state, topicInfo) => {
     if (topicInfo) {
         state.document.setTopic(topicInfo);
     }
+}
+
+/**
+* Sets current institute.
+*/
+export const setInstitution = async (state, institution) => {
+    // Set institute.
+    state.institution = institution;
+
+    // Set sources.
+    await setSources(state, institution);
+}
+
+/**
+* Sets set of sources.
+*/
+export const setSources = async (state, institution) => {
+    // Set sources.
+    state.sources = state.vocabs.WCRP.CMIP6.getSource()
+        .filter(i => i.data.institutionID.includes(institution.rawName))
+        .filter(i => state.documents.all.find(j => i === j.sourceID) !== undefined);
+
+    // Set source.
+    await setSource(state, state.sources[0]);
+}
+
+/**
+* Sets current source.
+*/
+export const setSource = async (state, source) => {
+    // Set source.
+    state.source = source;
+
+    // Set document.
+    const document = state.documents.getDocument(
+        state.institution.canonicalName,
+        state.source.canonicalName
+    )
+    await setDocument(state, document);
 }

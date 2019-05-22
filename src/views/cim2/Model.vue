@@ -1,7 +1,7 @@
 <template>
 
   <div>
-    <Header />
+    <TheMainHeader />
     <TheSubExplorer />
   </div>
 
@@ -9,7 +9,7 @@
 
 <script>
 
-import Header from "@/components/core/Header.vue";
+import TheMainHeader from "@/components/core/TheMainHeader.vue";
 import TheSubExplorer from "@/components/cim2/model/TheSubExplorer.vue";
 
 export default {
@@ -18,7 +18,7 @@ export default {
         title: 'ES-DOC - Model',
     },
     components: {
-        Header,
+        TheMainHeader,
         TheSubExplorer
     }
 };

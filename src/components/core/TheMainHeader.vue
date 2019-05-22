@@ -18,7 +18,7 @@
 import { mapState } from 'vuex';
 
 export default {
-    name: "core-header",
+    name: "TheMainHeader",
     computed: mapState({
         appVersion: state => state.app.version,
         documentLabel: state => state.document ? state.document.label : null,

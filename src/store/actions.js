@@ -49,7 +49,8 @@ export const initialise = async ({ commit }, { documentName, documentType, insti
         projects,
         source,
         sources,
-        topics
+        topics,
+        vocabs
     });
 };
 
@@ -57,12 +58,6 @@ export const initialise = async ({ commit }, { documentName, documentType, insti
  * Set current document.
  */
 export const setDocument = async ({ commit }, [ document ]) => {
-    // Load (JIT) document content.
-    if (document.content === null) {
-        document.setContent(await API.document.getOne(document));
-    }
-
-    // Mutate state.
     await commit('setDocument', document);
 }
 
@@ -71,4 +66,18 @@ export const setDocument = async ({ commit }, [ document ]) => {
  */
 export const setDocumentTopic = async ({ commit }, [ documentTopic ]) => {
     await commit('setDocumentTopic', documentTopic);
+}
+
+/**
+ * Set currently selected institute.
+ */
+export const setInstitution = async ({ commit }, institution) => {
+    await commit('setInstitution', institution);
+}
+
+/**
+ * Set currently selected source.
+ */
+export const setSource = async ({ commit }, source) => {
+    await commit('setSource', source);
 }
