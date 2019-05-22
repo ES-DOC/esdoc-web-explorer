@@ -13,7 +13,6 @@ export default {
         ...mapState({
             documentLabel: state => state.document.label,
             topicHierachy: state => {
-                console.log(state.document.topicInfo);
                 const { hierarchy } = state.document.topicInfo.topic;
                 return hierarchy.map(i => i.label).join(' > ');
             }
