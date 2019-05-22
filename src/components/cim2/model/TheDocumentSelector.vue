@@ -2,7 +2,7 @@
     <div id="cim2-model-source-list">
         <b-container>
             <b-row class="sub-section">
-                <span style="width: 30%; font-weight: bold;">Institute</span>
+                <span style="width: 30%; font-weight: bold; margin-top: 6px;">Institute</span>
                 <b-select id="source-selector2"
                           style="width: 70%;"
                           v-model="institution"
@@ -10,7 +10,7 @@
                 </b-select>
             </b-row>
             <b-row class="sub-section">
-                <span style="width: 30%; font-weight: bold;">Model</span>
+                <span style="width: 30%; font-weight: bold; margin-top: 6px;">Model</span>
                 <b-select id="source-selector2"
                           style="width: 70%;"
                           v-model="source"
@@ -60,7 +60,6 @@ export default {
     },
     methods: {
         ...mapActions([
-            'setDocument',
             'setInstitution',
             'setSource',
         ])
