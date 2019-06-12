@@ -26,15 +26,18 @@ export const initialise = async ({ commit }, { documentName, documentType, insti
     documents = documents.map(i => Document.create(i, topics, vocabs));
     documents = new DocumentSet(documents, institute, documentName);
 
-    // Set institutes.
-    const institutions = vocabs.WCRP.CMIP6.getInstitution()
-        .filter(i => documents.all.find(j => i === j.institutionID) !== undefined);
-    const institution = institutions.find(i => [institute, 'mohc'].includes(i.canonicalName));
+    // Set institute.
+    let institutions;
+    institutions = vocabs.WCRP.CMIP6.getInstitution();
+    institutions = institutions.filter(i => documents.all.find(j => i === j.institutionID) !== undefined);
+    const institution = institutions.find(i => i.canonicalName === institute) ||
+                        institutions.find(i => i.canonicalName === 'mohc');
 
-    // Set sources.
-    const sources = vocabs.WCRP.CMIP6.getSource()
-        .filter(i => i.data.institutionID.includes(institution.rawName))
-        .filter(i => documents.all.find(j => i === j.sourceID) !== undefined);
+    // Set source.
+    let sources;
+    sources = vocabs.WCRP.CMIP6.getSource();
+    sources = sources.filter(i => i.data.institutionID.includes(institution.rawName));
+    sources = sources.filter(i => documents.all.find(j => i === j.sourceID) !== undefined);
     const source = sources.find(i => i.canonicalName === documentName) || sources[0];
 
     // Load (initial) document content.
