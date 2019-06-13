@@ -58,13 +58,6 @@ export const initialise = async ({ commit }, { documentName, documentType, insti
 };
 
 /**
- * Set current document.
- */
-export const setDocument = async ({ commit }, [ document ]) => {
-    await commit('setDocument', document);
-}
-
-/**
  * Set current document topic.
  */
 export const setDocumentTopic = async ({ commit }, [ documentTopic ]) => {

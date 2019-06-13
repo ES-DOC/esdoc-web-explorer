@@ -38,7 +38,9 @@ export const setDocument = async (state, document) => {
     if (document) {
         // Load (JIT) document content.
         if (document.content === null) {
+            state.isLoading = true;
             document.setContent(await API.document.getOne(document));
+            state.isLoading = false;
         }
         state.documents.setDocument(document);
         state.document = document;

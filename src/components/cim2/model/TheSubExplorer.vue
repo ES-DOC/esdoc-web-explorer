@@ -25,7 +25,7 @@ export default {
         TheDocumentSelector,
         TheTopicSelector,
         TheTopicDetail,
-        TheTopicTitleBar,
+        TheTopicTitleBar
     }
 };
 </script>

@@ -7,7 +7,7 @@
 export default {
     // Application specific state.
     app: {
-        version: "1.0.1"
+        version: "1.0.2"
     },
 
     // Current document being viewed.
@@ -15,6 +15,9 @@ export default {
 
     // Set of documents for viewing.
     documents: null,
+
+    // Flag indicating wheter data is being loaded.
+    isLoading: false,
 
     // Current institute with a document being viewed.
     institution: null,
