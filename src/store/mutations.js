@@ -40,7 +40,7 @@ export const setDocument = async (state, document) => {
         if (document.content === null) {
             state.isLoading = true;
             document.setContent(await API.document.getOne(document));
-            state.isLoading = false;
+            setTimeout(() => { state.isLoading = false; }, 500);  // N.B timer avoids UI flicker
         }
         state.documents.setDocument(document);
         state.document = document;
