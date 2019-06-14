@@ -29,6 +29,7 @@ export const initialise = async (state, {
     state.sources = sources;
     state.topics = topics;
     state.vocabs = vocabs;
+    state.isInitialised = true;
 }
 
 /**
@@ -90,7 +91,7 @@ export const setSource = async (state, source) => {
     // Set document.
     const document = state.documents.getDocument(
         state.institution.canonicalName,
-        state.source.canonicalName
+        source.canonicalName
     )
     await setDocument(state, document);
 }

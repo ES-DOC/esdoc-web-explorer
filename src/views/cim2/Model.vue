@@ -1,15 +1,15 @@
 <template>
 
   <div>
+    <TheMainHeader v-if="isInitialised"/>
+    <TheSubExplorer v-if="isInitialised"/>
     <TheLoadingModal />
-    <TheMainHeader />
-    <TheSubExplorer />
   </div>
 
 </template>
 
 <script>
-
+import { mapState } from "vuex";
 import TheLoadingModal from "@/components/core/TheLoadingModal.vue";
 import TheMainHeader from "@/components/core/TheMainHeader.vue";
 import TheSubExplorer from "@/components/cim2/model/TheSubExplorer.vue";
@@ -23,7 +23,8 @@ export default {
         TheLoadingModal,
         TheMainHeader,
         TheSubExplorer
-    }
+    },
+    computed: mapState(['isInitialised'])
 };
 
 </script>

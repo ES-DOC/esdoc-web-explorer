@@ -3,9 +3,6 @@
  * @author Mark Conway-Greenslade
  */
 
-// import $ from 'jquery';
-// window.$ = $;
-
 import Vue from "vue";
 import VueBootstrap from 'bootstrap-vue';
 import { sync } from 'vuex-router-sync'
@@ -26,9 +23,9 @@ Vue.config.productionTip = false;
 sync(store, router);
 
 /**
- * Initialises application state based upon initial route.
+ * Returns application initialisation parameters derived from URL.
  */
-const initialiseState = async (path, store) => {
+const getInitialisationParams = (path) => {
     let projectID, documentType, institute, documentName;
 
     // Split URL paths to determine which route to load.
@@ -43,24 +40,25 @@ const initialiseState = async (path, store) => {
         [ projectID, documentType, institute, documentName ] = paths;
     }
 
-    // Override with defaults if appropriate.
-    projectID = projectID || 'cmip6';
-    documentType = documentType || 'models';
-
-    // Initialise state store.
-    await store.dispatch('initialise', {
+    return {
         documentName,
-        documentType,
+        documentType : documentType || 'models',
         institute,
-        projectID,
-    });
+        projectID: projectID || 'cmip6',
+    }
 }
 
-// Initialise application state & render main view.
-initialiseState(window.location.pathname, store).then(() => {
+const initialise = async () => {
+    // Render initial view.
     new Vue({
       router,
       store,
       render: h => h(App)
     }).$mount("#app");
-})
+
+    // Initialise state.
+    const params = getInitialisationParams(window.location.pathname);
+    await store.dispatch('initialise', params);
+}
+
+initialise();

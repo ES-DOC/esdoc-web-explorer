@@ -20,10 +20,10 @@ import { mapState } from 'vuex';
 export default {
     name: "TheMainHeader",
     computed: mapState({
-        appVersion: state => state.app.version,
-        documentLabel: state => state.document ? state.document.label : null,
-        documentType: state => state.document ? state.document.typeShortName : null,
-        project: state => state.project.label
+        appVersion: ({ app }) => app.version,
+        documentLabel: ({ document }) => document.label,
+        documentType: ({ document }) => document.typeShortName,
+        project: ({ project }) => project.label
     })
 };
 </script>

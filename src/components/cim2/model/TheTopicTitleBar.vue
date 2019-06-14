@@ -11,9 +11,10 @@ export default {
     name: "TheTopicTitleBar",
     computed: {
         ...mapState({
-            documentLabel: state => state.document.label,
-            topicHierachy: state => {
-                const { hierarchy } = state.document.topicInfo.topic;
+            documentLabel: ({ document }) => document.label,
+            topicHierachy: ({ document }) => {
+                const { hierarchy } = document.topicInfo.topic;
+
                 return hierarchy.map(i => i.label).join(' > ');
             }
         })

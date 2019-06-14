@@ -22,7 +22,7 @@ export default {
     name: "TopicSelector",
     computed: {
         ...mapState({
-            topicTree: (state) => {
+            topicTree: ({ document }) => {
                 return {
                     fields: [
                         {
@@ -31,7 +31,7 @@ export default {
                             sortable: false
                         }
                     ],
-                    items: state.document.topicTree
+                    items: document.topicTree
                 }
             },
         }),
@@ -65,5 +65,4 @@ tr.indent-1 > td {
 tr.indent-2 > td {
     padding-left: 20px;
 }
-
 </style>

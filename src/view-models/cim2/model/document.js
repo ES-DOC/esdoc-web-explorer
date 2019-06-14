@@ -70,9 +70,11 @@ export class Document {
             version
         } = summary;
 
-        const sourceID = vocabs.WCRP.CMIP6.getSource(canonicalName);
-        const institutionID = vocabs.WCRP.CMIP6.getInstitution(institute);
-        const realms = vocabs.WCRP.CMIP6.getSourceComponents(sourceID);
+        const { WCRP: { CMIP6 } } = vocabs;
+        const sourceID = CMIP6.getSource(canonicalName);
+        const institutionID = CMIP6.getInstitution(institute);
+        const realms = CMIP6.getSourceComponents(sourceID);
+
         const rootTopics = ['toplevel'].concat(realms);
         const topicTree = topics
             .filter(i => i.depth < 3)

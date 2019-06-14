@@ -28,13 +28,13 @@ export default {
     name: "DocumentSelector",
     computed: {
         ...mapState({
-            optionsForInstitution: state => state.institutions.map(i => {
+            optionsForInstitution: ({ institutions }) => institutions.map(i => {
                 return {
                     value: i,
                     text: i.label
                 }
             }),
-            optionsForSource: state => state.sources.map(i => {
+            optionsForSource: ({ sources }) => sources.map(i => {
                 return {
                     value: i,
                     text: i.label

@@ -7,14 +7,17 @@
 export default {
     // Application specific state.
     app: {
-        version: "1.0.2"
+        version: "1.0.3"
     },
 
     // Current document being viewed.
-    document:null,
+    document: null,
 
     // Set of documents for viewing.
     documents: null,
+
+    // Flag indicating wheter initialised or not.
+    isInitialised: false,
 
     // Flag indicating wheter data is being loaded.
     isLoading: false,
