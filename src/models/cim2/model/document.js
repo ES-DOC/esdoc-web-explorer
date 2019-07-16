@@ -20,9 +20,6 @@ export class Document {
         this.typeShortName = 'Model';
         this.uid = summary.uid;
         this.version = summary.version;
-
-        // Set initial topic.
-        this.setTopic(topicTree[0]);
     }
 
     /**
@@ -37,11 +34,17 @@ export class Document {
      * @param {Object} content - Document content.
      */
     setContent(content) {
+        // Set full document content.
         this.content = content;
+
+        // Set topic specific content.
         for (const t of this.topicTree) {
             t.content = content.topicMap[t.topic.id];
             t.isDocumented = t.content !== undefined;
         }
+
+        // Set initial topic.
+        this.setTopic(this.topicTree.find(i => i.isDocumented) || this.topicTree[0])
     }
 
     /**

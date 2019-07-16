@@ -32,22 +32,30 @@ export class DocumentSet {
      * Returns initial document to be rendered.
      */
     getDocument (institutionID, sourceID) {
-        let predicate, filtered;
-        institutionID = institutionID || 'mohc';
-        if (institutionID) {
-            institutionID = institutionID.toLowerCase();
-            if (sourceID) {
-                sourceID = sourceID.toLowerCase();
-                predicate = (i) => i.institutionID.canonicalName === institutionID &&
-                                   i.sourceID.canonicalName === sourceID;
-            } else {
-                predicate = (i) => i.institutionID.canonicalName === institutionID;
-            }
+        let filtered;
 
-            filtered = this.all.filter(predicate);
+        // Parse inputs.
+        institutionID = institutionID || 'mohc';
+        institutionID = institutionID.toLowerCase();
+        sourceID = sourceID ? sourceID.toLowerCase() : null;
+
+        // Set filters.
+        const filterByInstitutionID = i => i.institutionID.canonicalName === institutionID;
+        const filterByInstitutionIDAndSourceID = i => filterByInstitutionID(i) && i.sourceID.canonicalName === sourceID;
+
+        // Set filtered.
+        if (sourceID) {
+            filtered = this.all.filter(filterByInstitutionIDAndSourceID);
+            if (filtered.length === 0) {
+                filtered = this.all.filter(filterByInstitutionID);
+            }
+        } else {
+            filtered = this.all.filter(filterByInstitutionID);
         }
+
+        // Set default.
         if (filtered === undefined || filtered.length === 0) {
-            filtered = _.sortBy(this.all, ['institute', 'source']);
+            filtered = _.sortBy(this.all, ['institutionLabel', 'source']);
         }
 
         return filtered.length > 0 ? filtered[0] : null;

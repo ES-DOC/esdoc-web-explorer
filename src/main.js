@@ -44,7 +44,7 @@ const getInitialisationParams = (path) => {
         documentName,
         documentType : documentType || 'models',
         institute,
-        projectID: projectID || 'cmip6',
+        projectID: projectID || 'cmip6'
     }
 }
 

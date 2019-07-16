@@ -6,10 +6,9 @@
 
 import * as _ from 'lodash';
 import API from '@/api';
-import STATE from '@/store';
 
-import { Document } from '@/view-models/cim2/model/document';
-import { DocumentSet } from '@/view-models/cim2/model/documentSet';
+import { Document } from '@/models/cim2/model/document';
+import { DocumentSet } from '@/models/cim2/model/documentSet';
 
 /**
  * Initialises state store - part of application setup process.
