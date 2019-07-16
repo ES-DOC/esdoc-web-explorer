@@ -32,9 +32,9 @@ export default {
     },
     computed: {
         ...mapState({
-            citations: ({ document }) => document.topicInfo.content.citations,
+            citations: ({ document }) => document.topicInfo.content ? document.topicInfo.content.citations : [],
             propertyMap: ({ document }) => document.content.topicPropertyMap,
-            responsibleParties: ({ document }) => document.topicInfo.content.responsibleParties,
+            responsibleParties: ({ document }) => document.topicInfo.content ? document.topicInfo.content.responsibleParties : [],
             topic: ({ document }) => document.topicInfo.topic
         })
     }
