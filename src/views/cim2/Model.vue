@@ -17,7 +17,7 @@ import TheSubExplorer from "@/components/cim2/model/TheSubExplorer.vue";
 export default {
     name: "Cim2Model",
     _metaInfo: {
-        title: 'ES-DOC - Model',
+        title: 'ES-DOC Explorer',
     },
     components: {
         TheLoadingModal,

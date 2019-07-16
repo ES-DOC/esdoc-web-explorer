@@ -6,7 +6,6 @@
 export default [
     {
         path: "/",
-        name: "CMIP6 Model",
         view: 'cim2/Model'
     },
     {
@@ -16,22 +15,18 @@ export default [
     },
     {
         path: "/cmip6",
-        name: "CMIP6 Model",
         view: 'cim2/Model'
     },
     {
         path: "/cmip6/models",
-        name: "CMIP6 Model",
         view: 'cim2/Model'
     },
     {
         path: "/cmip6/models/*",
-        name: "CMIP6 Model",
         view: 'cim2/Model'
     },
     {
         path: "/cmip6/models/*/*",
-        name: "CMIP6 Model",
         view: 'cim2/Model'
     },
 ];
