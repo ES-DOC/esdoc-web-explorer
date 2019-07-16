@@ -7,7 +7,7 @@
 export default {
     // Application specific state.
     app: {
-        version: "1.0.3"
+        version: "1.0.4"
     },
 
     // Current document being viewed.
