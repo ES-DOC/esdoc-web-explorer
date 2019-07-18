@@ -11,19 +11,24 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 // Import store modules.
-import * as shared from './shared/index';
+import * as app from './app/index';
 import * as cim2Model from './cim2/model/index';
 
 // Instantiate store
 export default new Vuex.Store({
-    ...shared,
     modules: {
+        app: {
+            namespaced: true,
+            ...app
+        },
         cim2: {
             namespaced: true,
-            model: {
-                namespaced: true,
-                ...cim2Model
+            modules: {
+                model: {
+                    namespaced: true,
+                    ...cim2Model
+                }
             }
-        }
+        },
     }
 });

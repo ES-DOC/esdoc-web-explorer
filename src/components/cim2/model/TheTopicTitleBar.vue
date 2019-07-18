@@ -10,7 +10,7 @@ import { mapState } from "vuex";
 export default {
     name: "TheTopicTitleBar",
     computed: {
-        ...mapState({
+        ...mapState('cim2/model', {
             documentLabel: ({ document }) => document.label,
             topicHierachy: ({ document }) => {
                 const { hierarchy } = document.topicInfo.topic;

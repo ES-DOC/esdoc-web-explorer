@@ -7,9 +7,9 @@
 import * as _ from 'lodash';
 
 import API from '@/api';
-import * as mtypes from './mutation-types';
 import { Document } from '@/models/cim2/model/document';
 import { DocumentSet } from '@/models/cim2/model/documentSet';
+import * as mtypes from './mutation-types';
 
 /**
  * Initialises state store - part of application setup process.
@@ -55,6 +55,8 @@ export const initialise = async (ctx, { documentName, documentType, institute, p
         topics,
         vocabs
     });
+
+    await ctx.dispatch('setDocumentTopic', [ null ]);
 };
 
 /**

@@ -5,7 +5,7 @@
         v-model="isVisible">
         <div slot="modal-footer" />
         <div slot="modal-header">
-            <strong>ES-DOC Explorer </strong><small>v{{app.version}}</small>
+            <strong>ES-DOC Explorer </strong><small>v{{version}}</small>
         </div>
         <b-container fluid>
             <b-row class="mb-1 text-center">
@@ -27,8 +27,8 @@ import { mapState } from "vuex";
 export default {
     name: "TheLoadingModal",
     computed: {
-        ...mapState(['app']),
-        ...mapState({
+        ...mapState('app', ['version']),
+        ...mapState('cim2/model', {
             isVisible: state => !state.isInitialised || state.isLoading
         })
     }

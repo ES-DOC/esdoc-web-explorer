@@ -27,7 +27,7 @@ import { mapActions, mapState } from "vuex";
 export default {
     name: "DocumentSelector",
     computed: {
-        ...mapState({
+        ...mapState('cim2/model', {
             optionsForInstitution: ({ institutions }) => institutions.map(i => {
                 return {
                     value: i,
@@ -43,7 +43,7 @@ export default {
         }),
         institution: {
             get: function() {
-                return this.$store.state.institution;
+                return this.$store.state.cim2.model.institution;
             },
             set: function(val) {
                 this.setInstitution(val);
@@ -51,7 +51,7 @@ export default {
         },
         source: {
             get: function() {
-                return this.$store.state.source;
+                return this.$store.state.cim2.model.source;
             },
             set: function(val) {
                 this.setSource(val);
@@ -59,7 +59,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions([
+        ...mapActions('cim2/model', [
             'setInstitution',
             'setSource',
         ])

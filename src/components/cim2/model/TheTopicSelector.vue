@@ -21,7 +21,7 @@ import { mapActions, mapState } from "vuex";
 export default {
     name: "TopicSelector",
     computed: {
-        ...mapState({
+        ...mapState('cim2/model', {
             topicTree: ({ document }) => {
                 return {
                     fields: [
@@ -44,7 +44,7 @@ export default {
                 item.isSelected ? 'b-table-row-selected table-esdoc-selected' : ''
             ]
         },
-        ...mapActions([
+        ...mapActions('cim2/model', [
             'setDocumentTopic'
         ])
     }

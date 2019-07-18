@@ -6,7 +6,7 @@
         <b-navbar-brand href="https://es-doc.org">
             <img src="@/assets/logo-2-icon.png" alt="Earth System Documentation" style="margin-top: -4px;"/>
             &nbsp;
-            <b>ES-DOC</b> Explorer <span class="app-version">v{{ appVersion }}</span>
+            <b>ES-DOC</b> Explorer <span class="app-version">v{{ version }}</span>
         </b-navbar-brand>
         <b-navbar-nav class="ml-auto">
             <b-nav-text style="color: black;">{{ project }} {{ documentType }}: <b>{{ documentLabel }}</b></b-nav-text>
@@ -19,12 +19,14 @@ import { mapState } from 'vuex';
 
 export default {
     name: "TheMainHeader",
-    computed: mapState({
-        appVersion: ({ app }) => app.version,
-        documentLabel: ({ document }) => document.label,
-        documentType: ({ document }) => document.typeShortName,
-        project: ({ project }) => project.label
-    })
+    computed: {
+        ...mapState('app', ['version']),
+        ...mapState('cim2/model', {
+            documentLabel: ({ document }) => document.label,
+            documentType: ({ document }) => document.typeShortName,
+            project: ({ project }) => project.label
+        })
+    }
 };
 </script>
 

@@ -31,7 +31,7 @@ export default {
         TopicPropertyList
     },
     computed: {
-        ...mapState({
+        ...mapState('cim2/model', {
             citations: ({ document }) => document.topicInfo.content ? document.topicInfo.content.citations : [],
             propertyMap: ({ document }) => document.content.topicPropertyMap,
             responsibleParties: ({ document }) => document.topicInfo.content ? document.topicInfo.content.responsibleParties : [],

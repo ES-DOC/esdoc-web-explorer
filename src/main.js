@@ -57,9 +57,9 @@ const initialise = async () => {
       render: h => h(App)
     }).$mount("#app");
 
-    // Initialise state.
+    // Initialise state store.
     const params = getInitialisationParams(window.location.pathname);
-    await store.dispatch('initialise', params);
+    await store.dispatch('cim2/model/initialise', params);
 }
 
 initialise();
