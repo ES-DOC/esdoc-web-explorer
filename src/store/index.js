@@ -4,15 +4,17 @@
  * @author Mark Conway-Greenslade
  */
 
-import Vue from 'vue'
-import Vuex from 'vuex'
-Vue.use(Vuex)
+import Vue from 'vue';
+import Vuex from 'vuex';
+
+// Inject vuex --> vue.
+Vue.use(Vuex);
 
 // Import store accessors/mutators/state.
-import * as actions from './actions'
-import * as getters from './getters'
-import * as mutations from './mutations'
-import state from './state'
+import * as actions from './actions';
+import * as getters from './getters';
+import * as mutations from './mutations';
+import state from './state';
 
 // Instantiate store
 export default new Vuex.Store({
