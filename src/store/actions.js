@@ -49,7 +49,7 @@ export const initialise = async (state, { documentName, documentType, institute,
     documents.current.setContent(await API.document.getOne(documents.current));
 
     // Mutate state.
-    await state.commit(INITIALISE, {
+    state.commit(INITIALISE, {
         documents,
         institution,
         institutions,
@@ -65,20 +65,20 @@ export const initialise = async (state, { documentName, documentType, institute,
 /**
  * Set current document topic.
  */
-export const setDocumentTopic = async (state, [ documentTopic ]) => {
-    await state.commit(SET_DOCUMENT_TOPIC, documentTopic);
+export const setDocumentTopic = (state, [ documentTopic ]) => {
+    state.commit(SET_DOCUMENT_TOPIC, documentTopic);
 }
 
 /**
  * Set currently selected institute.
  */
-export const setInstitution = async (state, institution) => {
-    await state.commit(SET_INSTITUTION, institution);
+export const setInstitution = (state, institution) => {
+    state.commit(SET_INSTITUTION, institution);
 }
 
 /**
  * Set currently selected source.
  */
-export const setSource = async (state, source) => {
-    await state.commit(SET_SOURCE, source);
+export const setSource = (state, source) => {
+    state.commit(SET_SOURCE, source);
 }

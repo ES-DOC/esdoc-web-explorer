@@ -8,7 +8,7 @@ import API from '@/api';
 /**
 * Initialises state store - part of application setup process.
 */
-export const initialise = async (state, {
+export const initialise = (state, {
     documents,
     institution,
     institutions,
@@ -51,7 +51,7 @@ export const setDocument = async (state, document) => {
 /**
 * Sets current document topic.
 */
-export const setDocumentTopic = async (state, topicInfo) => {
+export const setDocumentTopic = (state, topicInfo) => {
     if (topicInfo) {
         state.document.setTopic(topicInfo);
     }
@@ -60,31 +60,31 @@ export const setDocumentTopic = async (state, topicInfo) => {
 /**
 * Sets current institute.
 */
-export const setInstitution = async (state, institution) => {
+export const setInstitution = (state, institution) => {
     // Set institute.
     state.institution = institution;
 
     // Set sources.
-    await setSources(state, institution);
+    setSources(state, institution);
 }
 
 /**
 * Sets set of sources.
 */
-export const setSources = async (state, institution) => {
+export const setSources = (state, institution) => {
     // Set sources.
     state.sources = state.vocabs.WCRP.CMIP6.getSource()
         .filter(i => i.data.institutionID.includes(institution.rawName))
         .filter(i => state.documents.all.find(j => i === j.sourceID) !== undefined);
 
     // Set source.
-    await setSource(state, state.sources[0]);
+    setSource(state, state.sources[0]);
 }
 
 /**
 * Sets current source.
 */
-export const setSource = async (state, source) => {
+export const setSource = (state, source) => {
     // Set source.
     state.source = source;
 
@@ -93,5 +93,5 @@ export const setSource = async (state, source) => {
         state.institution.canonicalName,
         source.canonicalName
     )
-    await setDocument(state, document);
+    setDocument(state, document);
 }
