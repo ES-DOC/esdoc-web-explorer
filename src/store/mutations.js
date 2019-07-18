@@ -3,7 +3,6 @@
  *       https://vuex.vuejs.org/en/mutations.html
  * @author Mark Conway-Greenslade
  */
-import API from '@/api';
 
 /**
 * Initialises state store - part of application setup process.
@@ -35,17 +34,9 @@ export const initialise = (state, {
 /**
 * Sets current document.
 */
-export const setDocument = async (state, document) => {
-    if (document) {
-        // Load (JIT) document content.
-        if (document.content === null) {
-            state.isLoading = true;
-            document.setContent(await API.document.getOne(document));
-            setTimeout(() => { state.isLoading = false; }, 500);  // N.B timer avoids UI flicker
-        }
-        state.documents.setDocument(document);
-        state.document = document;
-    }
+export const setDocument = (state, document) => {
+    state.documents.setDocument(document);
+    state.document = document;
 }
 
 /**
@@ -69,6 +60,13 @@ export const setInstitution = (state, institution) => {
 }
 
 /**
+* Sets flag indicating whether a document is being loaded into memory.
+*/
+export const setIsLoading = (state, isLoading) => {
+    state.isLoading = isLoading;
+}
+
+/**
 * Sets set of sources.
 */
 export const setSources = (state, institution) => {
@@ -87,11 +85,4 @@ export const setSources = (state, institution) => {
 export const setSource = (state, source) => {
     // Set source.
     state.source = source;
-
-    // Set document.
-    const document = state.documents.getDocument(
-        state.institution.canonicalName,
-        source.canonicalName
-    )
-    setDocument(state, document);
 }
