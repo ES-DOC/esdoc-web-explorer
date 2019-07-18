@@ -49,17 +49,29 @@ const getInitialisationParams = (path) => {
     }
 }
 
+/**
+ * Maps initialisation parameters to vuex store.
+ */
+const getStoreModule = ({ projectID, documentType }) => {
+    if (projectID === 'cmip6' && documentType === 'models') {
+        return 'cim2/model';
+    }
+
+    throw new Error('Cannot map initialisation parameters to a vuex store');
+}
+
 const initialise = async () => {
-    // Render initial view.
+    // Instantiate main view.
     new Vue({
       router,
       store,
       render: h => h(App)
-    }).$mount("#app");
+  }).$mount("#app");
 
-    // Initialise state store.
+    // Initialise view state.
     const params = getInitialisationParams(window.location.pathname);
-    await store.dispatch('cim2/model/initialise', params);
+    const storeModule = getStoreModule(params);
+    await store.dispatch(`${storeModule}/initialise`, params);
 }
 
 initialise();
