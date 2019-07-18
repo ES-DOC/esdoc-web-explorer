@@ -5,16 +5,9 @@
  */
 
 import * as _ from 'lodash';
-import API from '@/api';
 
-import {
-    INITIALISE,
-    SET_DOCUMENT,
-    SET_DOCUMENT_TOPIC,
-    SET_INSTITUTION,
-    SET_IS_LOADING,
-    SET_SOURCE
-} from './mutation-types';
+import API from '@/api';
+import * as mtypes from './mutation-types';
 import { Document } from '@/models/cim2/model/document';
 import { DocumentSet } from '@/models/cim2/model/documentSet';
 
@@ -51,7 +44,7 @@ export const initialise = async (ctx, { documentName, documentType, institute, p
     documents.current.setContent(await API.document.getOne(documents.current));
 
     // Mutate state.
-    ctx.commit(INITIALISE, {
+    ctx.commit(mtypes.INITIALISE, {
         documents,
         institution,
         institutions,
@@ -68,35 +61,35 @@ export const initialise = async (ctx, { documentName, documentType, institute, p
  * Set current document topic.
  */
 export const setDocumentTopic = (ctx, [ documentTopic ]) => {
-    ctx.commit(SET_DOCUMENT_TOPIC, documentTopic);
+    ctx.commit(mtypes.SET_DOCUMENT_TOPIC, documentTopic);
 }
 
 /**
  * Set currently selected institute.
  */
-export const setInstitution = (ctx, institution) => {
+export const setInstitution = async (ctx, institution) => {
     // Mutate state.
-    ctx.commit(SET_INSTITUTION, institution);
+    ctx.commit(mtypes.SET_INSTITUTION, institution);
 
     // Update document.
-    setDocument(ctx);
+    await ctx.dispatch('setDocument');
 }
 
 /**
  * Set currently selected source.
  */
-export const setSource = (ctx, source) => {
+export const setSource = async (ctx, source) => {
     // Mutate state.
-    ctx.commit(SET_SOURCE, source);
+    ctx.commit(mtypes.SET_SOURCE, source);
 
     // Update document.
-    setDocument(ctx);
+    await ctx.dispatch('setDocument');
 }
 
 /**
  * Set currently selected document.
  */
-const setDocument = async (ctx) => {
+export const setDocument = async (ctx) => {
     // Set document.
     const { documents, institution, source } = ctx.state;
     const document = documents.getDocument(
@@ -106,25 +99,26 @@ const setDocument = async (ctx) => {
 
     // Load content (if necessary).
     if (document.content === null) {
-        await setDocumentContent(ctx, document);
+        await ctx.dispatch('setDocumentContent', document);
     }
 
     // Mutate state.
-    ctx.commit(SET_DOCUMENT, document);
+    ctx.commit(mtypes.SET_DOCUMENT, document);
 }
 
 /**
  * Set currently selected document.
  */
-const setDocumentContent = async (ctx, document) => {
+export const setDocumentContent = async (ctx, document) => {
     // Signal background event.
-    ctx.commit(SET_IS_LOADING, true);
+    ctx.commit(mtypes.SET_IS_LOADING, true);
 
     // Load content from API.
-    document.setContent(await API.document.getOne(document));
+    const content = await API.document.getOne(document)
+    document.setContent(content);
 
     // Signal background event.
     setTimeout(() => {
-        ctx.commit(SET_IS_LOADING, false);
+        ctx.commit(mtypes.SET_IS_LOADING, false);
     }, 500);  // N.B timer avoids UI flicker
 }
