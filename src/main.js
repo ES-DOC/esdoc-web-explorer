@@ -72,6 +72,7 @@ const initialise = async () => {
     const params = getInitialisationParams(window.location.pathname);
     const storeModule = getStoreModule(params);
     await store.dispatch(`${storeModule}/initialise`, params);
+    await store.dispatch('app/setIsInitialised', true);
 }
 
 initialise();

@@ -54,12 +54,6 @@ export const initialise = async (ctx, { documentName, documentType, institute, p
         topics,
         vocabs
     });
-
-
-    await ctx.dispatch('setDocumentTopic', [ null ]);
-
-    // Signal app is initialised.
-    ctx.dispatch('app/setIsInitialised', true, { root: true });
 };
 
 /**
