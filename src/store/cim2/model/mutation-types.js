@@ -1,3 +1,8 @@
+/**
+ * @file Store mutation type keys.
+ * @author Mark Conway-Greenslade
+ */
+
 // Initialises state store - part of application setup process.
 export const INITIALISE = 'initialise';
 

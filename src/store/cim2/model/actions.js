@@ -1,6 +1,5 @@
 /**
- * @file Application level state actions (that ultimately mutate state).
- *       https://vuex.vuejs.org/en/actions.html
+ * @file Store actions (that ultimately mutate state).
  * @author Mark Conway-Greenslade
  */
 
@@ -56,7 +55,11 @@ export const initialise = async (ctx, { documentName, documentType, institute, p
         vocabs
     });
 
+
     await ctx.dispatch('setDocumentTopic', [ null ]);
+
+    // Signal app is initialised.
+    ctx.dispatch('app/setIsInitialised', true, { root: true });
 };
 
 /**
@@ -81,6 +84,11 @@ export const setInstitution = async (ctx, institution) => {
  * Set currently selected source.
  */
 export const setSource = async (ctx, source) => {
+    // Escape if already assigned.
+    if (ctx.state.source === source) {
+        return;
+    }
+
     // Mutate state.
     ctx.commit(mtypes.SET_SOURCE, source);
 
@@ -113,14 +121,14 @@ export const setDocument = async (ctx) => {
  */
 export const setDocumentContent = async (ctx, document) => {
     // Signal background event.
-    ctx.commit(mtypes.SET_IS_LOADING, true);
+    await ctx.dispatch('app/setIsLoading', true, { root: true });
 
     // Load content from API.
     const content = await API.document.getOne(document)
     document.setContent(content);
 
     // Signal background event.
-    setTimeout(() => {
-        ctx.commit(mtypes.SET_IS_LOADING, false);
+    setTimeout(async () => {
+        await ctx.dispatch('app/setIsLoading', false, { root: true });
     }, 500);  // N.B timer avoids UI flicker
 }

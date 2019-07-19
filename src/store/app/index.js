@@ -3,8 +3,12 @@
  * @author Mark Conway-Greenslade
  */
 
-import state from './state';
+ import * as actions from './actions';
+ import * as mutations from './mutations';
+ import state from './state';
 
-export {
-    state
-}
+ export {
+     actions,
+     mutations,
+     state
+ }

@@ -1,6 +1,5 @@
 /**
- * @file Application level state accessors.
- *       https://vuex.vuejs.org/en/getters.html
+ * @file Store state accessors.
  * @author Mark Conway-Greenslade
  */
 

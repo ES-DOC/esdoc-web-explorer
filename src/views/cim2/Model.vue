@@ -24,7 +24,9 @@ export default {
         TheMainHeader,
         TheSubExplorer
     },
-    computed: mapState('cim2/model', ['isInitialised'])
+    computed: {
+        ...mapState('app', ['isInitialised'])
+    }
 };
 
 </script>

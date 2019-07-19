@@ -28,7 +28,7 @@ export default {
     name: "TheLoadingModal",
     computed: {
         ...mapState('app', ['version']),
-        ...mapState('cim2/model', {
+        ...mapState('app', {
             isVisible: state => !state.isInitialised || state.isLoading
         })
     }

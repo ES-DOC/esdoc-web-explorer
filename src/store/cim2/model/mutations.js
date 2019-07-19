@@ -1,6 +1,5 @@
 /**
- * @file Application level state mutations.
- *       https://vuex.vuejs.org/en/mutations.html
+ * @file Store state mutations.
  * @author Mark Conway-Greenslade
  */
 
@@ -28,7 +27,6 @@ export const initialise = (state, {
     state.sources = sources;
     state.topics = topics;
     state.vocabs = vocabs;
-    state.isInitialised = true;
 }
 
 /**
