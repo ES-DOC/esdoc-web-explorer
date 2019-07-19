@@ -25,9 +25,6 @@ export default {
     // Set of specialisation topics for viewing.
     topics: [],
 
-    // Current project whose documents are being viewed.
-    project: null,
-
-    // Set of projects with viewable documents.
-    projects: [],
+    // Set of controlled vocabularies loaded from pyessv-ws.
+    vocabs: []
 }

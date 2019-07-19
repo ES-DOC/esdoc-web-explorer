@@ -15,9 +15,7 @@ import * as mtypes from './mutation-types';
  */
 export const initialise = async (ctx, { documentName, documentType, institute, projectID }) => {
     // Set vocabulary related data
-    const projects = await API.project.getAll();
-    const project = projects.find(i => i.key === projectID);
-    const vocabs = await API.vocab.getAll();
+    const vocabs = ctx.rootState.app.vocabs;
     const topics = await API.specialisation.getTopics(projectID, vocabs);
 
     // Set documents.
@@ -47,8 +45,6 @@ export const initialise = async (ctx, { documentName, documentType, institute, p
         documents,
         institution,
         institutions,
-        project,
-        projects,
         source,
         sources,
         topics,

@@ -3,6 +3,19 @@
  * @author Mark Conway-Greenslade
  */
 
+ /**
+ * Initialises state store - part of application setup process.
+ */
+ export const initialise = (state, {
+     project,
+     projects,
+     vocabs
+ }) => {
+     state.project = project;
+     state.projects = projects;
+     state.vocabs = vocabs;
+ }
+
 /**
  * Sets flag indicating whether explorer has been initialised.
  */

@@ -50,7 +50,7 @@ const getInitialisationParams = (path) => {
 }
 
 /**
- * Maps initialisation parameters to vuex store.
+ * Maps initialisation parameters to view store.
  */
 const getStoreModule = ({ projectID, documentType }) => {
     if (projectID === 'cmip6' && documentType === 'models') {
@@ -70,8 +70,8 @@ const initialise = async () => {
 
     // Initialise view state.
     const params = getInitialisationParams(window.location.pathname);
-    const storeModule = getStoreModule(params);
-    await store.dispatch(`${storeModule}/initialise`, params);
+    await store.dispatch(`app/initialise`, params);
+    await store.dispatch(`${getStoreModule(params)}/initialise`, params);
     await store.dispatch('app/setIsInitialised', true);
 }
 

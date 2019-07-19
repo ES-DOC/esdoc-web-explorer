@@ -9,7 +9,7 @@
             <b>ES-DOC</b> Explorer <span class="app-version">v{{ version }}</span>
         </b-navbar-brand>
         <b-navbar-nav class="ml-auto">
-            <b-nav-text style="color: black;">{{ project }} {{ documentType }}: <b>{{ documentLabel }}</b></b-nav-text>
+            <b-nav-text style="color: black;">{{ project.label }} {{ documentType }}: <b>{{ documentLabel }}</b></b-nav-text>
         </b-navbar-nav>
     </b-navbar>
 </template>
@@ -20,11 +20,10 @@ import { mapState } from 'vuex';
 export default {
     name: "TheMainHeader",
     computed: {
-        ...mapState('app', ['version']),
+        ...mapState('app', ['project', 'version']),
         ...mapState('cim2/model', {
             documentLabel: ({ document }) => document.label,
-            documentType: ({ document }) => document.typeShortName,
-            project: ({ project }) => project.label
+            documentType: ({ document }) => document.typeShortName
         })
     }
 };
