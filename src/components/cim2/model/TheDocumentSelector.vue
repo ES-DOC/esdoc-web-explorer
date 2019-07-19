@@ -22,12 +22,15 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+
+// Get pointer to namespaced state store module.
+const { mapActions, mapState } = createNamespacedHelpers('cim2/model');
 
 export default {
     name: "DocumentSelector",
     computed: {
-        ...mapState('cim2/model', {
+        ...mapState({
             optionsForInstitution: ({ institutions }) => institutions.map(i => {
                 return {
                     value: i,
@@ -59,7 +62,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions('cim2/model', [
+        ...mapActions([
             'setInstitution',
             'setSource',
         ])

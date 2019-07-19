@@ -5,12 +5,15 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+
+// Get pointer to namespaced state store module.
+const { mapState } = createNamespacedHelpers('cim2/model');
 
 export default {
     name: "TheTopicTitleBar",
     computed: {
-        ...mapState('cim2/model', {
+        ...mapState({
             documentLabel: ({ document }) => document.label,
             topicHierachy: ({ document }) => {
                 const { hierarchy } = document.topicInfo.topic;

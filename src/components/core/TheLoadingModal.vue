@@ -22,13 +22,16 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+
+// Get pointer to namespaced state store module.
+const { mapState } = createNamespacedHelpers('app');
 
 export default {
     name: "TheLoadingModal",
     computed: {
-        ...mapState('app', ['version']),
-        ...mapState('app', {
+        ...mapState(['version']),
+        ...mapState({
             isVisible: state => !state.isInitialised || state.isLoading
         })
     }

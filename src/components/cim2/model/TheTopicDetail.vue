@@ -18,10 +18,13 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { createNamespacedHelpers } from "vuex";
 import CitationList from "@/components/cim2/shared/CitationList";
 import ResponsiblePartyList from "@/components/cim2/shared/ResponsiblePartyList";
 import TopicPropertyList from "@/components/cim2/model/TopicPropertyList";
+
+// Get pointer to namespaced state store module.
+const { mapState } = createNamespacedHelpers('cim2/model');
 
 export default {
     name: "TheTopicDetail",
@@ -31,7 +34,7 @@ export default {
         TopicPropertyList
     },
     computed: {
-        ...mapState('cim2/model', {
+        ...mapState({
             citations: ({ document }) => document.topicInfo.content ? document.topicInfo.content.citations : [],
             propertyMap: ({ document }) => document.content.topicPropertyMap,
             responsibleParties: ({ document }) => document.topicInfo.content ? document.topicInfo.content.responsibleParties : [],

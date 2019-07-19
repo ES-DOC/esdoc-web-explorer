@@ -16,12 +16,15 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+
+// Get pointer to namespaced state store module.
+const { mapActions, mapState } = createNamespacedHelpers('cim2/model');
 
 export default {
     name: "TopicSelector",
     computed: {
-        ...mapState('cim2/model', {
+        ...mapState({
             topicTree: ({ document }) => {
                 return {
                     fields: [
@@ -44,7 +47,7 @@ export default {
                 item.isSelected ? 'b-table-row-selected table-esdoc-selected' : ''
             ]
         },
-        ...mapActions('cim2/model', [
+        ...mapActions([
             'setDocumentTopic'
         ])
     }
