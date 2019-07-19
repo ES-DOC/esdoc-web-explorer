@@ -1,11 +1,14 @@
 <template>
-    <b-modal
-        size="lg"
-        v-model="isVisible">
+    <b-modal size="lg"
+             v-model="isVisible"
+             modal-class="core-loading-modal" >
+
         <div slot="modal-footer" />
+
         <div slot="modal-header">
             <strong>ES-DOC Explorer </strong><small>v{{version}}</small>
         </div>
+
         <b-container fluid>
             <b-row class="mb-1 text-center">
                 <b-col>
@@ -17,6 +20,7 @@
                 </b-col>
             </b-row>
         </b-container>
+
     </b-modal>
 </template>
 
@@ -36,3 +40,9 @@ export default {
     }
 };
 </script>
+
+<style>
+.core-loading-modal {
+    margin-top: 150px;
+}
+</style>

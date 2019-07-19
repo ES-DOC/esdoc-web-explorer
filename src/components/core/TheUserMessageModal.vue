@@ -1,5 +1,9 @@
 <template>
-    <b-modal ref="core-user-message-modal" size="lg" v-model="isVisible">
+    <b-modal ref="core-user-message-modal"
+             size="lg"
+             v-model="isVisible"
+             modal-class="core-user-message-modal">
+
         <div slot="modal-title">
             <strong>ES-DOC Explorer </strong><small>v{{version}}</small>{{ details.title ? ` - ${details.title}` : '' }}
         </div>
@@ -15,6 +19,7 @@
               OK
             </b-button>
         </div>
+
     </b-modal>
 </template>
 
@@ -43,3 +48,9 @@ export default {
     }
 };
 </script>
+
+<style>
+.core-user-message-modal {
+    margin-top: 150px;
+}
+</style>
