@@ -15,7 +15,7 @@ import * as mtypes from './mutation-types';
  */
 export const initialise = async (ctx, { documentName, documentType, institute, projectID }) => {
     // Set vocabulary related data
-    const vocabs = ctx.rootState.app.vocabs;
+    const vocabs = ctx.rootState.core.vocabs;
     const topics = await API.specialisation.getTopics(projectID, vocabs);
 
     // Set documents.
@@ -50,14 +50,10 @@ export const initialise = async (ctx, { documentName, documentType, institute, p
         topics,
         vocabs
     });
-};
 
-/**
- * Set current document topic.
- */
-export const setDocumentTopic = (ctx, [ documentTopic ]) => {
-    ctx.commit(mtypes.SET_DOCUMENT_TOPIC, documentTopic);
-}
+    // Mutate application level state.
+    await setDocumentInfo(ctx, documents.current);
+};
 
 /**
  * Set currently selected institute.
@@ -74,7 +70,7 @@ export const setInstitution = async (ctx, institution) => {
  * Set currently selected source.
  */
 export const setSource = async (ctx, source) => {
-    // Escape if already assigned.
+    // Escape if already assigned - can occur when user switches institute.
     if (ctx.state.source === source) {
         return;
     }
@@ -104,6 +100,9 @@ export const setDocument = async (ctx) => {
 
     // Mutate state.
     ctx.commit(mtypes.SET_DOCUMENT, document);
+
+    // Mutate application level state.
+    await setDocumentInfo(ctx, document);
 }
 
 /**
@@ -111,14 +110,31 @@ export const setDocument = async (ctx) => {
  */
 export const setDocumentContent = async (ctx, document) => {
     // Signal background event.
-    await ctx.dispatch('app/setIsLoading', true, { root: true });
+    await ctx.dispatch('core/setIsLoading', true, { root: true });
 
     // Load content from API.
     const content = await API.document.getOne(document)
     document.setContent(content);
 
-    // Signal background event.
+    // Signal background event - n.b. timer avoids UI flicker.
     setTimeout(async () => {
-        await ctx.dispatch('app/setIsLoading', false, { root: true });
-    }, 500);  // N.B timer avoids UI flicker
+        await ctx.dispatch('core/setIsLoading', false, { root: true });
+    }, 500);
+}
+
+/**
+ * Set current document topic.
+ */
+export const setDocumentInfo = async (ctx, document) => {
+    await ctx.dispatch('core/setDocumentInfo', {
+        documentLabel: document.label,
+        documentType: document.typeShortName
+    }, { root: true });
+}
+
+/**
+ * Set current document topic.
+ */
+export const setDocumentTopic = (ctx, [ documentTopic ]) => {
+    ctx.commit(mtypes.SET_DOCUMENT_TOPIC, documentTopic);
 }

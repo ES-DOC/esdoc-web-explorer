@@ -3,18 +3,26 @@
  * @author Mark Conway-Greenslade
  */
 
- /**
+/**
  * Initialises state store - part of application setup process.
  */
- export const initialise = (state, {
-     project,
-     projects,
-     vocabs
- }) => {
-     state.project = project;
-     state.projects = projects;
-     state.vocabs = vocabs;
- }
+export const initialise = (state, {
+    project,
+    projects,
+    vocabs
+}) => {
+    state.project = project;
+    state.projects = projects;
+    state.vocabs = vocabs;
+}
+
+/**
+ * Sets information pertaining to currently loaded document.
+ */
+export const setDocumentInfo = (state, { documentLabel, documentType }) => {
+    state.documentLabel = documentLabel;
+    state.documentType = documentType;
+}
 
 /**
  * Sets flag indicating whether explorer has been initialised.

@@ -11,15 +11,15 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 // Import store modules.
-import * as app from './app/index';
+import * as core from './core/index';
 import * as cim2Model from './cim2/model/index';
 
 // Instantiate store
 export default new Vuex.Store({
     modules: {
-        app: {
+        core: {
             namespaced: true,
-            ...app
+            ...core
         },
         cim2: {
             namespaced: true,

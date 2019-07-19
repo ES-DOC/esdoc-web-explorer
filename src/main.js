@@ -70,9 +70,9 @@ const initialise = async () => {
 
     // Initialise view state.
     const params = getInitialisationParams(window.location.pathname);
-    await store.dispatch(`app/initialise`, params);
+    await store.dispatch(`core/initialise`, params);
     await store.dispatch(`${getStoreModule(params)}/initialise`, params);
-    await store.dispatch('app/setIsInitialised', true);
+    await store.dispatch('core/setIsInitialised', true);
 }
 
 initialise();

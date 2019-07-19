@@ -24,6 +24,13 @@ export const initialise = async (ctx, { projectID }) => {
 };
 
 /**
+ * Sets information pertaining to currently loaded document.
+ */
+export const setDocumentInfo = async (ctx, documentInfo) => {
+    ctx.commit(mtypes.SET_DOCUMENT_INFO, documentInfo);
+}
+
+/**
  * Sets flag indicating whether explorer has been initialised.
  */
 export const setIsInitialised = async (ctx, value) => {

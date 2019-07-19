@@ -15,16 +15,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { createNamespacedHelpers } from "vuex";
+
+// Get pointer to namespaced state store module.
+const { mapState } = createNamespacedHelpers('core');
 
 export default {
     name: "TheMainHeader",
     computed: {
-        ...mapState('app', ['project', 'version']),
-        ...mapState('cim2/model', {
-            documentLabel: ({ document }) => document.label,
-            documentType: ({ document }) => document.typeShortName
-        })
+        ...mapState(['documentLabel', 'documentType', 'project', 'version']),
     }
 };
 </script>
