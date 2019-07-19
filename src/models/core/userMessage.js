@@ -1,7 +1,7 @@
 /**
  * Enumeration of user message types.
  */
-const UserMessageTypes = Object.freeze({
+export const UserMessageType = Object.freeze({
     Info: 'Info',
     Warning: 'Warning',
     Error: 'Error',

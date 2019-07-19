@@ -32,7 +32,7 @@ export class DocumentSet {
      * Returns initial document to be rendered.
      */
     getDocument (institutionID, sourceID) {
-        let filtered;
+        let filtered, wasOverridden = false;
 
         // Parse inputs.
         institutionID = institutionID || 'mohc';
@@ -47,6 +47,7 @@ export class DocumentSet {
         if (sourceID) {
             filtered = this.all.filter(filterByInstitutionIDAndSourceID);
             if (filtered.length === 0) {
+                wasOverridden = true;
                 filtered = this.all.filter(filterByInstitutionID);
             }
         } else {
@@ -55,9 +56,16 @@ export class DocumentSet {
 
         // Set default.
         if (filtered === undefined || filtered.length === 0) {
+            wasOverridden = true;
             filtered = _.sortBy(this.all, ['institutionLabel', 'source']);
         }
 
-        return filtered.length > 0 ? filtered[0] : null;
+        // Set document and assign flag indicating whether the document was overridden.
+        const document = filtered.length > 0 ? filtered[0] : null;
+        if (document) {
+            document.wasOverridden = wasOverridden;
+        }
+
+        return document;
     }
 }

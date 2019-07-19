@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 import API from '@/api';
 import { Document } from '@/models/cim2/model/document';
 import { DocumentSet } from '@/models/cim2/model/documentSet';
+import { UserMessageInfo, UserMessageType } from '@/models/core/userMessage';
 import * as mtypes from './mutation-types';
 
 /**
@@ -53,7 +54,23 @@ export const initialise = async (ctx, { documentName, documentType, institute, p
 
     // Mutate application level state.
     await setDocumentInfo(ctx, documents.current);
+
+    // Display warning message when initial document was overridden.
+    if (documents.current.wasOverridden) {
+        await onDocumentOverridden(ctx);
+    }
 };
+
+/**
+ * Set currently selected institute.
+ */
+const onDocumentOverridden = async (ctx) => {
+    await ctx.dispatch('core/setUserMessage', new UserMessageInfo(
+        'The requested model document could not be found.',
+        null,
+        UserMessageType.Warning
+    ), { root: true });
+}
 
 /**
  * Set currently selected institute.

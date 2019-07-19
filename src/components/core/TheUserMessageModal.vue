@@ -1,19 +1,20 @@
 <template>
-    <b-modal
-        centered
-        size="lg"
-        v-model="isVisible">
-        <div slot="modal-footer" />
-        <div slot="modal-header">
-            <strong>ES-DOC Explorer </strong><small>v{{version}}</small> - {{ details.title }}
+    <b-modal ref="core-user-message-modal" size="lg" v-model="isVisible">
+        <div slot="modal-title">
+            <strong>ES-DOC Explorer </strong><small>v{{version}}</small>{{ details.title ? ` - ${details.title}` : '' }}
         </div>
-        <b-container fluid>
-            <b-row class="mb-1 text-center">
-                <b-col>
-                    <strong>{{ details.message }}</strong>
-                </b-col>
-            </b-row>
-        </b-container>
+
+        <div slot="default" class="text-center">
+            <b-alert show style="margin-bottom: 0px;">
+                <strong>{{ details.message }}</strong>
+            </b-alert>
+        </div>
+
+        <div slot="modal-footer">
+            <b-button variant="info" @click="hideModal()">
+              OK
+            </b-button>
+        </div>
     </b-modal>
 </template>
 
@@ -23,14 +24,22 @@ import { createNamespacedHelpers } from "vuex";
 // Get pointer to namespaced state store module.
 const { mapState } = createNamespacedHelpers('core');
 
+// Modal DOM reference.
+const MODAL_REF = 'core-user-message-modal';
+
 export default {
     name: "TheLoadingModal",
     computed: {
         ...mapState(['version']),
         ...mapState({
-            details: state => state.userMessage.details,
-            isVisible: state => state.userMessage.display
+            details: ({ userMessage }) => userMessage.details,
+            isVisible: ({ userMessage }) => userMessage.isVisible
         })
+    },
+    methods: {
+        hideModal() {
+            this.$refs[MODAL_REF].hide();
+        }
     }
 };
 </script>

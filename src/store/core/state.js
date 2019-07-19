@@ -29,7 +29,7 @@ export default {
         },
 
         // Flag indicating whether message is to be displayed or not.
-        display: true
+        isVisible: false
     },
 
     // Current project whose documents are being viewed.

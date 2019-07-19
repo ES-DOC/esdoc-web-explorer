@@ -37,3 +37,11 @@ export const setIsInitialised = (state, isInitialised) => {
 export const setIsLoading = (state, isLoading) => {
     state.isLoading = isLoading;
 }
+
+/**
+ * Displays a message to the user.
+ */
+export const setUserMessage = (state, msg) => {
+    state.userMessage.details = msg;
+    state.userMessage.isVisible = true;
+}

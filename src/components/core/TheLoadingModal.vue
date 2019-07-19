@@ -1,6 +1,5 @@
 <template>
     <b-modal
-        centered
         size="lg"
         v-model="isVisible">
         <div slot="modal-footer" />
