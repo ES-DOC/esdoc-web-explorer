@@ -12,21 +12,5 @@ export default [
         path: "/not-found",
         name: "Not Found",
         view: 'core/404'
-    },
-    {
-        path: "/cmip6",
-        view: 'cim2/Model'
-    },
-    {
-        path: "/cmip6/models",
-        view: 'cim2/Model'
-    },
-    {
-        path: "/cmip6/models/*",
-        view: 'cim2/Model'
-    },
-    {
-        path: "/cmip6/models/*/*",
-        view: 'cim2/Model'
-    },
+    }
 ];

@@ -5,7 +5,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Meta from 'vue-meta';
-import paths from './paths';
+import paths from './paths/index';
 
 // Extend Vue.
 Vue.use(Router);
