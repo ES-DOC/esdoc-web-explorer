@@ -9,21 +9,18 @@
             <b>ES-DOC</b> Explorer <span class="app-version">v{{ version }}</span>
         </b-navbar-brand>
         <b-navbar-nav class="ml-auto">
-            <b-nav-text style="color: black;">{{ project.label }} {{ documentType }}: <b>{{ documentLabel }}</b></b-nav-text>
+            <b-nav-text style="color: black;"><b>{{ project.label }} Further Info URL</b></b-nav-text>
         </b-navbar-nav>
     </b-navbar>
 </template>
 
 <script>
-import { createNamespacedHelpers } from "vuex";
-
-// Get pointer to namespaced state store module.
-const { mapState } = createNamespacedHelpers('core');
+import { mapState } from "vuex";
 
 export default {
-    name: "TheMainHeader",
+    name: "TheSubExplorerHeader",
     computed: {
-        ...mapState(['documentLabel', 'documentType', 'project', 'version']),
+        ...mapState('core', ['documentLabel', 'documentType', 'project', 'version']),
     }
 };
 </script>

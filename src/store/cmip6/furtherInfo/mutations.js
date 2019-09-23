@@ -12,6 +12,7 @@ export const initialise = (state, {
     sourceID,
     experiment,
     subExperiment,
+    targetURL,
     urls,
     variantLabel,
     vocabs
@@ -21,6 +22,7 @@ export const initialise = (state, {
     state.sourceID = sourceID;
     state.experiment = experiment;
     state.subExperiment = subExperiment;
+    state.targetURL = targetURL;
     state.urls = urls;
     state.variantLabel = variantLabel;
     state.vocabs = vocabs;

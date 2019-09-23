@@ -13,7 +13,7 @@ import urlParser from './urlParser';
  * Initialises state store - part of application setup process.
  */
 export const initialise = async (ctx) => {
-    // Set vocabulary related data
+    // Set vocabularies
     const vocabs = ctx.rootState.core.vocabs;
 
     // Set metadata extracted from url.

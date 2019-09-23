@@ -29,15 +29,12 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from "vuex";
-
-// Get pointer to namespaced state store module.
-const { mapActions, mapState } = createNamespacedHelpers('cmip6/furtherInfo');
+import { mapState } from "vuex";
 
 export default {
     name: "TheOtherDocumentation",
     computed: {
-        ...mapState(['urls']),
+        ...mapState('cmip6/furtherInfo', ['urls']),
     }
 };
 </script>

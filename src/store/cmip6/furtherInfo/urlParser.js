@@ -10,7 +10,7 @@
  */
 export default async (vocabs) => {
         // Extract target URL param.
-    const target = UTILS.getURLParam('target', null);
+    const target = UTILS.getURLParam('target', null, true);
     if (_.isNull(target)) {
         throw new Error('target URL param is undefined');
     }
@@ -50,6 +50,7 @@ export default async (vocabs) => {
         sourceID,
         experiment,
         subExperiment,
+        targetURL: target,
         variantLabel        
     };
 };

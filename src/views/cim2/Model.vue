@@ -1,7 +1,7 @@
 <template>
 
   <div>
-    <TheMainHeader v-if="isInitialised"/>
+    <TheSubExplorerHeader v-if="isInitialised"/>
     <TheSubExplorer v-if="isInitialised"/>
     <TheUserMessageModal/>
     <TheLoadingModal />
@@ -12,8 +12,8 @@
 <script>
 import { mapState } from "vuex";
 import TheLoadingModal from "@/components/core/TheLoadingModal.vue";
-import TheMainHeader from "@/components/core/TheMainHeader.vue";
 import TheSubExplorer from "@/components/cim2/model/TheSubExplorer.vue";
+import TheSubExplorerHeader from "@/components/cim2/model/TheSubExplorerHeader.vue";
 import TheUserMessageModal from "@/components/core/TheUserMessageModal.vue";
 
 export default {
@@ -23,8 +23,8 @@ export default {
     },
     components: {
         TheLoadingModal,
-        TheMainHeader,
         TheSubExplorer,
+        TheSubExplorerHeader,
         TheUserMessageModal
     },
     computed: {

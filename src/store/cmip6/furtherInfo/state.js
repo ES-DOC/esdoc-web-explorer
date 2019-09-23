@@ -25,6 +25,8 @@ export default {
     // Parsed sub experiment.
     subExperiment: null,
 
+    targetURL: null,
+
     // URL constants.
     urls: null,
 
