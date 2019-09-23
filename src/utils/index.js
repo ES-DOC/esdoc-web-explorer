@@ -17,3 +17,17 @@ export const getApplicationMode = () => {
         return 'dev';
     }
 }
+
+// Returns URL query param value.
+// @name                URL query param name.
+// @defaultValue        URL query param default value.
+// @retainCase          Flag indicating whether the result will be converted to lower case or not.
+export const getURLParam = (name, defaultValue, retainCase) => {
+    let result = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (!result) {
+        return defaultValue;
+    }
+    result = (result[1] || defaultValue);
+
+    return (retainCase === true) ? result : result.toLowerCase();
+};

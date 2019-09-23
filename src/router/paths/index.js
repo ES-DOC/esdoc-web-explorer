@@ -4,7 +4,7 @@
  * official documentation https://router.vuejs.org/en/
  */
 
-import cim2 from './cim2';
+import cmip6 from './cmip6';
 import core from './core';
 
-export default core.concat(cim2);
+export default core.concat(cmip6);

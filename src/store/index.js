@@ -13,6 +13,7 @@ Vue.use(Vuex);
 // Import store modules.
 import * as core from './core/index';
 import * as cim2Model from './cim2/model/index';
+import * as cmip6FurtherInfo from './cmip6/furtherInfo/index';
 
 // Instantiate store
 export default new Vuex.Store({
@@ -27,6 +28,15 @@ export default new Vuex.Store({
                 model: {
                     namespaced: true,
                     ...cim2Model
+                }
+            }
+        },
+        cmip6: {
+            namespaced: true,
+            modules: {
+                furtherInfo: {
+                    namespaced: true,
+                    ...cmip6FurtherInfo
                 }
             }
         },

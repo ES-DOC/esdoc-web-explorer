@@ -3,7 +3,8 @@
  * for more information on routes, see the
  * official documentation https://router.vuejs.org/en/
  */
-export default [
+
+const models = [
     {
         path: "/cmip6",
         view: 'cim2/Model'
@@ -21,3 +22,12 @@ export default [
         view: 'cim2/Model'
     }
 ];
+
+const furtherInformation = [
+    {
+        path: "/cmip6/further-info",
+        view: 'cmip6/FurtherInfo'
+    }
+];
+
+export default models.concat(furtherInformation);

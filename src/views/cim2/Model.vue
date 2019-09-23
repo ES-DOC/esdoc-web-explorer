@@ -13,8 +13,8 @@
 import { mapState } from "vuex";
 import TheLoadingModal from "@/components/core/TheLoadingModal.vue";
 import TheMainHeader from "@/components/core/TheMainHeader.vue";
-import TheUserMessageModal from "@/components/core/TheUserMessageModal.vue";
 import TheSubExplorer from "@/components/cim2/model/TheSubExplorer.vue";
+import TheUserMessageModal from "@/components/core/TheUserMessageModal.vue";
 
 export default {
     name: "Cim2Model",
