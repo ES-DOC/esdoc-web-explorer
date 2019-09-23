@@ -31,3 +31,22 @@ export const getURLParam = (name, defaultValue, retainCase) => {
 
     return (retainCase === true) ? result : result.toLowerCase();
 };
+
+// Opens the target email.
+// @address         Email address.
+// @subject         Email subject.
+// @subject         Email message.
+export const openEmail = (address, subject, message) => {
+    window.location.href = `mailto:${address}?subject=${subject}&body=${message}`;
+};
+
+// Opens the target url.
+// @url     URL to be opened.
+// @inTab   Flag indicating whether url will be opened in a new browser tab or not.
+export const openURL = (url, inTab) => {
+    if (inTab) {
+        window.open(url);
+    } else {
+        window.location = url;
+    }
+};

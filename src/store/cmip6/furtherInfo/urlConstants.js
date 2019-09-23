@@ -3,16 +3,10 @@
  * @author Mark Conway-Greenslade
  */
 
+import * as utils from "@/utils";
+
 // Application mode can be derived from current window location.
- const APP_MODE = (() => {
-    if (window.location.host && window.location.host.indexOf('es-doc.org') >= 0) {
-        if (window.location.host.indexOf('test') >= 0) {
-            return 'test';
-        }
-        return 'prod';
-    }
-    return 'dev';
-})();
+ const APP_MODE = utils.getApplicationMode();
 
 // Base URL: ES-DOC datset errata api.
 const ESDOC_DATASET_ERRATA_BASE = {

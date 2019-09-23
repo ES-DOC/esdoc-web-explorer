@@ -19,7 +19,7 @@ import TheUserMessageModal from "@/components/core/TheUserMessageModal.vue";
 export default {
     name: "Cim2Model",
     _metaInfo: {
-        title: 'ES-DOC Explorer',
+        title: 'ES-DOC Model',
     },
     components: {
         TheLoadingModal,

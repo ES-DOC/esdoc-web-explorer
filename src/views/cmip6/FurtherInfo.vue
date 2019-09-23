@@ -19,7 +19,7 @@ import TheUserMessageModal from "@/components/core/TheUserMessageModal.vue";
 export default {
     name: "Cmip6FurtherInfo",
     _metaInfo: {
-        title: 'ES-DOC Explorer',
+        title: 'ES-DOC Further Info',
     },
     components: {
         TheLoadingModal,
@@ -33,3 +33,14 @@ export default {
 };
 
 </script>
+
+<style>
+
+
+
+body {
+    width: 980px;
+    margin: auto;
+}
+
+</style>

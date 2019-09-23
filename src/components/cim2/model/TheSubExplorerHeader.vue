@@ -1,5 +1,5 @@
 <template>
-    <b-navbar class="main-header">
+    <b-navbar class="cim2-model-main-header">
         <b-navbar-brand href="https://www.wcrp-climate.org">
             <img src="@/assets/logo-wcrp-small.png" alt="Earth System Documentation" style="margin-top: -9px;" />
         </b-navbar-brand>
@@ -12,6 +12,7 @@
             <b-nav-text style="color: black;"><b>{{ project.label }} {{ documentType }}: {{ documentLabel }}</b></b-nav-text>
         </b-navbar-nav>
     </b-navbar>
+
 </template>
 
 <script>
@@ -26,7 +27,7 @@ export default {
 </script>
 
 <style>
-.navbar.main-header {
+.navbar.cim2-model-main-header {
     margin-bottom: 10px;
     color: #fff;
 }
