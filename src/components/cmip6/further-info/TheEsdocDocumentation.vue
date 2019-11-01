@@ -26,7 +26,7 @@
                 <td v-else>
                     {{ institution.label }}
                 </td>
-            </tr>            
+            </tr>
             <tr>
                 <td class="caption">
                     <strong>Model</strong>
@@ -37,7 +37,7 @@
                 <td v-else>
                     {{ sourceID.label }}
                 </td>
-            </tr>  
+            </tr>
             <tr>
                 <td class="caption">
                     <strong>Experiment</strong>
@@ -45,7 +45,7 @@
                 <td>
                     <a :href=urls.experiment target="_blank">{{ experiment.label }}</a>
                 </td>
-            </tr>  
+            </tr>
             <tr>
                 <td class="caption">
                     <strong>Ensemble Description</strong>
@@ -67,7 +67,7 @@
                 <td v-else>
                     N/A
                 </td>
-            </tr>            
+            </tr>
         </tbody>
     </table>
 </template>

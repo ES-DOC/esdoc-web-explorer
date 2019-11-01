@@ -28,8 +28,11 @@
                 <td class="caption">
                     <strong>Citation (Institute)</strong>
                 </td>
-                <td v-if="urls.institutionCitations">
-                    <a :href=urls.institutionCitations target="_blank">View @ DKRZ</a>
+                <td v-if="urls.institutionCitations.length === 1">
+                    <a v-for="url in urls.institutionCitations" :href=url.url target="_blank">View @ DKRZ</a>
+                </td>
+                <td v-else-if="urls.institutionCitations.length > 1">
+                    <a v-for="url in urls.institutionCitations" :href=url.url target="_blank">View {{ url.activityID }} @ DKRZ&nbsp;</a>
                 </td>
                 <td v-else>
                     N/A
@@ -39,8 +42,11 @@
                 <td class="caption">
                     <strong>Citation (Experiment)</strong>
                 </td>
-                <td v-if="urls.experimentCitations">
-                    <a :href=urls.experimentCitations target="_blank">View @ DKRZ</a>
+                <td v-if="urls.experimentCitations.length === 1">
+                    <a v-for="url in urls.experimentCitations" :href=url.url target="_blank">View @ DKRZ</a>
+                </td>
+                <td v-else-if="urls.experimentCitations.length > 1">
+                    <a v-for="url in urls.experimentCitations" :href=url.url target="_blank">View {{ url.activityID }} @ DKRZ&nbsp;</a>
                 </td>
                 <td v-else>
                     N/A

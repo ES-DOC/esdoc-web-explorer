@@ -47,6 +47,6 @@ export const setIsLoading = async (ctx, value) => {
 /**
  * Displays a message to the user.
  */
-export const setUserMessage = async (ctx, msg) => {
-    ctx.commit(mtypes.SET_USER_MESSAGE, msg);
+export const setUserMessage = async (ctx, msgInfo) => {
+    ctx.commit(mtypes.SET_USER_MESSAGE, msgInfo);
 }

@@ -3,13 +3,13 @@
  * @author Mark Conway-Greenslade
  */
 
- import * as UTILS from '@/utils';
+import * as UTILS from '@/utils';
 
 /**
  * Parses incoming target url.
  */
 export default async (vocabs) => {
-        // Extract target URL param.
+    // Extract target URL param.
     const target = UTILS.getURLParam('target', null, true);
     if (_.isNull(target)) {
         throw new Error('target URL param is undefined');
@@ -38,6 +38,14 @@ export default async (vocabs) => {
     experiment = vocabs.WCRP.CMIP6.getExperiment(experiment);
     subExperiment = subExperiment === 'none' ? undefined : subExperiment;
 
+    // Derive activity ID - sub-optimal.
+    let activityID = experiment.data.activityID.length ? experiment.data.activityID[0] : undefined;
+
+    // Map activity ID to vocab.
+    if (activityID) {
+        activityID = vocabs.WCRP.CMIP6.getActivity(activityID);
+    }
+
     // Raise vocabulary related errors.
     if (mipEra === undefined || institution === undefined ||
         sourceID === undefined || experiment === undefined) {
@@ -46,11 +54,12 @@ export default async (vocabs) => {
 
     return {
         mipEra,
+        activityID,
         institution,
         sourceID,
         experiment,
         subExperiment,
         targetURL: target,
-        variantLabel        
+        variantLabel
     };
 };

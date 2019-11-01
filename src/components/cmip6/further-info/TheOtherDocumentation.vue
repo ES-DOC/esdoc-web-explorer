@@ -33,6 +33,7 @@ import { mapState } from "vuex";
 
 export default {
     name: "TheOtherDocumentation",
+
     computed: {
         ...mapState('cmip6/furtherInfo', ['urls']),
     }
