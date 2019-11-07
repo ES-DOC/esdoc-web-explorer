@@ -76,7 +76,6 @@ const getUrlForExperiment = ({ experiment }) => {
 
 // Returns URL for DKRZ experiment citations.
 const getUrlForExperimentCitations = async (vocabs) => {
-    const result = [];
     const {
         experiment: {
             data: {
@@ -85,6 +84,7 @@ const getUrlForExperimentCitations = async (vocabs) => {
         }
     } = vocabs;
 
+    const result = [];
     for (const activityID of activityIdentifiers) {
         result.push({
             activityID,
@@ -103,7 +103,7 @@ const getUrlForExperimentCitation = async ({
     sourceID,
     experiment
 }) => {
-    // Invoke remote API.
+    // Set URL to invoke.
     let url = constants.DKRZ_CITATIONS_EXPERIMENT;
     url = url.replace("{0}", mipEra.canonicalName);
     url = url.replace("{1}", mipEra.rawName);
@@ -112,19 +112,19 @@ const getUrlForExperimentCitation = async ({
     url = url.replace("{4}", sourceID.rawName);
     url = url.replace("{5}", experiment.rawName);
 
-    // Escape if there was no response.
+    // Invoke API & escape if there was no response.
     let { data: response } = await axios.get(url);
     if (!response.length) {
         return;
     }
 
-    // Extract citation status flag & data reference.
+    // Extract response data.
     const {
         CITATION_COMPLETED: citationExists,
         DATA_REFERENCE: dataReference
     } = response[0];
 
-    // When citation exists return doi.
+    // Return DOI when citation exists.
     if (citationExists) {
         return dataReference.split("doi:")[1].split(" ")[0];
     }
@@ -137,7 +137,6 @@ const getUrlForInstitution = ({ institution }) => {
 
 // Returns URL for DKRZ experiment citations.
 const getUrlForInstitutionCitations = async (vocabs) => {
-    const result = [];
     const {
         experiment: {
             data: {
@@ -146,6 +145,7 @@ const getUrlForInstitutionCitations = async (vocabs) => {
         }
     } = vocabs;
 
+    const result = [];
     for (const activityID of activityIdentifiers) {
         result.push({
             activityID,
@@ -161,10 +161,9 @@ const getUrlForInstitutionCitation = async ({
     mipEra,
     activityID,
     institution,
-    sourceID,
-    experiment
+    sourceID
 }) => {
-    // Invoke remote API.
+    // Set URL to invoke.
     let url = constants.DKRZ_CITATIONS_INSTITUTE;
     url = url.replace("{0}", mipEra.canonicalName);
     url = url.replace("{1}", mipEra.rawName);
@@ -172,19 +171,19 @@ const getUrlForInstitutionCitation = async ({
     url = url.replace("{3}", institution.rawName);
     url = url.replace("{4}", sourceID.rawName);
 
-    // Escape if there was no response.
+    // Invoke API & escape if there was no response.
     let { data: response } = await axios.get(url);
     if (!response.length) {
         return;
     }
 
-    // Extract citation status flag & data reference.
+    // Extract response data.
     const {
         CITATION_COMPLETED: citationExists,
         DATA_REFERENCE: dataReference
     } = response[0];
 
-    // When citation exists return doi.
+    // Return DOI when citation exists.
     if (citationExists) {
         return dataReference.split("doi:")[1].split(" ")[0];
     }
