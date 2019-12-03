@@ -53,7 +53,7 @@ export default {
     projects: [],
 
     // Application version.
-    version: "1.1.0",
+    version: "1.1.1",
 
     // Set of controlled vocabularies loaded from pyessv-ws.
     vocabs: []

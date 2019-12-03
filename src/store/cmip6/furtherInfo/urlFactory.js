@@ -92,7 +92,7 @@ const getUrlForExperimentCitations = async (vocabs) => {
         });
     }
 
-    return result;
+    return result.filter(i => i.url);
 };
 
 // Returns URL for a DKRZ experiment citation.
@@ -113,7 +113,12 @@ const getUrlForExperimentCitation = async ({
     url = url.replace("{5}", experiment.rawName);
 
     // Invoke API & escape if there was no response.
-    let { data: response } = await axios.get(url);
+    try {
+        let { data: response } = await axios.get(url);
+    }
+    catch (err) {
+        return;
+    }
     if (!response.length) {
         return;
     }
@@ -153,7 +158,7 @@ const getUrlForInstitutionCitations = async (vocabs) => {
         });
     }
 
-    return result;
+    return result.filter(i => i.url);
 };
 
 // Returns URL for a DKRZ institution citation.
@@ -172,7 +177,12 @@ const getUrlForInstitutionCitation = async ({
     url = url.replace("{4}", sourceID.rawName);
 
     // Invoke API & escape if there was no response.
-    let { data: response } = await axios.get(url);
+    try {
+        let { data: response } = await axios.get(url);
+    }
+    catch (err) {
+        return;
+    }
     if (!response.length) {
         return;
     }
