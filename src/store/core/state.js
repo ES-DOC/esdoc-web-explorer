@@ -4,15 +4,15 @@
  * @author Mark Conway-Greenslade
  */
 
- // Application mode can be derived from current window location.
+// Application mode can be derived from current window location.
 const APP_MODE = (() => {
-    if (window.location.host && window.location.host.indexOf('es-doc.org') >= 0) {
-        if (window.location.host.indexOf('test') >= 0) {
-            return 'test';
+    if (window.location.host && window.location.host.indexOf("es-doc.org") >= 0) {
+        if (window.location.host.indexOf("test") >= 0) {
+            return "test";
         }
-        return 'prod';
+        return "prod";
     }
-    return 'dev';
+    return "dev";
 })();
 
 export default {
@@ -27,7 +27,7 @@ export default {
 
     // Flag indicating wheter data is being loaded.
     isLoading: false,
-    
+
     // Mode under which the application is being run.
     mode: APP_MODE,
 
@@ -35,11 +35,11 @@ export default {
     userMessage: {
         // Details such as message, title, type.
         details: {
-            message: 'DDDDD',
+            message: "DDDDD",
 
-            title: 'YYYYY',
+            title: "YYYYY",
 
-            type: 'Info'
+            type: "Info"
         },
 
         // Flag indicating whether message is to be displayed or not.
@@ -53,8 +53,8 @@ export default {
     projects: [],
 
     // Application version.
-    version: "1.1.1",
+    version: "1.1.2",
 
     // Set of controlled vocabularies loaded from pyessv-ws.
     vocabs: []
-}
+};

@@ -113,13 +113,14 @@ const getUrlForExperimentCitation = async ({
     url = url.replace("{5}", experiment.rawName);
 
     // Invoke API & escape if there was no response.
+    let response;
     try {
-        let { data: response } = await axios.get(url);
+        response = await axios.get(url);
     }
     catch (err) {
         return;
     }
-    if (!response.length) {
+    if (!response.data.length) {
         return;
     }
 
@@ -127,7 +128,7 @@ const getUrlForExperimentCitation = async ({
     const {
         CITATION_COMPLETED: citationExists,
         DATA_REFERENCE: dataReference
-    } = response[0];
+    } = response.data[0];
 
     // Return DOI when citation exists.
     if (citationExists) {
@@ -177,13 +178,14 @@ const getUrlForInstitutionCitation = async ({
     url = url.replace("{4}", sourceID.rawName);
 
     // Invoke API & escape if there was no response.
+    let response;
     try {
-        let { data: response } = await axios.get(url);
+        response = await axios.get(url);
     }
     catch (err) {
         return;
     }
-    if (!response.length) {
+    if (!response.data.length) {
         return;
     }
 
@@ -191,7 +193,7 @@ const getUrlForInstitutionCitation = async ({
     const {
         CITATION_COMPLETED: citationExists,
         DATA_REFERENCE: dataReference
-    } = response[0];
+    } = response.data[0];
 
     // Return DOI when citation exists.
     if (citationExists) {

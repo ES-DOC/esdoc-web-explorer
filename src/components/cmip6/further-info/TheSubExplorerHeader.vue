@@ -3,20 +3,20 @@
 
     <b-navbar class="cmip6-furtherinfo-main-header">
         <b-navbar-brand href="https://www.wcrp-climate.org" target="_blank">
-            <img src="@/assets/logo-wcrp.png" 
+            <img src="@/assets/logo-wcrp.png"
                  alt="Earth System Documentation"
                  style="margin-top: -9px;" />
         </b-navbar-brand>
         <b-navbar-nav class="ml-auto">
             <b-nav-text style="color: black;"><b>{{ project.label }} Further Information</b> <small> v{{ version }}</small></b-nav-text>
-            <button class="esdoc-support btn btn-success" 
+            <button class="esdoc-support btn btn-success"
                     v-on:click="displaySupportEmailDialog">
                 Support
             </button>
             <button class="esdoc-help btn btn-info"
                     v-on:click="openHelpPage">
                 Help
-            </button>            
+            </button>
         </b-navbar-nav>
     </b-navbar>
 
@@ -35,7 +35,7 @@ export default {
     computed: {
         ...mapState('core', ['documentLabel', 'documentType', 'project', 'version']),
     },
-    methods: {        
+    methods: {
         displaySupportEmailDialog: (e) => {
             utils.openEmail(
                 'cmip6-help@es-doc.org',
