@@ -4,7 +4,7 @@
             <strong>Realm > Process</strong>
         </div>
         <b-table borderless hover responsive selectable small
-            style="padding-right: 0; position:relative; height: 800px; overflow-y:auto;"
+            style="padding-right: 0; height: 1150px; overflow-y:auto;"
             selectedVariant="esdoc-selected"
             select-mode="single"
             thead-class="hide-table-header"

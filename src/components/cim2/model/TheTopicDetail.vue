@@ -1,5 +1,5 @@
 <template>
-    <div style="position:relative; height: 860px; overflow-y:auto;">
+    <div style="height: 1210px; overflow-y:auto;">
         <TopicPropertyList
             caption="Top Level Properties"
             v-bind:propertyMap="propertyMap"

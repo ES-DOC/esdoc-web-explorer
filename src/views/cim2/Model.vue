@@ -31,5 +31,4 @@ export default {
         ...mapState('core', ['isInitialised'])
     }
 };
-
 </script>
