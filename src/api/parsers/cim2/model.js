@@ -8,7 +8,6 @@
  */
 export default (m) => {
     [
-        parseMOHC,
         initCollections,
         initTopics,
         setTopLevelKeyProperties,
@@ -157,19 +156,3 @@ const setMaps = (m) => {
     }, {});
 }
 
-/**
- * Performs a pre-parse over MOHC documents.
- */
-const parseMOHC = (m) => {
-    if (m.meta.institute !== 'MOHC') {
-        return;
-    }
-
-    m.realms = m.coupledComponents.map((cc) => {
-        return {
-            specializationID: `cmip6.${cc.realms[0].canonicalName}`,
-            ...cc,
-            ...cc.realms[0]
-        }
-    });
-}
