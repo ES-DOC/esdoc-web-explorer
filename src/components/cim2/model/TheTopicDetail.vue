@@ -5,7 +5,7 @@
             v-bind:propertyMap="propertyMap"
             v-bind:specialisations="topic.ownProperties" />
         <TopicPropertyList
-            v-for="subProcess in topic.subProcesses"
+            v-for="subProcess in topic.subProcesses.filter(i => i.ownProperties.length > 0)"
             :key="subProcess.id"
             v-bind:caption="subProcess.label"
             v-bind:propertyMap="propertyMap"
