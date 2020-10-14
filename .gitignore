@@ -24,3 +24,5 @@ yarn-error.log*
 yarn.lock
 
 .htaccess
+
+/src/static/cmip6-comparator/data-formatted.json
