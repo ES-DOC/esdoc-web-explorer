@@ -27,3 +27,4 @@ export const getTopics = async (projectKey, vocabs) => {
 
     return specialisationSet.reduce((v, s) => v.concat(s.topics), []);
 }
+

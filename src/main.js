@@ -56,6 +56,7 @@ const getStoreModule = ({ projectID, documentType }) => {
     // Map of project odcumentdocument types to state store.
     const modules = {
         'cmip6': {
+            'compare-models': 'cmip6/modelComparator',
             'models': 'cim2/model',
             'further-info': 'cmip6/furtherInfo',
         }
@@ -85,6 +86,7 @@ const initialise = async () => {
     // Initialise view state.
     await store.dispatch(`core/initialise`, params);
     await store.dispatch(`${storeModule}/initialise`, params);
+    await store.dispatch(`${storeModule}/setIsInitialised`, true);
     await store.dispatch('core/setIsInitialised', true);
 }
 

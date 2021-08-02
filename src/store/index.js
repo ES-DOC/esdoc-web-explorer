@@ -14,6 +14,7 @@ Vue.use(Vuex);
 import * as core from './core/index';
 import * as cim2Model from './cim2/model/index';
 import * as cmip6FurtherInfo from './cmip6/furtherInfo/index';
+import * as cmip6ModelComparator from './cmip6/modelComparator/index';
 
 // Instantiate store
 export default new Vuex.Store({
@@ -37,6 +38,10 @@ export default new Vuex.Store({
                 furtherInfo: {
                     namespaced: true,
                     ...cmip6FurtherInfo
+                },
+                modelComparator: {
+                    namespaced: true,
+                    ...cmip6ModelComparator
                 }
             }
         },
