@@ -1,4 +1,4 @@
-# esdoc-web-spa
+# esdoc-web-explorer
 
 ## Project setup
 ```
